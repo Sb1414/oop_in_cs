@@ -11,9 +11,9 @@ namespace ConsoleApp1
     {
         List<Student> students = new List<Student>();
 
-        public void AddStudent(string name, string surname, string group)
+        public void AddStudent(string name, string surname, string group, int[] marks, double meadl)
         {
-            Student student = new Student(name, surname, group);
+            Student student = new Student(name, surname, group, marks, meadl);
             students.Add(student);
         }
 
@@ -22,9 +22,9 @@ namespace ConsoleApp1
             students.RemoveAt(id);
         }
 
-        public void AddAtStudent(int id, string name, string surname, string group)
+        public void AddAtStudent(int id, string name, string surname, string group, int[] marks, double meadl)
         {
-            Student student = new Student(name, surname, group);
+            Student student = new Student(name, surname, group, marks, meadl);
             students.Insert(id, student);
         }
 
@@ -49,7 +49,13 @@ namespace ConsoleApp1
             Console.WriteLine("Имя\tФамилия\tГруппа");
             foreach (var student in students)
             {
-                Console.WriteLine(student.name + "\t" + student.surname + "\t" + student.group);
+                string m = "";
+                for (int i = 0; i < student.marks.Length; i++)
+                {
+                    m += student.marks[i].ToString() + " ";
+                }
+                Console.WriteLine(student.name + "\t" + student.surname + "\t" + student.group + "\t" + m + "\t" + student.meadl);
+                m = "";
             }
         }
 

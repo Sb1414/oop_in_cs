@@ -13,11 +13,16 @@ namespace ConsoleApp1
         public string name { get; set; }
         public string surname { get; set; }
         public string group { get; set; }
-        public Student(string name, string surname, string group)
+        public int[] marks { get; set; }
+        public double meadl { get; set; }
+
+        public Student(string name, string surname, string group, int[] marks, double meadl)
         {
             this.name = name;
             this.surname = surname;
             this.group = group;
+            this.marks = marks;
+            this.meadl = meadl;
         }
 
         public void ChangeName(Student student, string name)

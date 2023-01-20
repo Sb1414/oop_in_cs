@@ -27,7 +27,18 @@ class Program
         Console.Write("Введите номер группы: ");
         string group = Console.ReadLine();
 
-        sd.AddStudent(name, surname, group);
+        Console.Write("Введите 5 оценок группы: ");
+        int[] marks = new int[5];
+        double meadl = 0;
+        for (int i = 0; i < 5; i++)
+        {
+            marks[i] = Convert.ToInt32(Console.ReadLine());
+            meadl += marks[i];
+        }
+        meadl = meadl / 5;
+        
+
+        sd.AddStudent(name, surname, group, marks, meadl);
     }
 
     static void remove(StudentGroup sd)
@@ -64,7 +75,7 @@ class Program
             if (num == 1)
             {
                 sd.RemoveStudent(id);
-                Console.Write("Введите новые данные: ");
+                Console.WriteLine("Введите новые данные: ");
                 Console.Write("Введите имя: ");
                 string name1 = Console.ReadLine();
 
@@ -74,7 +85,17 @@ class Program
                 Console.Write("Введите номер группы: ");
                 string group1 = Console.ReadLine();
 
-                sd.AddAtStudent(id, name1, surname1, group1);
+                Console.Write("Введите 5 оценок группы: ");
+                int[] marks = new int[5];
+                int meadl1 = 0;
+                for (int i = 0; i < 5; i++)
+                {
+                    marks[i] = Convert.ToInt32(Console.ReadLine());
+                    meadl1 += marks[i];
+                }
+                meadl1 = meadl1 / 5;
+
+                sd.AddAtStudent(id, name1, surname1, group1, marks, meadl1);
                 string nameNew = sd.GetStudentNameAndSurname(id);
                 string t = "Студент " + nameOld + " успешно изменен на " + nameNew;
                 Console.WriteLine(t);
