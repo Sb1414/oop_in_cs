@@ -56,7 +56,7 @@ namespace ConsoleApp1
                 {
                     m += student.payments[i].ToString() + " ";
                 }
-                Console.WriteLine(cnt + "\t" + student.surname + "   \t" + student.loanAmount + "   \t" + student.remainsToPay + "   \t" + m);
+                Console.WriteLine(cnt + "\t" + student.surname + "    \t" + student.loanAmount + "    \t" + student.remainsToPay + "   \t" + m);
             }
         }
 
@@ -72,7 +72,7 @@ namespace ConsoleApp1
                 sum += persons[ii].payments[i];
                 m += persons[ii].payments[i].ToString() + " ";
             }
-            Console.WriteLine(persons[ii].surname + "   \t" + persons[ii].loanAmount + "   \t" + m);
+            Console.WriteLine(persons[ii].surname + "    \t" + persons[ii].loanAmount + "    \t" + m);
             if (sum >= persons[ii].loanAmount)
             {
                 Console.WriteLine("Кредит погашен");
