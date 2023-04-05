@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "Fwk5hjPao1JFhf9fqbxjUV8RqrXER6/u+rIuU23Mo3oJgcGkLVJM83qXSr2UM7wrx5PddBPBXMT93JEqtJVcHw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Сабина\\source\\repos\\ConsoleApp7\\ConsoleApp7\\ConsoleApp7.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Сабина\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Сабина\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512",
+    "C:\\Users\\Сабина\\.nuget\\packages\\nunit\\3.13.3\\nunit.3.13.3.nupkg.sha512",
+    "C:\\Users\\Сабина\\.nuget\\packages\\xunit.abstractions\\2.0.3\\xunit.abstractions.2.0.3.nupkg.sha512",
+    "C:\\Users\\Сабина\\.nuget\\packages\\xunit.assert\\2.4.2\\xunit.assert.2.4.2.nupkg.sha512",
+    "C:\\Users\\Сабина\\.nuget\\packages\\xunit.extensibility.core\\2.4.2\\xunit.extensibility.core.2.4.2.nupkg.sha512"
+  ],
+  "logs": []
+}
