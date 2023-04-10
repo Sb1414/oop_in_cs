@@ -10,3 +10,6 @@ C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.Form1.resource
 C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.exe
 C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.pdb
 C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.CircleForm.resources
+C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.SquareForm.resources
+C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.EllipseForm.resources
+C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.RectangleForm.resources

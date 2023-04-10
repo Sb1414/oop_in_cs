@@ -7,15 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Button = System.Windows.Forms.Button;
 
 namespace figure
 {
-    public partial class CircleForm : Form
+    public partial class SquareForm : Form
     {
         Point lastPoint;
-        public CircleForm()
+        public SquareForm()
         {
             InitializeComponent();
             okButton.DialogResult = DialogResult.OK;
@@ -25,7 +23,6 @@ namespace figure
             this.cancelButton = cancelButton;
         }
 
-       
         public int X
         {
             get { return int.Parse(textBoxX.Text); }
@@ -36,9 +33,9 @@ namespace figure
             get { return int.Parse(textBoxY.Text); }
         }
 
-        public int Radius
+        public int Size
         {
-            get { return int.Parse(textBoxRadius.Text); }
+            get { return int.Parse(textBoxSize.Text); }
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)

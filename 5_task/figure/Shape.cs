@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,10 @@ namespace figure
         }
 
         // абстрактный виртуальный метод прорисовки
-        public abstract void Show();
+        public abstract string Show();
+
+        // абстрактный метод прорисовки
+        public abstract void Draw(Graphics g);
     }
 
 
@@ -51,9 +55,15 @@ namespace figure
         public void SetRadius(int radius) { this.radius = radius; }
 
         // реализация абстрактного метода прорисовки
-        public override void Show()
+        public override string Show()
         {
-            Console.WriteLine($"Drawing circle with center at ({x},{y}) and radius {radius}");
+            return($"Drawing circle with center at ({x},{y}) and radius {radius}");
+        }
+
+        public override void Draw(Graphics g)
+        {
+            Pen pen = new Pen(Color.Black);
+            g.DrawEllipse(pen, x - radius, y - radius, radius * 2, radius * 2);
         }
     }
 
@@ -73,9 +83,13 @@ namespace figure
         public void SetSize(int size) { this.size = size; }
 
         // реализация абстрактного метода прорисовки
-        public override void Show()
+        public override string Show()
         {
-            Console.WriteLine($"Drawing square with bottom left corner at ({x},{y}) and side length {size}");
+            return $"Drawing square with bottom left corner at ({x},{y}) and side length {size}";
+        }
+        public override void Draw(Graphics g)
+        {
+            g.DrawRectangle(Pens.Black, x, y, size, size);
         }
     }
 
@@ -96,9 +110,14 @@ namespace figure
         public void SetRadius2(int radius2) { this.radius2 = radius2; }
 
         // реализация абстрактного метода прорисовки
-        public override void Show()
+        public override string Show()
         {
-            Console.WriteLine($"Drawing ellipse with center at ({x},{y}) and radii {radius} and {radius2}");
+            return($"Drawing ellipse with center at ({x},{y}) and radii {radius} and {radius2}");
+        }
+
+        public override void Draw(Graphics g)
+        {
+            g.DrawEllipse(Pens.Black, x - radius, y - radius2, radius * 2, radius2 * 2);
         }
     }
 
@@ -107,10 +126,12 @@ namespace figure
     public class Rectangle : Square
     {
         protected int width; // ширина прямоугольника
+        protected int side;
 
         // конструктор
         public Rectangle(int x, int y, int side, int width) : base(x, y, side)
         {
+            this.side = side;
             this.width = width;
         }
 
@@ -118,11 +139,21 @@ namespace figure
         public int GetWidth() { return width; }
         public void SetWidth(int width) { this.width = width; }
 
+        public int GetSide() { return side; }
+        public void SetSide(int side) { this.side = side; }
+
         // реализация абстрактного метода прорисовки
-        public override void Show()
+        public override string Show()
         {
-            Console.WriteLine($"Drawing rectangle with center at ({x},{y}), size length {size}, and width {width}");
+            return($"Drawing rectangle with center at ({x},{y}), size length {side}, and width {width}");
         }
+
+        public override void Draw(Graphics g)
+        {
+            Pen pen = new Pen(Color.Black);
+            g.DrawRectangle(pen, x - side / 2, y - width / 2, side, width);
+        }
+
 
     }
 }
