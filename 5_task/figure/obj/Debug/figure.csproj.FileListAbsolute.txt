@@ -1,0 +1,12 @@
+C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.csproj.AssemblyReference.cache
+C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.csproj.SuggestedBindingRedirects.cache
+C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.Properties.Resources.resources
+C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.csproj.GenerateResource.cache
+C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.csproj.CoreCompileInputs.cache
+C:\Users\Сабина\source\repos\figure\figure\bin\Debug\figure.exe.config
+C:\Users\Сабина\source\repos\figure\figure\bin\Debug\figure.exe
+C:\Users\Сабина\source\repos\figure\figure\bin\Debug\figure.pdb
+C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.Form1.resources
+C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.exe
+C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.pdb
+C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.CircleForm.resources
