@@ -13,6 +13,12 @@ namespace figure
     public partial class Form1 : Form
     {
         private List<Shape> shapes = new List<Shape>();
+        private bool isDragging = false;
+
+        private Shape selectedShape;
+
+        private Point lastLocation;
+        private Point mouseDownLocation;
         public Form1()
         {
             InitializeComponent();
@@ -69,14 +75,72 @@ namespace figure
             }
         }
 
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                mouseDownLocation = e.Location;
+                selectedShape = null;
+                foreach (Shape shape in shapes)
+                {
+                    if (shape.GetX() >= e.X - 15 && shape.GetX() <= e.X &&
+                        shape.GetY() >= e.Y - 15 && shape.GetY() <= e.Y)
+                    {
+                        selectedShape = shape;
+                        break;
+                    }
+
+                }
+            }
+        }
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (selectedShape != null)
+                {
+                    int dx = e.X - mouseDownLocation.X;
+                    int dy = e.Y - mouseDownLocation.Y;
+                    // использовать dx и dy для перемещения выбранного изображения
+                    
+                    foreach (Shape shape in shapes)
+                    {
+                        if (shape.GetX() == selectedShape.GetX())
+                        {
+                            shape.MoveTo(dx, dy);
+                        }
+                    }
+                    DrawShapes(pictureBox1.CreateGraphics());
+                }
+                else
+                {
+                    // не выбрано изображение, но можно обработать перемещение мыши
+                }
+            }
+        }
+
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            DrawShapes(pictureBox1.CreateGraphics());
+            mouseDownLocation = Point.Empty;
+        }
+
         // метод отрисовки фигур
         private void DrawShapes(Graphics g)
         {
+            // Очищаем pictureBox1
+            g.Clear(Color.White);
+
+            // Рисуем фигуры
             foreach (var shape in shapes)
             {
                 shape.Draw(g);
             }
         }
+
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
