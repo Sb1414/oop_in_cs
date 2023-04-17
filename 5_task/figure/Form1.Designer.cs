@@ -29,14 +29,16 @@
         private void InitializeComponent()
         {
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.circleToolStripMenuItem = new System.Windows.Forms.ToolStripButton();
-            this.squareToolStripMenuItem = new System.Windows.Forms.ToolStripButton();
-            this.ellipseToolStripMenuItem = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelInfo = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.circleToolStripMenuItem = new System.Windows.Forms.ToolStripButton();
+            this.squareToolStripMenuItem = new System.Windows.Forms.ToolStripButton();
+            this.ellipseToolStripMenuItem = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripClear = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -49,53 +51,14 @@
             this.circleToolStripMenuItem,
             this.squareToolStripMenuItem,
             this.ellipseToolStripMenuItem,
-            this.toolStripButton1});
+            this.toolStripButton1,
+            this.toolStripButton2,
+            this.toolStripClear});
             this.toolStrip1.Location = new System.Drawing.Point(0, 33);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(800, 27);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // circleToolStripMenuItem
-            // 
-            this.circleToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.circleToolStripMenuItem.Image = global::figure.Properties.Resources.icons8_внутри_тонкой_окружности_20;
-            this.circleToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.circleToolStripMenuItem.Name = "circleToolStripMenuItem";
-            this.circleToolStripMenuItem.Size = new System.Drawing.Size(29, 24);
-            this.circleToolStripMenuItem.Text = "Круг";
-            this.circleToolStripMenuItem.Click += new System.EventHandler(this.circleToolStripMenuItem_Click);
-            // 
-            // squareToolStripMenuItem
-            // 
-            this.squareToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.squareToolStripMenuItem.Image = global::figure.Properties.Resources.icons8_кнопка_развернуть_16;
-            this.squareToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.squareToolStripMenuItem.Name = "squareToolStripMenuItem";
-            this.squareToolStripMenuItem.Size = new System.Drawing.Size(29, 24);
-            this.squareToolStripMenuItem.Text = "toolStripButton1";
-            this.squareToolStripMenuItem.Click += new System.EventHandler(this.squareToolStripMenuItem_Click);
-            // 
-            // ellipseToolStripMenuItem
-            // 
-            this.ellipseToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.ellipseToolStripMenuItem.Image = global::figure.Properties.Resources.icons8_эллипс_20;
-            this.ellipseToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ellipseToolStripMenuItem.Name = "ellipseToolStripMenuItem";
-            this.ellipseToolStripMenuItem.Size = new System.Drawing.Size(29, 24);
-            this.ellipseToolStripMenuItem.Text = "Эллипс";
-            this.ellipseToolStripMenuItem.Click += new System.EventHandler(this.ellipseToolStripMenuItem_Click);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::figure.Properties.Resources.icons8_прямоугольник_16;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(29, 24);
-            this.toolStripButton1.Text = "Прямоугольник";
-            this.toolStripButton1.ToolTipText = "rectangleToolStripMenuItem";
-            this.toolStripButton1.Click += new System.EventHandler(this.rectangleToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -147,6 +110,67 @@
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
+            // circleToolStripMenuItem
+            // 
+            this.circleToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.circleToolStripMenuItem.Image = global::figure.Properties.Resources.icons8_внутри_тонкой_окружности_20;
+            this.circleToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.circleToolStripMenuItem.Name = "circleToolStripMenuItem";
+            this.circleToolStripMenuItem.Size = new System.Drawing.Size(29, 24);
+            this.circleToolStripMenuItem.Text = "Круг";
+            this.circleToolStripMenuItem.Click += new System.EventHandler(this.circleToolStripMenuItem_Click);
+            // 
+            // squareToolStripMenuItem
+            // 
+            this.squareToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.squareToolStripMenuItem.Image = global::figure.Properties.Resources.icons8_кнопка_развернуть_16;
+            this.squareToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.squareToolStripMenuItem.Name = "squareToolStripMenuItem";
+            this.squareToolStripMenuItem.Size = new System.Drawing.Size(29, 24);
+            this.squareToolStripMenuItem.Text = "toolStripButton1";
+            this.squareToolStripMenuItem.Click += new System.EventHandler(this.squareToolStripMenuItem_Click);
+            // 
+            // ellipseToolStripMenuItem
+            // 
+            this.ellipseToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ellipseToolStripMenuItem.Image = global::figure.Properties.Resources.icons8_эллипс_20;
+            this.ellipseToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ellipseToolStripMenuItem.Name = "ellipseToolStripMenuItem";
+            this.ellipseToolStripMenuItem.Size = new System.Drawing.Size(29, 24);
+            this.ellipseToolStripMenuItem.Text = "Эллипс";
+            this.ellipseToolStripMenuItem.Click += new System.EventHandler(this.ellipseToolStripMenuItem_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = global::figure.Properties.Resources.icons8_прямоугольник_16;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton1.Text = "Прямоугольник";
+            this.toolStripButton1.ToolTipText = "rectangleToolStripMenuItem";
+            this.toolStripButton1.Click += new System.EventHandler(this.rectangleToolStripMenuItem_Click);
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = global::figure.Properties.Resources.icons8_стрелка_20;
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(29, 24);
+            this.toolStripButton2.Text = "Move";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            // 
+            // toolStripClear
+            // 
+            this.toolStripClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripClear.Image = global::figure.Properties.Resources.icons8_удалить_20;
+            this.toolStripClear.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripClear.Name = "toolStripClear";
+            this.toolStripClear.Size = new System.Drawing.Size(29, 24);
+            this.toolStripClear.Text = "Clear";
+            this.toolStripClear.Click += new System.EventHandler(this.toolStripClear_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -180,6 +204,8 @@
         private System.Windows.Forms.ToolStripButton ellipseToolStripMenuItem;
         private System.Windows.Forms.Label labelInfo;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton toolStripClear;
     }
 }
 

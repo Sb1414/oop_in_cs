@@ -13,3 +13,4 @@ C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.CircleForm.res
 C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.SquareForm.resources
 C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.EllipseForm.resources
 C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.RectangleForm.resources
+C:\Users\Сабина\source\repos\figure\figure\obj\Debug\figure.FormMove.resources

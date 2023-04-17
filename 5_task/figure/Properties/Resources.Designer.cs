@@ -93,6 +93,26 @@ namespace figure.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_стрелка_20 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-стрелка-20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_удалить_20 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-удалить-20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_эллипс_20 {
             get {
                 object obj = ResourceManager.GetObject("icons8-эллипс-20", resourceCulture);

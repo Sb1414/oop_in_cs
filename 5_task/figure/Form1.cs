@@ -13,11 +13,8 @@ namespace figure
     public partial class Form1 : Form
     {
         private List<Shape> shapes = new List<Shape>();
-        private bool isDragging = false;
 
         private Shape selectedShape;
-
-        private Point lastLocation;
         private Point mouseDownLocation;
         public Form1()
         {
@@ -159,6 +156,29 @@ namespace figure
         private void cancelButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            FormMove moveForm = new FormMove();
+            if (moveForm.ShowDialog() == DialogResult.OK)
+            {
+                foreach (Shape shape in shapes)
+                {
+                    shape.MoveTo(shape.GetX() + moveForm.X, shape.GetY() + moveForm.Y);
+                }
+                DrawShapes(pictureBox1.CreateGraphics());
+            }
+        }
+
+        private void ClearShapes(Graphics g)
+        {
+            g.Clear(Color.White);
+        }
+
+        private void toolStripClear_Click(object sender, EventArgs e)
+        {
+            ClearShapes(pictureBox1.CreateGraphics());
         }
     }
 }
