@@ -1,0 +1,15 @@
+C:\Users\Сабина\source\repos\NetPub\NetPub\bin\Debug\net6.0\NetPub.exe
+C:\Users\Сабина\source\repos\NetPub\NetPub\bin\Debug\net6.0\NetPub.deps.json
+C:\Users\Сабина\source\repos\NetPub\NetPub\bin\Debug\net6.0\NetPub.runtimeconfig.json
+C:\Users\Сабина\source\repos\NetPub\NetPub\bin\Debug\net6.0\NetPub.dll
+C:\Users\Сабина\source\repos\NetPub\NetPub\bin\Debug\net6.0\NetPub.pdb
+C:\Users\Сабина\source\repos\NetPub\NetPub\obj\Debug\net6.0\NetPub.csproj.AssemblyReference.cache
+C:\Users\Сабина\source\repos\NetPub\NetPub\obj\Debug\net6.0\NetPub.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Сабина\source\repos\NetPub\NetPub\obj\Debug\net6.0\NetPub.AssemblyInfoInputs.cache
+C:\Users\Сабина\source\repos\NetPub\NetPub\obj\Debug\net6.0\NetPub.AssemblyInfo.cs
+C:\Users\Сабина\source\repos\NetPub\NetPub\obj\Debug\net6.0\NetPub.csproj.CoreCompileInputs.cache
+C:\Users\Сабина\source\repos\NetPub\NetPub\obj\Debug\net6.0\NetPub.dll
+C:\Users\Сабина\source\repos\NetPub\NetPub\obj\Debug\net6.0\refint\NetPub.dll
+C:\Users\Сабина\source\repos\NetPub\NetPub\obj\Debug\net6.0\NetPub.pdb
+C:\Users\Сабина\source\repos\NetPub\NetPub\obj\Debug\net6.0\NetPub.genruntimeconfig.cache
+C:\Users\Сабина\source\repos\NetPub\NetPub\obj\Debug\net6.0\ref\NetPub.dll
