@@ -1,0 +1,15 @@
+C:\Users\Сабина\source\repos\StudentEmployee\StudentEmployee\bin\Debug\net6.0\StudentEmployee.exe
+C:\Users\Сабина\source\repos\StudentEmployee\StudentEmployee\bin\Debug\net6.0\StudentEmployee.deps.json
+C:\Users\Сабина\source\repos\StudentEmployee\StudentEmployee\bin\Debug\net6.0\StudentEmployee.runtimeconfig.json
+C:\Users\Сабина\source\repos\StudentEmployee\StudentEmployee\bin\Debug\net6.0\StudentEmployee.dll
+C:\Users\Сабина\source\repos\StudentEmployee\StudentEmployee\bin\Debug\net6.0\StudentEmployee.pdb
+C:\Users\Сабина\source\repos\StudentEmployee\StudentEmployee\obj\Debug\net6.0\StudentEmployee.csproj.AssemblyReference.cache
+C:\Users\Сабина\source\repos\StudentEmployee\StudentEmployee\obj\Debug\net6.0\StudentEmployee.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Сабина\source\repos\StudentEmployee\StudentEmployee\obj\Debug\net6.0\StudentEmployee.AssemblyInfoInputs.cache
+C:\Users\Сабина\source\repos\StudentEmployee\StudentEmployee\obj\Debug\net6.0\StudentEmployee.AssemblyInfo.cs
+C:\Users\Сабина\source\repos\StudentEmployee\StudentEmployee\obj\Debug\net6.0\StudentEmployee.csproj.CoreCompileInputs.cache
+C:\Users\Сабина\source\repos\StudentEmployee\StudentEmployee\obj\Debug\net6.0\StudentEmployee.dll
+C:\Users\Сабина\source\repos\StudentEmployee\StudentEmployee\obj\Debug\net6.0\refint\StudentEmployee.dll
+C:\Users\Сабина\source\repos\StudentEmployee\StudentEmployee\obj\Debug\net6.0\StudentEmployee.pdb
+C:\Users\Сабина\source\repos\StudentEmployee\StudentEmployee\obj\Debug\net6.0\StudentEmployee.genruntimeconfig.cache
+C:\Users\Сабина\source\repos\StudentEmployee\StudentEmployee\obj\Debug\net6.0\ref\StudentEmployee.dll
