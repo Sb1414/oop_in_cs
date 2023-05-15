@@ -67,6 +67,7 @@ namespace StudentEmployee
     interface IPersonContainer
     {
         void Add(Person person);
+        void Remove(Person person);
         Person Get(int index);
         List<Person> GetAll();
     }
@@ -90,9 +91,32 @@ namespace StudentEmployee
                 return null;
         }
 
+        public void Remove(Person person)
+        {
+            int index = -1;
+            for (int i = 0; i < persons.Length; i++)
+            {
+                if (persons[i].LastName == person.LastName)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            if (index >= 0)
+            {
+                for (int i = index; i < persons.Length - 1; i++)
+                {
+                    persons[i] = persons[i + 1];
+                }
+                Array.Resize(ref persons, persons.Length - 1);
+            }
+        }
+
         public List<Person> GetAll()
         {
             return new List<Person>(persons);
         }
+
     }
 }
