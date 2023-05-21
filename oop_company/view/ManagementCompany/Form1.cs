@@ -17,6 +17,7 @@ namespace ManagementCompany
         public ManagementCompanyMain()
         {
             InitializeComponent();
+            readOnly(true);
         }
 
         private void buttonSaveInfo_Click(object sender, EventArgs e)
@@ -44,7 +45,7 @@ namespace ManagementCompany
                     }
                 }
 
-                MessageBox.Show("Информация сохранена успешно.");
+                MessageBox.Show("Информация успешно сохранена");
             }
         }
 
@@ -73,7 +74,37 @@ namespace ManagementCompany
                     }
                 }
 
-                MessageBox.Show("Информация загружена успешно.");
+                MessageBox.Show("Информация успешно загружена");
+            }
+        }
+
+        private void readOnly(bool flag)
+        {
+            foreach (DataGridViewRow row in dataGridViewHouse.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    cell.ReadOnly = flag;
+                }
+            }
+
+            foreach (DataGridViewRow row in dataGridViewApart.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    cell.ReadOnly = flag;
+                }
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                readOnly(false);
+            } else
+            {
+                readOnly(true);
             }
         }
     }
