@@ -10,7 +10,7 @@ namespace ManagementCompany
     {
         public House NextHouse { get; set; } // Ссылка на следующий элемент списка
         private int NumberHouse { get; set; } //Hомер дом
-        private string Street { get; set; } //Haзвание улишы
+        private string Street { get; } //Haзвание улишы
         public int SizeApart { get; set; } // Количество квартир которое помещается в доме
         public ApartmentsList apartmentsList;
         public string AdressStreet
@@ -24,12 +24,21 @@ namespace ManagementCompany
             private set { }
         }
 
+        public int GetNumberHouse()
+        {
+            return NumberHouse;
+        }
+
+        public string GetStreet()
+        {
+            return Street;
+        }
         // Конструктор
         public House(string street, int numberHouse, int sizeApart)
         {
             this.Street = street;
             this.NumberHouse = numberHouse;
-            this.apartmentsList = new ApartmentsList(sizeApart);
+            this.apartmentsList = new ApartmentsList();
             this.SizeApart = sizeApart;
             this.NextHouse = null;
         } 
@@ -40,21 +49,23 @@ namespace ManagementCompany
             Apartment apartment = new Apartment(numberApart, payment);
             apartmentsList.AddApartment(apartment);
         }
-        
-        
+
+
         //Yдаление квартиры
         public void DelApart(int numberApart)
         {
             try
             {
-                apartmentsList.RemoveApartment(numberApart);
+                Apartment apartment = apartmentsList.FindApartment(numberApart);
+                apartmentsList.RemoveApartment(apartment);
                 SizeApart--;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-        } 
+        }
+
         public Apartment SearchApartment(int number)
         {
             try
@@ -73,12 +84,6 @@ namespace ManagementCompany
             return (int)apartmentsList.GetTotalPayments();
         } // Сумма выплат по всем квартирам
 
-        public void PrintHouseInfo()
-        {
-            Console.WriteLine("Адрес дома: " + AdressStreet);
-            Console.WriteLine("Количество квартир: " + SizeApart);
-            apartmentsList.PrintApartmentsList();
-        }
 
     }
 }

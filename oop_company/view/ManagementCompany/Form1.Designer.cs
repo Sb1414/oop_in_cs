@@ -137,6 +137,8 @@
             this.dataGridViewHouse.RowTemplate.Height = 24;
             this.dataGridViewHouse.Size = new System.Drawing.Size(665, 539);
             this.dataGridViewHouse.TabIndex = 0;
+            this.dataGridViewHouse.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
+            this.dataGridViewHouse.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridViewHouse_CellValidating);
             // 
             // Column1
             // 
