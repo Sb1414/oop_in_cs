@@ -1,0 +1,11 @@
+C:\Users\Сабина\source\repos\ManagementCompany\ManagementCompany\bin\Debug\ManagementCompany.exe.config
+C:\Users\Сабина\source\repos\ManagementCompany\ManagementCompany\bin\Debug\ManagementCompany.exe
+C:\Users\Сабина\source\repos\ManagementCompany\ManagementCompany\bin\Debug\ManagementCompany.pdb
+C:\Users\Сабина\source\repos\ManagementCompany\ManagementCompany\obj\Debug\ManagementCompany.csproj.AssemblyReference.cache
+C:\Users\Сабина\source\repos\ManagementCompany\ManagementCompany\obj\Debug\ManagementCompany.csproj.SuggestedBindingRedirects.cache
+C:\Users\Сабина\source\repos\ManagementCompany\ManagementCompany\obj\Debug\ManagementCompany.ManagementCompanyMain.resources
+C:\Users\Сабина\source\repos\ManagementCompany\ManagementCompany\obj\Debug\ManagementCompany.Properties.Resources.resources
+C:\Users\Сабина\source\repos\ManagementCompany\ManagementCompany\obj\Debug\ManagementCompany.csproj.GenerateResource.cache
+C:\Users\Сабина\source\repos\ManagementCompany\ManagementCompany\obj\Debug\ManagementCompany.csproj.CoreCompileInputs.cache
+C:\Users\Сабина\source\repos\ManagementCompany\ManagementCompany\obj\Debug\ManagementCompany.exe
+C:\Users\Сабина\source\repos\ManagementCompany\ManagementCompany\obj\Debug\ManagementCompany.pdb
