@@ -6,104 +6,73 @@ using System.Threading.Tasks;
 
 namespace ManagementCompany
 {
-    internal class ApartmentsList
+    internal class HouseList
     {
-        private Apartment[] apartments;
-        private int size;
+        private House head;
         private int count;
 
-        public ApartmentsList(int size)
-        {
-            this.apartments = new Apartment[size];
-            this.size = size;
-            this.count = 0;
-        }
+        public int Count => count;
 
-        public int GetCount()
+        public void AddHouse(House house)
         {
-            return count;
-        }
-
-        public void AddApartment(Apartment apartment)
-        {
-            if (count >= size)
+            if (head == null)
             {
-                throw new Exception("Количество квартир в доме превышает допустимое значение.");
-            }
-            if (count == 0)
-            {
-                apartments[0] = apartment;
+                head = house;
             }
             else
             {
-                int i = count - 1;
-                while (i >= 0 && apartments[i].Number > apartment.Number)
+                House current = head;
+                while (current.NextHouse != null)
                 {
-                    apartments[i + 1] = apartments[i];
-                    i--;
+                    current = current.NextHouse;
                 }
-                apartments[i + 1] = apartment;
+                current.NextHouse = house;
             }
             count++;
         }
 
-        public void RemoveApartment(int numberApart)
+        public void RemoveHouse(House house)
         {
-            int index = -1;
-            for (int i = 0; i < count; i++)
+            House current = head;
+            House prev = null;
+            while (current != null)
             {
-                if (apartments[i].Number == numberApart)
+                if (current == house)
                 {
-                    index = i;
+                    if (prev == null)
+                    {
+                        head = current.NextHouse;
+                    }
+                    else
+                    {
+                        prev.NextHouse = current.NextHouse;
+                    }
+                    count--;
                     break;
                 }
-            }
-            if (index != -1)
-            {
-                for (int i = index; i < count - 1; i++)
-                {
-                    apartments[i] = apartments[i + 1];
-                }
-                count--;
-            }
-            else
-            {
-                throw new Exception("Квартиры с таким номером не существует.");
+                prev = current;
+                current = current.NextHouse;
             }
         }
 
-        public Apartment FindApartment(int numberApart)
+        public void Clear()
         {
-            for (int i = 0; i < count; i++)
+            head = null;
+            count = 0;
+        }
+
+        public House FindHouse(string street, int numberHouse)
+        {
+            House current = head;
+            while (current != null)
             {
-                if (apartments[i].Number == numberApart)
+                if (current.GetStreet() == street && current.GetNumberHouse() == numberHouse)
                 {
-                    return apartments[i];
+                    return current;
                 }
+                current = current.NextHouse;
             }
             return null;
-        }
-
-        public decimal GetTotalPayments()
-        {
-            decimal total = 0;
-            for (int i = 0; i < count; i++)
-            {
-                total += apartments[i].Payment;
-            }
-            return total;
-        }
-
-        public void PrintApartmentsList()
-        {
-            foreach (Apartment apartment in apartments)
-            {
-                if (apartment != null)
-                {
-                    Console.WriteLine("Номер квартиры: " + apartment.Number);
-                    Console.WriteLine("Выплата: " + apartment.Payment);
-                }
-            }
         }
     }
 }
