@@ -1,0 +1,15 @@
+C:\Users\Сабина\source\repos\queue\queue\bin\Debug\net6.0\queue.exe
+C:\Users\Сабина\source\repos\queue\queue\bin\Debug\net6.0\queue.deps.json
+C:\Users\Сабина\source\repos\queue\queue\bin\Debug\net6.0\queue.runtimeconfig.json
+C:\Users\Сабина\source\repos\queue\queue\bin\Debug\net6.0\queue.dll
+C:\Users\Сабина\source\repos\queue\queue\bin\Debug\net6.0\queue.pdb
+C:\Users\Сабина\source\repos\queue\queue\obj\Debug\net6.0\queue.csproj.AssemblyReference.cache
+C:\Users\Сабина\source\repos\queue\queue\obj\Debug\net6.0\queue.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Сабина\source\repos\queue\queue\obj\Debug\net6.0\queue.AssemblyInfoInputs.cache
+C:\Users\Сабина\source\repos\queue\queue\obj\Debug\net6.0\queue.AssemblyInfo.cs
+C:\Users\Сабина\source\repos\queue\queue\obj\Debug\net6.0\queue.csproj.CoreCompileInputs.cache
+C:\Users\Сабина\source\repos\queue\queue\obj\Debug\net6.0\queue.dll
+C:\Users\Сабина\source\repos\queue\queue\obj\Debug\net6.0\refint\queue.dll
+C:\Users\Сабина\source\repos\queue\queue\obj\Debug\net6.0\queue.pdb
+C:\Users\Сабина\source\repos\queue\queue\obj\Debug\net6.0\queue.genruntimeconfig.cache
+C:\Users\Сабина\source\repos\queue\queue\obj\Debug\net6.0\ref\queue.dll
