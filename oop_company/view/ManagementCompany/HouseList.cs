@@ -74,5 +74,22 @@ namespace ManagementCompany
             }
             return null;
         }
+
+        public bool ContainsNumber(int number)
+        {
+            House current = head;
+            Console.WriteLine(" = = = = = = = ЧЕЛ, я ТУТ ", current.ToString());
+            while (current != null)
+            {
+                Console.WriteLine(current.GetStreet() + " " + current.GetNumberHouse());
+                if (current.GetNumberHouse() == number)
+                {
+                    return true;
+                }
+                current = current.NextHouse;
+            }
+            return false;
+        }
+
     }
 }

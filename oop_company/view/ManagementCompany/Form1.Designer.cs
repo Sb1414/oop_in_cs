@@ -102,6 +102,7 @@
             this.dataGridViewApart.RowTemplate.Height = 24;
             this.dataGridViewApart.Size = new System.Drawing.Size(453, 539);
             this.dataGridViewApart.TabIndex = 1;
+            this.dataGridViewApart.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridViewApart_CellValidating);
             // 
             // Column1_
             // 

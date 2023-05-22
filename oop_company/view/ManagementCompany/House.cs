@@ -10,7 +10,7 @@ namespace ManagementCompany
     {
         public House NextHouse { get; set; } // Ссылка на следующий элемент списка
         private int NumberHouse { get; set; } //Hомер дом
-        private string Street { get; } //Haзвание улишы
+        private string Street { get; } //Haзвание улицы
         public int SizeApart { get; set; } // Количество квартир которое помещается в доме
         public ApartmentsList apartmentsList;
         public string AdressStreet
