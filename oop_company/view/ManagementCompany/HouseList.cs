@@ -78,10 +78,8 @@ namespace ManagementCompany
         public bool ContainsNumber(int number)
         {
             House current = head;
-            Console.WriteLine(" = = = = = = = ЧЕЛ, я ТУТ ", current.ToString());
             while (current != null)
             {
-                Console.WriteLine(current.GetStreet() + " " + current.GetNumberHouse());
                 if (current.GetNumberHouse() == number)
                 {
                     return true;
@@ -91,5 +89,18 @@ namespace ManagementCompany
             return false;
         }
 
+        public int GetCountByNumber(int number)
+        {
+            House current = head;
+            while (current != null)
+            {
+                if (current.GetNumberHouse() == number)
+                {
+                    return current.SizeApart;
+                }
+                current = current.NextHouse;
+            }
+            return -1;
+        }
     }
 }

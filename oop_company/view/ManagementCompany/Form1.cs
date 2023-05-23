@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace ManagementCompany
 {
@@ -23,6 +25,7 @@ namespace ManagementCompany
             readOnly(true);
         }
 
+        // Метод для добавления информации в классы и последующего обновления информации
         private void AddInfoForClass()
         {
             HouseList.Clear();
@@ -159,6 +162,8 @@ namespace ManagementCompany
                 }
 
                 AddInfoForClass();
+                readOnly(false);
+                checkBox1.Checked = true;
                 MessageBox.Show("Информация успешно загружена");
             }
         }
@@ -323,6 +328,16 @@ namespace ManagementCompany
                             dataGridView.Rows[e.RowIndex].ErrorText = "Во втором столбце должен быть только номер квартиры";
                             e.Cancel = true; // Отменить изменение значения ячейки
                         }
+                        else
+                        {
+                            int countMax = HouseList.GetCountByNumber(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value));
+                            if (countMax < Convert.ToInt32(cellValue))
+                            {
+                                dataGridView.Rows[e.RowIndex].ErrorText = "Номер квартиры превышает количество квартир";
+                                e.Cancel = true; // Отменить изменение значения ячейки
+                            }
+
+                        }
                     }
                 }
                 else if (columnName == "Column3_")
@@ -362,6 +377,43 @@ namespace ManagementCompany
                 {
                     MessageBox.Show("Введена не вся информация");
                 }
+            }
+            AddInfoForClass();
+        }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dataGridViewHouse.CurrentRow != null)
+                {
+                    // Получаем текущую строку в dataGridViewHouse
+                    DataGridViewRow currentRowHouse = dataGridViewHouse.CurrentRow;
+
+                    // Получаем значение второй ячейки текущей строки
+                    string value = currentRowHouse.Cells[1].Value?.ToString();
+
+                    // Удаляем строки из dataGridViewApart, которые соответствуют значению
+                    for (int i = dataGridViewApart.Rows.Count - 1; i >= 0; i--)
+                    {
+                        DataGridViewRow row = dataGridViewApart.Rows[i];
+                        if (row.Cells[0].Value?.ToString() == value)
+                        {
+                            dataGridViewApart.Rows.RemoveAt(i);
+                        }
+                    }
+
+                    // Удаляем текущую строку из dataGridViewHouse
+                    dataGridViewHouse.Rows.Remove(currentRowHouse);
+                }
+                else
+                {
+                    throw new Exception("Не указана строка для удаления!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             AddInfoForClass();
         }
