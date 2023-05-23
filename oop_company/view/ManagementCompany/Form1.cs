@@ -98,14 +98,12 @@ namespace ManagementCompany
                         {
                             if (Convert.ToString(apartRow.Cells[0].Value) == Convert.ToString(row.Cells[1].Value))
                             {
-                                // Console.WriteLine(">> in dataGridViewApart в if");
                                 flag = true;
                                 writer.Write(street + "\t" + numberHouse.ToString() + "\t" + sizeApart.ToString());
                                 writer.Write("\t" + apartRow.Cells[1].Value + "\t" + apartRow.Cells[2].Value);
                                 writer.WriteLine(); // Переход на новую строку
                             }
                         }
-                        // Console.WriteLine(" вышел из foreach || flag = " + flag.ToString());
 
                         if (!flag)
                         {
@@ -348,6 +346,24 @@ namespace ManagementCompany
         {
             dataGridViewHouse.Rows.Clear();
             dataGridViewApart.Rows.Clear();
+        }
+
+        private void buttonNewInfo_Click(object sender, EventArgs e)
+        {
+            AddForm moveForm = new AddForm();
+            if (moveForm.ShowDialog() == DialogResult.OK)
+            {
+                if (moveForm.Street != "" && moveForm.House != 0 && moveForm.Count != 0)
+                {
+                    dataGridViewHouse.Rows.Add(moveForm.Street, moveForm.House, moveForm.Count);
+                    if (moveForm.Apart != 0 && moveForm.Payment != 0)
+                        dataGridViewApart.Rows.Add(moveForm.House, moveForm.Apart, moveForm.Payment);
+                } else
+                {
+                    MessageBox.Show("Введена не вся информация");
+                }
+            }
+            AddInfoForClass();
         }
     }
 }

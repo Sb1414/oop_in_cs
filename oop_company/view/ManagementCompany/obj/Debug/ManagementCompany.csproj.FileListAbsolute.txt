@@ -9,3 +9,4 @@ C:\Users\Сабина\source\repos\ManagementCompany\ManagementCompany\obj\Debug
 C:\Users\Сабина\source\repos\ManagementCompany\ManagementCompany\obj\Debug\ManagementCompany.csproj.CoreCompileInputs.cache
 C:\Users\Сабина\source\repos\ManagementCompany\ManagementCompany\obj\Debug\ManagementCompany.exe
 C:\Users\Сабина\source\repos\ManagementCompany\ManagementCompany\obj\Debug\ManagementCompany.pdb
+C:\Users\Сабина\source\repos\ManagementCompany\ManagementCompany\obj\Debug\ManagementCompany.AddForm.resources
