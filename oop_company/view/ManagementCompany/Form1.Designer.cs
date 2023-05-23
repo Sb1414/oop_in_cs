@@ -40,6 +40,7 @@
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonClear = new System.Windows.Forms.Button();
             this.panelBack.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewApart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHouse)).BeginInit();
@@ -48,6 +49,7 @@
             // panelBack
             // 
             this.panelBack.Controls.Add(this.checkBox1);
+            this.panelBack.Controls.Add(this.buttonClear);
             this.panelBack.Controls.Add(this.buttonLoad);
             this.panelBack.Controls.Add(this.buttonSaveInfo);
             this.panelBack.Controls.Add(this.dataGridViewApart);
@@ -102,6 +104,7 @@
             this.dataGridViewApart.RowTemplate.Height = 24;
             this.dataGridViewApart.Size = new System.Drawing.Size(453, 539);
             this.dataGridViewApart.TabIndex = 1;
+            this.dataGridViewApart.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
             this.dataGridViewApart.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridViewApart_CellValidating);
             // 
             // Column1_
@@ -162,6 +165,16 @@
             this.Column3.Name = "Column3";
             this.Column3.Width = 125;
             // 
+            // buttonClear
+            // 
+            this.buttonClear.Location = new System.Drawing.Point(511, 12);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(119, 30);
+            this.buttonClear.TabIndex = 2;
+            this.buttonClear.Text = "Очистить";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+            // 
             // ManagementCompanyMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -192,6 +205,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2_;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3_;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button buttonClear;
     }
 }
 

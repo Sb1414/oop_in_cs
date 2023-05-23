@@ -41,20 +41,31 @@ namespace ManagementCompany
                 int sizeApart = Convert.ToInt32(row.Cells[2].Value);
 
                 HouseList.AddHouse(new House(street, numberHouse, sizeApart));
-
+                int j = 1;
                 // Поиск соответствующей информации в dataGridViewApart
                 foreach (DataGridViewRow apartRow in dataGridViewApart.Rows)
                 {
+                    if (j == dataGridViewApart.RowCount)
+                    {
+                        break;
+                    }
                     if (dataGridViewApart.Rows.Count > 0 && dataGridViewApart.Rows[0].Cells.Count > 0 && dataGridViewApart.Rows[0].Cells[0].Value != null)
                     {
-                        string apartColumn = apartRow.Cells["Column1_"].Value.ToString();
-                        if (apartColumn == row.Cells["Column3"].Value.ToString())
+                        string apartColumn = apartRow.Cells[0].Value.ToString();
+                        if (apartColumn == row.Cells[1].Value.ToString())
                         {
-                            ApartmentsList.AddApartment(new Apartment((int)apartRow.Cells[1].Value, (int)apartRow.Cells[2].Value));
+                            int price;
+                            int area;
+                            if (int.TryParse(apartRow.Cells[1].Value?.ToString(), out price) && int.TryParse(apartRow.Cells[2].Value?.ToString(), out area))
+                            {
+                                ApartmentsList.AddApartment(new Apartment(price, area));
+                            }
                         }
                     }
+                    j++;
                 }
                 i++;
+
             }
         }
 
@@ -85,25 +96,23 @@ namespace ManagementCompany
                         // Поиск соответствующей информации в dataGridViewApart
                         foreach (DataGridViewRow apartRow in dataGridViewApart.Rows)
                         {
-                            if (Convert.ToString(apartRow.Cells[0].Value) == Convert.ToString(row.Cells[2].Value))
+                            if (Convert.ToString(apartRow.Cells[0].Value) == Convert.ToString(row.Cells[1].Value))
                             {
+                                // Console.WriteLine(">> in dataGridViewApart в if");
                                 flag = true;
                                 writer.Write(street + "\t" + numberHouse.ToString() + "\t" + sizeApart.ToString());
                                 writer.Write("\t" + apartRow.Cells[1].Value + "\t" + apartRow.Cells[2].Value);
+                                writer.WriteLine(); // Переход на новую строку
                             }
                         }
-
-                        // Здесь в чем-то проблема  /\
-                        //                         /  \
-                        //                          ||
-                        //                          ||
+                        // Console.WriteLine(" вышел из foreach || flag = " + flag.ToString());
 
                         if (!flag)
                         {
                             writer.Write(street + "\t" + numberHouse.ToString() + "\t" + sizeApart.ToString());
                             writer.Write("\t" + 0 + "\t" + 0);
+                            writer.WriteLine(); // Переход на новую строку
                         }
-                        writer.WriteLine(); // Переход на новую строку
 
                         i++;
                     }
@@ -124,21 +133,34 @@ namespace ManagementCompany
             {
                 string filePath = openFileDialog.FileName;
 
+                // Очищаем перед загрузкой новых данных
+                dataGridViewHouse.Rows.Clear();
+                dataGridViewApart.Rows.Clear();
+
+                Dictionary<string, bool> houseEntries = new Dictionary<string, bool>();
+
                 using (StreamReader reader = new StreamReader(filePath))
                 {
-                    // Очистка существующих данных в datagrid
-                    dataGridViewHouse.Rows.Clear();
-
                     string line;
                     while ((line = reader.ReadLine()) != null)
                     {
-                        string[] cells = line.Split('\t'); // Разделение строки на ячейки по разделителю '\t'
+                        string[] columns = line.Split('\t');
+                        string houseKey = columns[0] + columns[1] + columns[2];
 
-                        // Добавление строки в datagrid
-                        dataGridViewHouse.Rows.Add(cells);
+                        // Проверяем, была ли уже добавлена запись с таким ключом в dataGridViewHouse
+                        if (!houseEntries.ContainsKey(houseKey))
+                        {
+                            // Записываем данные в dataGridViewHouse
+                            dataGridViewHouse.Rows.Add(columns[0], columns[1], columns[2]);
+                            houseEntries.Add(houseKey, true);
+                        }
+
+                        // Записываем данные в dataGridViewApart
+                        dataGridViewApart.Rows.Add(columns[1], columns[3], columns[4]);
                     }
                 }
 
+                AddInfoForClass();
                 MessageBox.Show("Информация успешно загружена");
             }
         }
@@ -175,7 +197,6 @@ namespace ManagementCompany
 
         private void dataGridViewHouse_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-            readOnly(false);
             if (e.RowIndex >= 0) // Проверка, что происходит редактирование строки, а не заголовка столбца
             {
                 DataGridView dataGridView = (DataGridView)sender;
@@ -238,17 +259,6 @@ namespace ManagementCompany
                 AddInfoForClass();
             }
         }
-        private void dataGridViewApart_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridView dataGridView = (DataGridView)sender;
-            DataGridViewRow row = dataGridView.Rows[e.RowIndex];
-
-            if (IsRowFilled(row))
-            {
-                // Вся строка заполнена, вызываем метод AddInfoForClass()
-                AddInfoForClass();
-            }
-        }
 
         private bool IsCyrillicOrLatin(string text)
         {
@@ -281,7 +291,6 @@ namespace ManagementCompany
 
         private void dataGridViewApart_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
         {
-            readOnly(false);
             if (e.RowIndex >= 0) // Проверка, что происходит редактирование строки, а не заголовка столбца
             {
                 DataGridView dataGridView = (DataGridView)sender;
@@ -335,5 +344,10 @@ namespace ManagementCompany
             }
         }
 
+        private void buttonClear_Click(object sender, EventArgs e)
+        {
+            dataGridViewHouse.Rows.Clear();
+            dataGridViewApart.Rows.Clear();
+        }
     }
 }
