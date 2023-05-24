@@ -421,6 +421,63 @@ namespace WindowsFormsApp1
             return count;
         }
 
+        public int GetTotalTrackSizeByGenre(string genreName)
+        {
+            if (head == null)
+            {
+                return 0;
+            }
+
+            int totalTrackSize = 0;
+            GenreNode current = head;
+
+            do
+            {
+                if (current.genre.GetName() == genreName)
+                {
+                    Track[] genreTracks = current.genre.GetTracks();
+                    foreach (Track track in genreTracks)
+                    {
+                        if (track != null)
+                        {
+                            totalTrackSize += track.GetFileSize();
+                        }
+                    }
+                }
+
+                current = current.next;
+            } while (current != head);
+
+            return totalTrackSize;
+        }
+
+        public int GetTotalTrackSize()
+        {
+            if (head == null)
+            {
+                return 0;
+            }
+
+            int totalTrackSize = 0;
+            GenreNode current = head;
+
+            do
+            {
+                Track[] genreTracks = current.genre.GetTracks();
+                foreach (Track track in genreTracks)
+                {
+                    if (track != null)
+                    {
+                        totalTrackSize += track.GetFileSize();
+                    }
+                }
+
+                current = current.next;
+            } while (current != head);
+
+            return totalTrackSize;
+        }
+
 
     }
 
