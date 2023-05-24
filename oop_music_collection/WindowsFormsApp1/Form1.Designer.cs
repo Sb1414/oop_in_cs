@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelGenres = new System.Windows.Forms.Label();
+            this.labelTracks = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button4 = new System.Windows.Forms.Button();
             this.textBoxSizeNew = new System.Windows.Forms.TextBox();
@@ -58,8 +60,8 @@
             this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonLoad = new System.Windows.Forms.ToolStripButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.labelTracks = new System.Windows.Forms.Label();
-            this.labelGenres = new System.Windows.Forms.Label();
+            this.labelSizeTrack = new System.Windows.Forms.Label();
+            this.labelSizeInGenre = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTrack)).BeginInit();
@@ -70,7 +72,9 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.labelSizeInGenre);
             this.panel1.Controls.Add(this.labelGenres);
+            this.panel1.Controls.Add(this.labelSizeTrack);
             this.panel1.Controls.Add(this.labelTracks);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.dataGridViewTrack);
@@ -83,6 +87,30 @@
             this.panel1.Size = new System.Drawing.Size(1190, 638);
             this.panel1.TabIndex = 0;
             // 
+            // labelGenres
+            // 
+            this.labelGenres.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelGenres.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.labelGenres.Location = new System.Drawing.Point(858, 542);
+            this.labelGenres.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelGenres.Name = "labelGenres";
+            this.labelGenres.Size = new System.Drawing.Size(261, 21);
+            this.labelGenres.TabIndex = 16;
+            this.labelGenres.Text = "Всего жанров: 0";
+            this.labelGenres.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelTracks
+            // 
+            this.labelTracks.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTracks.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.labelTracks.Location = new System.Drawing.Point(860, 509);
+            this.labelTracks.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelTracks.Name = "labelTracks";
+            this.labelTracks.Size = new System.Drawing.Size(259, 21);
+            this.labelTracks.TabIndex = 16;
+            this.labelTracks.Text = "Всего треков: 0 ";
+            this.labelTracks.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.button4);
@@ -91,10 +119,10 @@
             this.panel3.Controls.Add(this.textBoxTrackNew);
             this.panel3.Controls.Add(this.label5);
             this.panel3.Controls.Add(this.label4);
-            this.panel3.Location = new System.Drawing.Point(779, 310);
+            this.panel3.Location = new System.Drawing.Point(779, 276);
             this.panel3.Margin = new System.Windows.Forms.Padding(4);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(407, 235);
+            this.panel3.Size = new System.Drawing.Size(407, 220);
             this.panel3.TabIndex = 9;
             // 
             // button4
@@ -255,7 +283,7 @@
             this.panel2.Location = new System.Drawing.Point(779, 32);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(407, 311);
+            this.panel2.Size = new System.Drawing.Size(407, 278);
             this.panel2.TabIndex = 7;
             // 
             // buttonDelGenre
@@ -392,29 +420,29 @@
             this.toolStripButtonLoad.Text = "Загрузить файл";
             this.toolStripButtonLoad.Click += new System.EventHandler(this.toolStripButtonLoad_Click);
             // 
-            // labelTracks
+            // labelSizeTrack
             // 
-            this.labelTracks.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTracks.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.labelTracks.Location = new System.Drawing.Point(864, 559);
-            this.labelTracks.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelTracks.Name = "labelTracks";
-            this.labelTracks.Size = new System.Drawing.Size(258, 21);
-            this.labelTracks.TabIndex = 16;
-            this.labelTracks.Text = "Всего треков: 0 ";
-            this.labelTracks.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelSizeTrack.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSizeTrack.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.labelSizeTrack.Location = new System.Drawing.Point(860, 574);
+            this.labelSizeTrack.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelSizeTrack.Name = "labelSizeTrack";
+            this.labelSizeTrack.Size = new System.Drawing.Size(241, 21);
+            this.labelSizeTrack.TabIndex = 16;
+            this.labelSizeTrack.Text = "Размер треков: 0 ";
+            this.labelSizeTrack.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // labelGenres
+            // labelSizeInGenre
             // 
-            this.labelGenres.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelGenres.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.labelGenres.Location = new System.Drawing.Point(864, 594);
-            this.labelGenres.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelGenres.Name = "labelGenres";
-            this.labelGenres.Size = new System.Drawing.Size(258, 21);
-            this.labelGenres.TabIndex = 16;
-            this.labelGenres.Text = "Всего жанров: 0";
-            this.labelGenres.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelSizeInGenre.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSizeInGenre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.labelSizeInGenre.Location = new System.Drawing.Point(860, 608);
+            this.labelSizeInGenre.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelSizeInGenre.Name = "labelSizeInGenre";
+            this.labelSizeInGenre.Size = new System.Drawing.Size(294, 21);
+            this.labelSizeInGenre.TabIndex = 16;
+            this.labelSizeInGenre.Text = "Размер треков в жанре: 0";
+            this.labelSizeInGenre.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Form1
             // 
@@ -477,6 +505,8 @@
         private System.Windows.Forms.Button buttonDelGenre;
         private System.Windows.Forms.Label labelGenres;
         private System.Windows.Forms.Label labelTracks;
+        private System.Windows.Forms.Label labelSizeInGenre;
+        private System.Windows.Forms.Label labelSizeTrack;
     }
 }
 

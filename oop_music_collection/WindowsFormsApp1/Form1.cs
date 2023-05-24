@@ -190,6 +190,8 @@ namespace WindowsFormsApp1
 
                     dataGridViewTrack.Rows.Clear();
 
+                    labelSizeInGenre.Text = "Размер треков в жанре: " + genreList.GetTotalTrackSizeByGenre(selectedGenre).ToString();
+
                     if (tracks != null)
                     {
                         foreach (Track track in tracks)
@@ -379,6 +381,8 @@ namespace WindowsFormsApp1
             int countGenres = genreList.GetGenreCount();
             labelTracks.Text = "Всего треков: " + countTracks.ToString();
             labelGenres.Text = "Всего жанров: " + countGenres.ToString();
+
+            labelSizeTrack.Text = "Размер треков: " + genreList.GetTotalTrackSize();
         }
     }
 }
