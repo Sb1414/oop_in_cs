@@ -32,7 +32,6 @@
             this.panelBack = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dataGridViewApart = new System.Windows.Forms.DataGridView();
-            this.Column1_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3_ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewHouse = new System.Windows.Forms.DataGridView();
@@ -46,6 +45,7 @@
             this.buttonClear = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.buttonLoad = new System.Windows.Forms.Button();
+            this.buttonDelApart = new System.Windows.Forms.Button();
             this.panelBack.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewApart)).BeginInit();
@@ -79,7 +79,6 @@
             this.dataGridViewApart.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(218)))), ((int)(((byte)(247)))));
             this.dataGridViewApart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewApart.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1_,
             this.Column2_,
             this.Column3_});
             this.dataGridViewApart.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -89,15 +88,8 @@
             this.dataGridViewApart.RowTemplate.Height = 24;
             this.dataGridViewApart.Size = new System.Drawing.Size(521, 634);
             this.dataGridViewApart.TabIndex = 1;
-            this.dataGridViewApart.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
+            this.dataGridViewApart.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewApart_CellEndEdit);
             this.dataGridViewApart.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridViewApart_CellValidating);
-            // 
-            // Column1_
-            // 
-            this.Column1_.HeaderText = "Номер дома";
-            this.Column1_.MinimumWidth = 6;
-            this.Column1_.Name = "Column1_";
-            this.Column1_.Width = 125;
             // 
             // Column2_
             // 
@@ -128,6 +120,7 @@
             this.dataGridViewHouse.RowTemplate.Height = 24;
             this.dataGridViewHouse.Size = new System.Drawing.Size(680, 634);
             this.dataGridViewHouse.TabIndex = 0;
+            this.dataGridViewHouse.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewHouse_CellClick);
             this.dataGridViewHouse.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
             this.dataGridViewHouse.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridViewHouse_CellValidating);
             // 
@@ -157,6 +150,7 @@
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.BackgroundImage = global::ManagementCompany.Properties.Resources.back1;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.buttonDelApart);
             this.panel1.Controls.Add(this.buttonDelete);
             this.panel1.Controls.Add(this.buttonNewInfo);
             this.panel1.Controls.Add(this.buttonSaveInfo);
@@ -180,7 +174,7 @@
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(119, 30);
             this.buttonDelete.TabIndex = 4;
-            this.buttonDelete.Text = "Удалить";
+            this.buttonDelete.Text = "Удалить дом";
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
@@ -255,6 +249,21 @@
             this.buttonLoad.UseVisualStyleBackColor = true;
             this.buttonLoad.Click += new System.EventHandler(this.buttonLoad_Click);
             // 
+            // buttonDelApart
+            // 
+            this.buttonDelApart.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDelApart.BackgroundImage")));
+            this.buttonDelApart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonDelApart.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonDelApart.FlatAppearance.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.buttonDelApart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDelApart.Location = new System.Drawing.Point(893, 3);
+            this.buttonDelApart.Name = "buttonDelApart";
+            this.buttonDelApart.Size = new System.Drawing.Size(164, 30);
+            this.buttonDelApart.TabIndex = 5;
+            this.buttonDelApart.Text = "Удалить квартиру";
+            this.buttonDelApart.UseVisualStyleBackColor = true;
+            this.buttonDelApart.Click += new System.EventHandler(this.buttonDelApart_Click);
+            // 
             // ManagementCompanyMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -262,6 +271,7 @@
             this.ClientSize = new System.Drawing.Size(1201, 669);
             this.Controls.Add(this.panelBack);
             this.Name = "ManagementCompanyMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.panelBack.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -283,15 +293,15 @@
         private System.Windows.Forms.DataGridView dataGridViewApart;
         private System.Windows.Forms.Button buttonSaveInfo;
         private System.Windows.Forms.Button buttonLoad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1_;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2_;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3_;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button buttonNewInfo;
         private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2_;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3_;
+        private System.Windows.Forms.Button buttonDelApart;
     }
 }
 

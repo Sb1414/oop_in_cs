@@ -46,6 +46,31 @@ namespace ManagementCompany
             count++;
         }
 
+        public void RemoveApartmentByNumber(int apartmentNumber)
+        {
+            Node current = head;
+            Node prev = null;
+            while (current != null)
+            {
+                if (current.apartment.GetNumber() == apartmentNumber)
+                {
+                    if (prev == null)
+                    {
+                        head = current.next;
+                    }
+                    else
+                    {
+                        prev.next = current.next;
+                    }
+                    count--;
+                    break;
+                }
+                prev = current;
+                current = current.next;
+            }
+        }
+
+
         public void RemoveApartment(Apartment apartment)
         {
             Node current = head;
@@ -97,7 +122,7 @@ namespace ManagementCompany
             Node current = head;
             while (current != null)
             {
-                total += current.apartment.Payment;
+                total += current.apartment.GetPayment();
                 current = current.next;
             }
             return total;
@@ -109,6 +134,20 @@ namespace ManagementCompany
             {
                 return FindApartment(index);
             }
+        }
+
+        public List<Apartment> GetAllApartments()
+        {
+            List<Apartment> apartments = new List<Apartment>();
+
+            Node current = head;
+            while (current != null)
+            {
+                apartments.Add(current.apartment);
+                current = current.next;
+            }
+
+            return apartments;
         }
     }
 }

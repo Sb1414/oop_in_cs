@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,39 +7,54 @@ using System.Threading.Tasks;
 
 namespace ManagementCompany
 {
-    internal class HouseList
+    internal class HouseList : IEnumerable<House>
     {
-        private House head;
+        private HouseNode head;
         private int count;
 
         public int Count => count;
+
+        private class HouseNode
+        {
+            public House House { get; }
+            public ApartmentsList Apartments { get; } // Добавляем список квартир к каждому дому
+
+            public HouseNode(House house)
+            {
+                House = house;
+                Apartments = new ApartmentsList();
+            }
+
+            public HouseNode NextHouse { get; set; }
+        }
 
         public void AddHouse(House house)
         {
             if (head == null)
             {
-                head = house;
+                head = new HouseNode(house);
             }
             else
             {
-                House current = head;
+                HouseNode current = head;
                 while (current.NextHouse != null)
                 {
                     current = current.NextHouse;
                 }
-                current.NextHouse = house;
+                current.NextHouse = new HouseNode(house);
             }
             count++;
         }
 
-        public void RemoveHouse(House house)
+        public void RemoveHouse(string street, int numberHouse)
         {
-            House current = head;
-            House prev = null;
+            HouseNode current = head;
+            HouseNode prev = null;
             while (current != null)
             {
-                if (current == house)
+                if (current.House.GetStreet() == street && current.House.GetNumberHouse() == numberHouse)
                 {
+                    current.Apartments.Clear();
                     if (prev == null)
                     {
                         head = current.NextHouse;
@@ -55,32 +71,52 @@ namespace ManagementCompany
             }
         }
 
-        public void Clear()
+        public void RemoveAllHouses()
         {
             head = null;
             count = 0;
         }
 
-        public House FindHouse(string street, int numberHouse)
+        public void RemoveAllApartments()
         {
-            House current = head;
+            HouseNode current = head;
             while (current != null)
             {
-                if (current.GetStreet() == street && current.GetNumberHouse() == numberHouse)
+                current.Apartments.Clear();
+                current = current.NextHouse;
+            }
+        }
+
+        public void RemoveApartmentByNumber(int apartmentNumber)
+        {
+            HouseNode current = head;
+            while (current != null)
+            {
+                current.Apartments.RemoveApartmentByNumber(apartmentNumber);
+                current = current.NextHouse;
+            }
+        }
+
+        public House FindHouse(string street, int numberHouse)
+        {
+            HouseNode current = head;
+            while (current != null)
+            {
+                if (current.House.GetStreet() == street && current.House.GetNumberHouse() == numberHouse)
                 {
-                    return current;
+                    return current.House;
                 }
                 current = current.NextHouse;
             }
             return null;
         }
-
+        
         public bool ContainsNumber(int number)
         {
-            House current = head;
+            HouseNode current = head;
             while (current != null)
             {
-                if (current.GetNumberHouse() == number)
+                if (current.House.GetNumberHouse() == number)
                 {
                     return true;
                 }
@@ -91,16 +127,73 @@ namespace ManagementCompany
 
         public int GetCountByNumber(int number)
         {
-            House current = head;
+            HouseNode current = head;
             while (current != null)
             {
-                if (current.GetNumberHouse() == number)
+                if (current.House.GetNumberHouse() == number)
                 {
-                    return current.SizeApart;
+                    return current.House.SizeApart;
                 }
                 current = current.NextHouse;
             }
             return -1;
         }
+
+        public void AddApartmentToHouse(string street, int numberHouse, Apartment apartment)
+        {
+            HouseNode houseNode = FindHouseNode(street, numberHouse);
+            if (houseNode != null)
+            {
+                houseNode.Apartments.AddApartment(apartment);
+            }
+            else
+            {
+                throw new ArgumentException("Дом не найден");
+            }
+        }
+
+        private HouseNode FindHouseNode(string street, int numberHouse)
+        {
+            HouseNode current = head;
+            while (current != null)
+            {
+                if (current.House.GetStreet() == street && current.House.GetNumberHouse() == numberHouse)
+                {
+                    return current;
+                }
+                current = current.NextHouse;
+            }
+            return null;
+        }
+
+        public List<Apartment> GetAllApartments(string street, int numberHouse)
+        {
+            HouseNode houseNode = FindHouseNode(street, numberHouse);
+            if (houseNode != null)
+            {
+                List<Apartment> apartments = houseNode.Apartments.GetAllApartments();
+                return apartments;
+            }
+            else
+            {
+                throw new ArgumentException("Дом не найден");
+            }
+        }
+
+        public IEnumerator<House> GetEnumerator()
+        {
+            HouseNode current = head;
+            while (current != null)
+            {
+                yield return current.House;
+                current = current.NextHouse;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
     }
 }
