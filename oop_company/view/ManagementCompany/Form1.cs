@@ -109,7 +109,7 @@ namespace ManagementCompany
                 }
                 readOnly(false);
                 checkBox1.Checked = true;
-                MessageBox.Show("Информация успешно загружена");
+                MessageBox.Show("Информация успешно загружена\nДля вывода квартир нажмите на ячейку дома");
             }
         }
 
@@ -345,17 +345,20 @@ namespace ManagementCompany
             {
                 if (moveForm.Street != "" && moveForm.House != 0 && moveForm.Count != 0)
                 {
-                    dataGridViewHouse.Rows.Add(moveForm.Street, moveForm.House, moveForm.Count);
+                    int rowIndex = dataGridViewHouse.CurrentCell.RowIndex; // Получаем индекс текущей строки
+                    dataGridViewHouse.Rows.Insert(rowIndex + 1, moveForm.Street, moveForm.House, moveForm.Count); // Вставляем новую строку после текущей
                     HouseList.AddHouse(new House(moveForm.Street, moveForm.House, moveForm.Count));
                     if (moveForm.Apart != 0 && moveForm.Payment != 0)
                         HouseList.AddApartmentToHouse(moveForm.Street, moveForm.House, new Apartment(moveForm.Apart, moveForm.Payment));
-                        // dataGridViewApart.Rows.Add(moveForm.House, moveForm.Apart, moveForm.Payment);
-                } else
+                    // dataGridViewApart.Rows.Add(moveForm.House, moveForm.Apart, moveForm.Payment);
+                }
+                else
                 {
                     MessageBox.Show("Введена не вся информация");
                 }
             }
         }
+
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
@@ -421,6 +424,10 @@ namespace ManagementCompany
         {
             DataGridView dataGridView = (DataGridView)sender;
             DataGridViewRow row = dataGridView.Rows[e.RowIndex];
+            if (e.RowIndex >= 0) // Проверка, что редактирование происходит в строке данных
+            {
+                dataGridView.Rows[e.RowIndex].ErrorText = string.Empty; // Очистить текст ошибки для строки
+            }
 
             if (IsRowFilled2(row))
             {
