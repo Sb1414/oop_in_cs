@@ -71,6 +71,16 @@ namespace WindowsFormsApp1
             return tracks;
         }
 
+        public void RemoveAllTracks()
+        {
+            for (int i = 0; i < currentTrackCount; i++)
+            {
+                tracks[i] = null;
+            }
+            currentTrackCount = 0;
+        }
+
+
     }
 
 }

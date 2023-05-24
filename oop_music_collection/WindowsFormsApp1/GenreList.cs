@@ -224,9 +224,6 @@ namespace WindowsFormsApp1
             return tracksList.ToArray();
         }
 
-
-
-
         public bool GenreExists(string genreName)
         {
             if (head == null)
@@ -303,6 +300,28 @@ namespace WindowsFormsApp1
 
             return false;
         }
+
+        public void RemoveAllGenres()
+        {
+            head = null;
+        }
+
+        public void RemoveAllTracks()
+        {
+            if (head == null)
+            {
+                return;
+            }
+
+            GenreNode current = head;
+
+            do
+            {
+                current.genre.RemoveAllTracks();
+                current = current.next;
+            } while (current != head);
+        }
+
 
     }
 

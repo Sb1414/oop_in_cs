@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace WindowsFormsApp1
 {
@@ -202,8 +203,6 @@ namespace WindowsFormsApp1
             Console.WriteLine(nameTrack + " " + nameGenre + " " + maxSize + " " + sizeTrack);
             if (nameTrack != "" && nameGenre != "" && maxSize != 0 && sizeTrack != 0)
             {
-                genreList.AddGenre(new Genre(nameGenre, maxSize));
-                genreList.AddTrack(nameGenre, new Track(nameTrack, sizeTrack));
                 bool genreExists = false;
                 int rowIndex = -1;
 
@@ -219,14 +218,16 @@ namespace WindowsFormsApp1
 
                 if (genreExists && rowIndex != -1) // Если жанр уже существует, обновляем значения ячеек
                 {
+                    genreList.AddTrack(nameGenre, new Track(nameTrack, sizeTrack));
                     dataGridViewGenre.Rows[rowIndex].Cells[1].Value = genreList.GetTrackCount(nameGenre);
                     dataGridViewGenre.Rows[rowIndex].Cells[2].Value = maxSize;
                 }
                 else
                 {
+                    genreList.AddGenre(new Genre(nameGenre, maxSize));
+                    genreList.AddTrack(nameGenre, new Track(nameTrack, sizeTrack));
                     dataGridViewGenre.Rows.Add(nameGenre, genreList.GetTrackCount(nameGenre), maxSize); // Добавляем новую строку
                 }
-                // dataGridViewTrack.Rows.Add(nameTrack, sizeTrack);
                 nameGenre = "";
                 maxSize = 0;
                 nameTrack = "";
@@ -275,8 +276,6 @@ namespace WindowsFormsApp1
 
                 using (StreamWriter writer = new StreamWriter(filePath))
                 {
-                    writer.WriteLine("GenreName\tCountTrack\tMaxCount\tTrackName\tSizeTrack");
-
                     Genre[] genres = genreList.GetGenres();
                     
                     foreach (Genre genre in genres)
@@ -284,7 +283,7 @@ namespace WindowsFormsApp1
                         string genreName = genre.GetName();
                         int countTrack = genre.GetCurrentTrackCount();
                         int maxCount = genre.GetMaxTrackCount();
-                        Track[] tracks = genre.GetTracks();
+                        Track[] tracks = genreList.GetAllTracksByGenre(genreName);
 
                         if (tracks.Length > 0)
                         {
@@ -302,6 +301,49 @@ namespace WindowsFormsApp1
                     }
                 }
                 MessageBox.Show("Информация успешно сохранена");
+            }
+        }
+
+        private void toolStripButtonLoad_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt"; // Фильтр для выбора только текстовых файлов
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+
+                // Очищаем перед загрузкой новых данных
+                dataGridViewGenre.Rows.Clear();
+                dataGridViewTrack.Rows.Clear();
+
+                genreList.RemoveAllGenres();
+                genreList.RemoveAllTracks();
+
+                Dictionary<string, bool> houseEntries = new Dictionary<string, bool>();
+
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        string[] columns = line.Split('\t');
+                        string houseKey = columns[0] + columns[1] + columns[2];
+
+                        if (!houseEntries.ContainsKey(houseKey))
+                        {
+                            genreList.AddGenre(new Genre(columns[0], Convert.ToInt32(columns[2])));
+                            dataGridViewGenre.Rows.Add(columns[0], columns[1], columns[2]);
+                            houseEntries.Add(houseKey, true);
+                        }
+
+                        if (columns[3] != "0" && columns[4] != "0")
+                        {
+                            genreList.AddTrack(columns[0], new Track(columns[3], Convert.ToInt32(columns[4])));
+                        }
+                    }
+                }
+                MessageBox.Show("Информация успешно загружена\nДля вывода квартир нажмите на ячейку дома");
             }
         }
     }
