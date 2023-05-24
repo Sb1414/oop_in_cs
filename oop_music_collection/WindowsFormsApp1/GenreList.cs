@@ -322,6 +322,67 @@ namespace WindowsFormsApp1
             } while (current != head);
         }
 
+        public void RemoveTrack(string trackName)
+        {
+            if (head == null)
+            {
+                Console.WriteLine("Список жанров пуст.");
+                return;
+            }
+
+            GenreNode current = head;
+
+            do
+            {
+                Track[] genreTracks = current.genre.GetTracks();
+
+                for (int i = 0; i < genreTracks.Length; i++)
+                {
+                    if (genreTracks[i] != null && genreTracks[i].GetTrack() == trackName)
+                    {
+                        current.genre.RemoveTrack(genreTracks[i]);
+                        return;
+                    }
+                }
+
+                current = current.next;
+            } while (current != head);
+
+            Console.WriteLine("Трек не найден.");
+        }
+
+        public void RemoveGenreByName(string genreName)
+        {
+            if (head == null)
+            {
+                Console.WriteLine("Список жанров пуст.");
+                return;
+            }
+
+            GenreNode current = head;
+
+            do
+            {
+                if (current.genre.GetName() == genreName)
+                {
+                    if (head == current)
+                    {
+                        head = head.next;
+                    }
+
+                    current.prev.next = current.next;
+                    current.next.prev = current.prev;
+                    current.next = null;
+                    current.prev = null;
+                    return;
+                }
+
+                current = current.next;
+            } while (current != head);
+
+            Console.WriteLine("Жанр не найден.");
+        }
+
 
     }
 

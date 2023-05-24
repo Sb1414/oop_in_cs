@@ -27,90 +27,8 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
         }
-        public void Form1_Load()
-        {
-            MainTable.Columns.Add("Музыкальный жанр",typeof(string));
-            MainTable.Columns.Add("Размер раздела-жанра,в мб",typeof(int));
-            VspTable.Columns.Add("Музыкальный трек", typeof(string));
-            VspTable.Columns.Add("Размер трека,в мб", typeof(int));
-            dataGridViewGenre.DataSource = MainTable;
-            timer1.Enabled= true;
-        }
-        // MusicCollection Collection=new MusicCollection();
+
         GenreList genreList = new GenreList();
-
-        DataTable MainTable=new DataTable();
-        DataTable VspTable=new DataTable();
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            char symbol = e.KeyChar;
-            if ((symbol < 'А' || symbol > 'я') && symbol != '\b' && (symbol < 'A' || symbol > 'z'))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            char symbol = e.KeyChar;
-            if ((symbol < 'А' || symbol > 'я') && symbol != '\b' && (symbol < 'A' || symbol > 'z'))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            char number=e.KeyChar;
-            if (!Char.IsDigit(number) && number != 8)
-            {
-                e.Handled=true;
-            }
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            switch (button3.Text)
-            {
-                case "Информация о жанре":
-                    {
-                        if (label8.Text == "Коллекция музыкальных жанров")
-                        {
-                            label7.Visible = true;
-                            textBox4.Visible = true;
-                            label5.Visible = false;
-                            label6.Visible = false;
-                            textBox5.Visible = false;
-                            textBox6.Visible = false;
-                            panel3.Visible = true;
-                        }
-                        else 
-                        {
-                            label7.Visible = false;
-                            textBox4.Visible = false;
-                            label5.Visible = true;
-                            label6.Visible = true;
-                            textBox5.Visible = true;
-                            textBox6.Visible = true;
-                            panel3.Visible = true;
-                        }
-                       button3.Text = "Назад";
-                        break;
-                    }
-                case "Назад":
-                    {
-                        panel3.Visible = false;
-                        button3.Text = "Информация о жанре";
-                        break;
-                    }
-
-            }
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -200,7 +118,6 @@ namespace WindowsFormsApp1
 
         private void AddGenreAndTrack()
         {
-            Console.WriteLine(nameTrack + " " + nameGenre + " " + maxSize + " " + sizeTrack);
             if (nameTrack != "" && nameGenre != "" && maxSize != 0 && sizeTrack != 0)
             {
                 bool genreExists = false;
@@ -246,15 +163,12 @@ namespace WindowsFormsApp1
                     string selectedGenre = selectedGenreName.Value.ToString();
                     Track[] tracks = genreList.GetAllTracksByGenre(selectedGenre);
 
-                    Console.WriteLine("КОЛ-ВО ТРЕКОВ 1: " + tracks.Length);
                     dataGridViewTrack.Rows.Clear();
 
                     if (tracks != null)
                     {
-                        Console.WriteLine("КОЛ-ВО ТРЕКОВ 2: " + tracks.Length);
                         foreach (Track track in tracks)
                         {
-                            // Console.WriteLine("|| name track = " + track.GetTrack() + "|| size = " + track.GetFileSize());
                             dataGridViewTrack.Rows.Add(track.GetTrack(), track.GetFileSize());
                         }
                     }
@@ -344,6 +258,56 @@ namespace WindowsFormsApp1
                     }
                 }
                 MessageBox.Show("Информация успешно загружена\nДля вывода квартир нажмите на ячейку дома");
+            }
+        }
+
+        private void buttonDelTrack_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dataGridViewTrack.CurrentRow != null)
+                {
+                    DataGridViewRow currentRowTrack = dataGridViewTrack.CurrentRow;
+
+                    string trackName = currentRowTrack.Cells[0].Value?.ToString();
+
+                    genreList.RemoveTrack(trackName);
+                    dataGridViewTrack.Rows.Remove(currentRowTrack);
+                }
+                else
+                {
+                    throw new Exception("Наведите курсор в ячейку, которую нужно удалить!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
+        private void buttonDelGenre_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dataGridViewGenre.CurrentRow != null)
+                {
+                    DataGridViewRow currentRowGenre = dataGridViewGenre.CurrentRow;
+
+                    string name = currentRowGenre.Cells[0].Value?.ToString();
+
+                    dataGridViewTrack.Rows.Clear();
+
+                    dataGridViewGenre.Rows.Remove(currentRowGenre);
+                    genreList.RemoveGenreByName(name);
+                }
+                else
+                {
+                    throw new Exception("Наведите курсор в ячейку, которую нужно удалить!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
     }
