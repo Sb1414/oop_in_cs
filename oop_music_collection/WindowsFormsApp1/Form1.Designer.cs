@@ -31,6 +31,13 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.button4 = new System.Windows.Forms.Button();
+            this.textBoxSizeNew = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxTrackNew = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.dataGridViewTrack = new System.Windows.Forms.DataGridView();
             this.ColumnTrack = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnSizeTrack = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -39,36 +46,32 @@
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.button4 = new System.Windows.Forms.Button();
-            this.textBoxSizeNew = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBoxTrackNew = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonDelGenre = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.buttonDelTrack = new System.Windows.Forms.Button();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.button1 = new System.Windows.Forms.Button();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonLoad = new System.Windows.Forms.ToolStripButton();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.buttonDelGenre = new System.Windows.Forms.Button();
+            this.labelTracks = new System.Windows.Forms.Label();
+            this.labelGenres = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTrack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewGenre)).BeginInit();
-            this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.labelGenres);
+            this.panel1.Controls.Add(this.labelTracks);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.dataGridViewTrack);
             this.panel1.Controls.Add(this.label8);
@@ -79,85 +82,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1190, 638);
             this.panel1.TabIndex = 0;
-            // 
-            // dataGridViewTrack
-            // 
-            this.dataGridViewTrack.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.dataGridViewTrack.ColumnHeadersHeight = 29;
-            this.dataGridViewTrack.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnTrack,
-            this.ColumnSizeTrack});
-            this.dataGridViewTrack.Location = new System.Drawing.Point(0, 310);
-            this.dataGridViewTrack.Margin = new System.Windows.Forms.Padding(4);
-            this.dataGridViewTrack.Name = "dataGridViewTrack";
-            this.dataGridViewTrack.RowHeadersWidth = 51;
-            this.dataGridViewTrack.Size = new System.Drawing.Size(778, 328);
-            this.dataGridViewTrack.StandardTab = true;
-            this.dataGridViewTrack.TabIndex = 12;
-            // 
-            // ColumnTrack
-            // 
-            this.ColumnTrack.HeaderText = "Название трека";
-            this.ColumnTrack.MinimumWidth = 6;
-            this.ColumnTrack.Name = "ColumnTrack";
-            this.ColumnTrack.Width = 125;
-            // 
-            // ColumnSizeTrack
-            // 
-            this.ColumnSizeTrack.HeaderText = "Размер (Мб)";
-            this.ColumnSizeTrack.MinimumWidth = 6;
-            this.ColumnSizeTrack.Name = "ColumnSizeTrack";
-            this.ColumnSizeTrack.Width = 125;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Mongolian Baiti", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.label8.Location = new System.Drawing.Point(4, 5);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(334, 25);
-            this.label8.TabIndex = 11;
-            this.label8.Text = "Коллекция музыкальных жанров";
-            // 
-            // dataGridViewGenre
-            // 
-            this.dataGridViewGenre.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.dataGridViewGenre.ColumnHeadersHeight = 29;
-            this.dataGridViewGenre.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3});
-            this.dataGridViewGenre.Location = new System.Drawing.Point(0, 33);
-            this.dataGridViewGenre.Margin = new System.Windows.Forms.Padding(4);
-            this.dataGridViewGenre.Name = "dataGridViewGenre";
-            this.dataGridViewGenre.RowHeadersWidth = 51;
-            this.dataGridViewGenre.Size = new System.Drawing.Size(778, 278);
-            this.dataGridViewGenre.StandardTab = true;
-            this.dataGridViewGenre.TabIndex = 10;
-            this.dataGridViewGenre.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGenre_CellClick);
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Жанр";
-            this.Column1.MinimumWidth = 6;
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 125;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Количество треков";
-            this.Column2.MinimumWidth = 6;
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 200;
-            // 
-            // Column3
-            // 
-            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column3.HeaderText = "Максимально возможное количество";
-            this.Column3.MinimumWidth = 6;
-            this.Column3.Name = "Column3";
             // 
             // panel3
             // 
@@ -240,6 +164,85 @@
             this.label4.Size = new System.Drawing.Size(0, 21);
             this.label4.TabIndex = 15;
             // 
+            // dataGridViewTrack
+            // 
+            this.dataGridViewTrack.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.dataGridViewTrack.ColumnHeadersHeight = 29;
+            this.dataGridViewTrack.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ColumnTrack,
+            this.ColumnSizeTrack});
+            this.dataGridViewTrack.Location = new System.Drawing.Point(0, 310);
+            this.dataGridViewTrack.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridViewTrack.Name = "dataGridViewTrack";
+            this.dataGridViewTrack.RowHeadersWidth = 51;
+            this.dataGridViewTrack.Size = new System.Drawing.Size(778, 328);
+            this.dataGridViewTrack.StandardTab = true;
+            this.dataGridViewTrack.TabIndex = 12;
+            // 
+            // ColumnTrack
+            // 
+            this.ColumnTrack.HeaderText = "Название трека";
+            this.ColumnTrack.MinimumWidth = 6;
+            this.ColumnTrack.Name = "ColumnTrack";
+            this.ColumnTrack.Width = 125;
+            // 
+            // ColumnSizeTrack
+            // 
+            this.ColumnSizeTrack.HeaderText = "Размер (Мб)";
+            this.ColumnSizeTrack.MinimumWidth = 6;
+            this.ColumnSizeTrack.Name = "ColumnSizeTrack";
+            this.ColumnSizeTrack.Width = 125;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Mongolian Baiti", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.label8.Location = new System.Drawing.Point(4, 5);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(334, 25);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "Коллекция музыкальных жанров";
+            // 
+            // dataGridViewGenre
+            // 
+            this.dataGridViewGenre.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.dataGridViewGenre.ColumnHeadersHeight = 29;
+            this.dataGridViewGenre.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3});
+            this.dataGridViewGenre.Location = new System.Drawing.Point(0, 33);
+            this.dataGridViewGenre.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridViewGenre.Name = "dataGridViewGenre";
+            this.dataGridViewGenre.RowHeadersWidth = 51;
+            this.dataGridViewGenre.Size = new System.Drawing.Size(778, 278);
+            this.dataGridViewGenre.StandardTab = true;
+            this.dataGridViewGenre.TabIndex = 10;
+            this.dataGridViewGenre.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGenre_CellClick);
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Жанр";
+            this.Column1.MinimumWidth = 6;
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 125;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Количество треков";
+            this.Column2.MinimumWidth = 6;
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 200;
+            // 
+            // Column3
+            // 
+            this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column3.HeaderText = "Максимально возможное количество";
+            this.Column3.MinimumWidth = 6;
+            this.Column3.Name = "Column3";
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.buttonDelGenre);
@@ -249,12 +252,25 @@
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.radioButton1);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.button3);
             this.panel2.Location = new System.Drawing.Point(779, 32);
             this.panel2.Margin = new System.Windows.Forms.Padding(4);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(407, 311);
             this.panel2.TabIndex = 7;
+            // 
+            // buttonDelGenre
+            // 
+            this.buttonDelGenre.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.buttonDelGenre.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonDelGenre.ForeColor = System.Drawing.Color.BlueViolet;
+            this.buttonDelGenre.Location = new System.Drawing.Point(89, 222);
+            this.buttonDelGenre.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonDelGenre.Name = "buttonDelGenre";
+            this.buttonDelGenre.Size = new System.Drawing.Size(254, 28);
+            this.buttonDelGenre.TabIndex = 19;
+            this.buttonDelGenre.Text = "Удалить жанр";
+            this.buttonDelGenre.UseVisualStyleBackColor = false;
+            this.buttonDelGenre.Click += new System.EventHandler(this.buttonDelGenre_Click);
             // 
             // textBox1
             // 
@@ -334,19 +350,6 @@
             this.label2.Text = "Наименование музыкального жанра";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.button3.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.BlueViolet;
-            this.button3.Location = new System.Drawing.Point(87, 258);
-            this.button3.Margin = new System.Windows.Forms.Padding(4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(256, 28);
-            this.button3.TabIndex = 14;
-            this.button3.Text = "Информация о жанре";
-            this.button3.UseVisualStyleBackColor = false;
-            // 
             // toolStrip1
             // 
             this.toolStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
@@ -389,19 +392,29 @@
             this.toolStripButtonLoad.Text = "Загрузить файл";
             this.toolStripButtonLoad.Click += new System.EventHandler(this.toolStripButtonLoad_Click);
             // 
-            // buttonDelGenre
+            // labelTracks
             // 
-            this.buttonDelGenre.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.buttonDelGenre.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDelGenre.ForeColor = System.Drawing.Color.BlueViolet;
-            this.buttonDelGenre.Location = new System.Drawing.Point(89, 222);
-            this.buttonDelGenre.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonDelGenre.Name = "buttonDelGenre";
-            this.buttonDelGenre.Size = new System.Drawing.Size(254, 28);
-            this.buttonDelGenre.TabIndex = 19;
-            this.buttonDelGenre.Text = "Удалить жанр";
-            this.buttonDelGenre.UseVisualStyleBackColor = false;
-            this.buttonDelGenre.Click += new System.EventHandler(this.buttonDelGenre_Click);
+            this.labelTracks.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTracks.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.labelTracks.Location = new System.Drawing.Point(864, 559);
+            this.labelTracks.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelTracks.Name = "labelTracks";
+            this.labelTracks.Size = new System.Drawing.Size(258, 21);
+            this.labelTracks.TabIndex = 16;
+            this.labelTracks.Text = "Всего треков: 0 ";
+            this.labelTracks.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // labelGenres
+            // 
+            this.labelGenres.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelGenres.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.labelGenres.Location = new System.Drawing.Point(864, 594);
+            this.labelGenres.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelGenres.Name = "labelGenres";
+            this.labelGenres.Size = new System.Drawing.Size(258, 21);
+            this.labelGenres.TabIndex = 16;
+            this.labelGenres.Text = "Всего жанров: 0";
+            this.labelGenres.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Form1
             // 
@@ -419,10 +432,10 @@
             this.Text = "Музыкальная коллекция";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTrack)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewGenre)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTrack)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewGenre)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -445,7 +458,6 @@
         private System.Windows.Forms.TextBox textBoxTrackNew;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button buttonDelTrack;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.Button button1;
@@ -463,6 +475,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.Button buttonDelGenre;
+        private System.Windows.Forms.Label labelGenres;
+        private System.Windows.Forms.Label labelTracks;
     }
 }
 

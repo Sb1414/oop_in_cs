@@ -383,6 +383,44 @@ namespace WindowsFormsApp1
             Console.WriteLine("Жанр не найден.");
         }
 
+        public int GetGenreCount()
+        {
+            if (head == null)
+            {
+                return 0;
+            }
+
+            int count = 0;
+            GenreNode current = head;
+
+            do
+            {
+                count++;
+                current = current.next;
+            } while (current != head);
+
+            return count;
+        }
+
+        public int GetTrackCount()
+        {
+            if (head == null)
+            {
+                return 0;
+            }
+
+            int count = 0;
+            GenreNode current = head;
+
+            do
+            {
+                count += current.genre.GetCurrentTrackCount();
+                current = current.next;
+            } while (current != head);
+
+            return count;
+        }
+
 
     }
 

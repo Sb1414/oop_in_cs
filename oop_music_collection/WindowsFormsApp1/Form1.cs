@@ -152,6 +152,7 @@ namespace WindowsFormsApp1
                     genreList.AddTrack(nameGenre, new Track(nameTrack, sizeTrack));
                     dataGridViewGenre.Rows[rowIndex].Cells[1].Value = genreList.GetTrackCount(nameGenre);
                     dataGridViewGenre.Rows[rowIndex].Cells[2].Value = maxSize;
+                    CountTracksGenres();
                 }
                 else
                 {
@@ -159,7 +160,15 @@ namespace WindowsFormsApp1
                     genreList.AddTrack(nameGenre, new Track(nameTrack, sizeTrack));
 
                     int rowsIndex = dataGridViewGenre.CurrentCell.RowIndex;
-                    dataGridViewGenre.Rows.Insert(rowsIndex + check, nameGenre, genreList.GetTrackCount(nameGenre), maxSize);
+                    if (rowsIndex < dataGridViewGenre.RowCount - 1)
+                    {
+                        dataGridViewGenre.Rows.Insert(rowsIndex + check, nameGenre, genreList.GetTrackCount(nameGenre), maxSize);
+                    }
+                    else
+                    {
+                        dataGridViewGenre.Rows.Insert(rowsIndex, nameGenre, genreList.GetTrackCount(nameGenre), maxSize);
+                    }
+                    CountTracksGenres();
                 }
                 nameGenre = "";
                 maxSize = 0;
@@ -273,6 +282,7 @@ namespace WindowsFormsApp1
                         }
                     }
                 }
+                CountTracksGenres();
             }
         }
 
@@ -288,6 +298,7 @@ namespace WindowsFormsApp1
 
                     genreList.RemoveTrack(trackName);
                     dataGridViewTrack.Rows.Remove(currentRowTrack);
+                    CountTracksGenres();
                 }
                 else
                 {
@@ -314,6 +325,7 @@ namespace WindowsFormsApp1
 
                     dataGridViewGenre.Rows.Remove(currentRowGenre);
                     genreList.RemoveGenreByName(name);
+                    CountTracksGenres();
                 }
                 else
                 {
@@ -348,6 +360,7 @@ namespace WindowsFormsApp1
                 }
                     
             }
+            CountTracksGenres();
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -358,6 +371,14 @@ namespace WindowsFormsApp1
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             radioButton2.Checked = false;
+        }
+
+        private void CountTracksGenres()
+        {
+            int countTracks = genreList.GetTrackCount();
+            int countGenres = genreList.GetGenreCount();
+            labelTracks.Text = "Всего треков: " + countTracks.ToString();
+            labelGenres.Text = "Всего жанров: " + countGenres.ToString();
         }
     }
 }
