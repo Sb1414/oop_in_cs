@@ -120,8 +120,22 @@ namespace WindowsFormsApp1
         {
             if (nameTrack != "" && nameGenre != "" && maxSize != 0 && sizeTrack != 0)
             {
+                int check = 1;
+                if (radioButton1.Checked)
+                {
+                    check = 0;
+                } else if (radioButton2.Checked)
+                {
+                    check = 1;
+                }
                 bool genreExists = false;
                 int rowIndex = -1;
+
+                if (genreList.GetTrackCount(nameGenre) > maxSize)
+                {
+                    MessageBox.Show("Выход за границы максимально возможного количества треков в жанре!");
+                    return;
+                }
 
                 foreach (DataGridViewRow row in dataGridViewGenre.Rows)
                 {
@@ -143,7 +157,9 @@ namespace WindowsFormsApp1
                 {
                     genreList.AddGenre(new Genre(nameGenre, maxSize));
                     genreList.AddTrack(nameGenre, new Track(nameTrack, sizeTrack));
-                    dataGridViewGenre.Rows.Add(nameGenre, genreList.GetTrackCount(nameGenre), maxSize); // Добавляем новую строку
+
+                    int rowsIndex = dataGridViewGenre.CurrentCell.RowIndex;
+                    dataGridViewGenre.Rows.Insert(rowsIndex + check, nameGenre, genreList.GetTrackCount(nameGenre), maxSize);
                 }
                 nameGenre = "";
                 maxSize = 0;
@@ -183,7 +199,7 @@ namespace WindowsFormsApp1
         private void toolStripButtonSave_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt"; // Фильтр для выбора только текстовых файлов
+            saveFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt";
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string filePath = saveFileDialog.FileName;
@@ -214,14 +230,14 @@ namespace WindowsFormsApp1
                         }
                     }
                 }
-                MessageBox.Show("Информация успешно сохранена");
+                MessageBox.Show("Сохранено");
             }
         }
 
         private void toolStripButtonLoad_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt"; // Фильтр для выбора только текстовых файлов
+            openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt";
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -234,30 +250,29 @@ namespace WindowsFormsApp1
                 genreList.RemoveAllGenres();
                 genreList.RemoveAllTracks();
 
-                Dictionary<string, bool> houseEntries = new Dictionary<string, bool>();
+                Dictionary<string, bool> search = new Dictionary<string, bool>();
 
                 using (StreamReader reader = new StreamReader(filePath))
                 {
                     string line;
                     while ((line = reader.ReadLine()) != null)
                     {
-                        string[] columns = line.Split('\t');
-                        string houseKey = columns[0] + columns[1] + columns[2];
+                        string[] words = line.Split('\t');
+                        string check = words[0] + words[1] + words[2];
 
-                        if (!houseEntries.ContainsKey(houseKey))
+                        if (!search.ContainsKey(check))
                         {
-                            genreList.AddGenre(new Genre(columns[0], Convert.ToInt32(columns[2])));
-                            dataGridViewGenre.Rows.Add(columns[0], columns[1], columns[2]);
-                            houseEntries.Add(houseKey, true);
+                            genreList.AddGenre(new Genre(words[0], Convert.ToInt32(words[2])));
+                            dataGridViewGenre.Rows.Add(words[0], words[1], words[2]);
+                            search.Add(check, true);
                         }
 
-                        if (columns[3] != "0" && columns[4] != "0")
+                        if (words[3] != "0" && words[4] != "0")
                         {
-                            genreList.AddTrack(columns[0], new Track(columns[3], Convert.ToInt32(columns[4])));
+                            genreList.AddTrack(words[0], new Track(words[3], Convert.ToInt32(words[4])));
                         }
                     }
                 }
-                MessageBox.Show("Информация успешно загружена\nДля вывода квартир нажмите на ячейку дома");
             }
         }
 
@@ -309,6 +324,40 @@ namespace WindowsFormsApp1
             {
                 MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (textBoxSizeNew.Text != "" && textBoxTrackNew.Text != "") {
+                int rowIndex = dataGridViewTrack.CurrentCell.RowIndex;
+                int rowIndexGenre = dataGridViewGenre.CurrentCell.RowIndex;
+                string nameGenre = dataGridViewGenre.Rows[rowIndexGenre].Cells[0].Value.ToString();
+
+                if (Regex.IsMatch(textBoxTrackNew.Text, @"^[a-zA-Zа-яА-я]+$") && Regex.IsMatch(textBoxSizeNew.Text, @"^[0-9]+$"))
+                {
+                    DataGridViewRow currentRowTr = dataGridViewTrack.CurrentRow;
+                    string name = currentRowTr.Cells[0].Value?.ToString();
+                    genreList.RemoveTrack(name);
+                    dataGridViewTrack.Rows.Remove(currentRowTr);
+                    dataGridViewTrack.Rows.Insert(rowIndex + 0, textBoxTrackNew.Text, textBoxSizeNew.Text);
+                    genreList.AddTrack(nameGenre, new Track(textBoxTrackNew.Text, Convert.ToInt32(textBoxSizeNew.Text)));
+                }
+                else
+                {
+                    MessageBox.Show("Некорректный ввод!");
+                }
+                    
+            }
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            radioButton1.Checked = false;
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            radioButton2.Checked = false;
         }
     }
 }

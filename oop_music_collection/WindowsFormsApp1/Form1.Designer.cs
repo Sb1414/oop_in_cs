@@ -41,11 +41,9 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button4 = new System.Windows.Forms.Button();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBoxSizeNew = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBoxTrackNew = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -93,7 +91,7 @@
             this.dataGridViewTrack.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewTrack.Name = "dataGridViewTrack";
             this.dataGridViewTrack.RowHeadersWidth = 51;
-            this.dataGridViewTrack.Size = new System.Drawing.Size(782, 328);
+            this.dataGridViewTrack.Size = new System.Drawing.Size(778, 328);
             this.dataGridViewTrack.StandardTab = true;
             this.dataGridViewTrack.TabIndex = 12;
             // 
@@ -135,7 +133,7 @@
             this.dataGridViewGenre.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridViewGenre.Name = "dataGridViewGenre";
             this.dataGridViewGenre.RowHeadersWidth = 51;
-            this.dataGridViewGenre.Size = new System.Drawing.Size(782, 278);
+            this.dataGridViewGenre.Size = new System.Drawing.Size(778, 278);
             this.dataGridViewGenre.StandardTab = true;
             this.dataGridViewGenre.TabIndex = 10;
             this.dataGridViewGenre.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewGenre_CellClick);
@@ -164,11 +162,9 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.button4);
-            this.panel3.Controls.Add(this.radioButton4);
-            this.panel3.Controls.Add(this.radioButton3);
-            this.panel3.Controls.Add(this.textBox6);
+            this.panel3.Controls.Add(this.textBoxSizeNew);
             this.panel3.Controls.Add(this.label6);
-            this.panel3.Controls.Add(this.textBox5);
+            this.panel3.Controls.Add(this.textBoxTrackNew);
             this.panel3.Controls.Add(this.label5);
             this.panel3.Controls.Add(this.label4);
             this.panel3.Location = new System.Drawing.Point(779, 310);
@@ -182,74 +178,51 @@
             this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.button4.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.ForeColor = System.Drawing.Color.BlueViolet;
-            this.button4.Location = new System.Drawing.Point(145, 171);
+            this.button4.Location = new System.Drawing.Point(145, 177);
             this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(124, 28);
             this.button4.TabIndex = 14;
             this.button4.Text = "Изменить";
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // radioButton4
+            // textBoxSizeNew
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.radioButton4.Location = new System.Drawing.Point(253, 141);
-            this.radioButton4.Margin = new System.Windows.Forms.Padding(4);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(81, 25);
-            this.radioButton4.TabIndex = 14;
-            this.radioButton4.Text = "После";
-            this.radioButton4.UseVisualStyleBackColor = true;
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.radioButton3.Location = new System.Drawing.Point(85, 141);
-            this.radioButton3.Margin = new System.Windows.Forms.Padding(4);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(54, 25);
-            this.radioButton3.TabIndex = 14;
-            this.radioButton3.Text = "До";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(85, 109);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(255, 22);
-            this.textBox6.TabIndex = 14;
+            this.textBoxSizeNew.Font = new System.Drawing.Font("Mongolian Baiti", 10F);
+            this.textBoxSizeNew.Location = new System.Drawing.Point(85, 122);
+            this.textBoxSizeNew.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxSizeNew.Name = "textBoxSizeNew";
+            this.textBoxSizeNew.Size = new System.Drawing.Size(255, 27);
+            this.textBoxSizeNew.TabIndex = 14;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.label6.Location = new System.Drawing.Point(129, 86);
+            this.label6.Location = new System.Drawing.Point(129, 97);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(125, 21);
             this.label6.TabIndex = 14;
             this.label6.Text = "Новый размер";
             // 
-            // textBox5
+            // textBoxTrackNew
             // 
-            this.textBox5.Location = new System.Drawing.Point(85, 58);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(255, 22);
-            this.textBox5.TabIndex = 14;
+            this.textBoxTrackNew.Font = new System.Drawing.Font("Mongolian Baiti", 10F);
+            this.textBoxTrackNew.Location = new System.Drawing.Point(85, 64);
+            this.textBoxTrackNew.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxTrackNew.Name = "textBoxTrackNew";
+            this.textBoxTrackNew.Size = new System.Drawing.Size(255, 27);
+            this.textBoxTrackNew.TabIndex = 14;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.label5.Location = new System.Drawing.Point(141, 34);
+            this.label5.Location = new System.Drawing.Point(141, 39);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(103, 21);
@@ -285,10 +258,10 @@
             // 
             // textBox1
             // 
-            this.textBox1.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(85, 34);
+            this.textBox1.Font = new System.Drawing.Font("Mongolian Baiti", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBox1.Location = new System.Drawing.Point(85, 58);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(258, 31);
+            this.textBox1.Size = new System.Drawing.Size(258, 27);
             this.textBox1.TabIndex = 18;
             // 
             // buttonDelTrack
@@ -296,7 +269,7 @@
             this.buttonDelTrack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.buttonDelTrack.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDelTrack.ForeColor = System.Drawing.Color.BlueViolet;
-            this.buttonDelTrack.Location = new System.Drawing.Point(89, 162);
+            this.buttonDelTrack.Location = new System.Drawing.Point(89, 186);
             this.buttonDelTrack.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDelTrack.Name = "buttonDelTrack";
             this.buttonDelTrack.Size = new System.Drawing.Size(254, 28);
@@ -308,22 +281,25 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
+            this.radioButton2.Checked = true;
             this.radioButton2.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButton2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.radioButton2.Location = new System.Drawing.Point(257, 96);
+            this.radioButton2.Location = new System.Drawing.Point(259, 110);
             this.radioButton2.Margin = new System.Windows.Forms.Padding(4);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(81, 25);
             this.radioButton2.TabIndex = 12;
+            this.radioButton2.TabStop = true;
             this.radioButton2.Text = "После";
             this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.button1.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.BlueViolet;
-            this.button1.Location = new System.Drawing.Point(147, 128);
+            this.button1.Location = new System.Drawing.Point(147, 152);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(124, 28);
@@ -337,19 +313,20 @@
             this.radioButton1.AutoSize = true;
             this.radioButton1.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.radioButton1.Location = new System.Drawing.Point(89, 98);
+            this.radioButton1.Location = new System.Drawing.Point(89, 110);
             this.radioButton1.Margin = new System.Windows.Forms.Padding(4);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(54, 25);
             this.radioButton1.TabIndex = 9;
             this.radioButton1.Text = "До";
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.label2.Location = new System.Drawing.Point(4, 10);
+            this.label2.Location = new System.Drawing.Point(4, 34);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(399, 21);
@@ -362,7 +339,7 @@
             this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.button3.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.Color.BlueViolet;
-            this.button3.Location = new System.Drawing.Point(87, 234);
+            this.button3.Location = new System.Drawing.Point(87, 258);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(256, 28);
@@ -417,7 +394,7 @@
             this.buttonDelGenre.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.buttonDelGenre.Font = new System.Drawing.Font("Mongolian Baiti", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonDelGenre.ForeColor = System.Drawing.Color.BlueViolet;
-            this.buttonDelGenre.Location = new System.Drawing.Point(89, 198);
+            this.buttonDelGenre.Location = new System.Drawing.Point(89, 222);
             this.buttonDelGenre.Margin = new System.Windows.Forms.Padding(4);
             this.buttonDelGenre.Name = "buttonDelGenre";
             this.buttonDelGenre.Size = new System.Drawing.Size(254, 28);
@@ -465,9 +442,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonLoad;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBoxTrackNew;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button3;
@@ -477,7 +452,7 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.DataGridView dataGridViewGenre;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBoxSizeNew;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DataGridView dataGridViewTrack;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnTrack;
