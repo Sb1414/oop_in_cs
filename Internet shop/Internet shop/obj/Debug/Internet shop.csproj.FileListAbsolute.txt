@@ -1,0 +1,13 @@
+C:\Users\Сабина\source\repos\Internet shop\Internet shop\bin\Debug\Internet shop.exe.config
+C:\Users\Сабина\source\repos\Internet shop\Internet shop\bin\Debug\Internet shop.exe
+C:\Users\Сабина\source\repos\Internet shop\Internet shop\bin\Debug\Internet shop.pdb
+C:\Users\Сабина\source\repos\Internet shop\Internet shop\obj\Debug\Internet shop.csproj.AssemblyReference.cache
+C:\Users\Сабина\source\repos\Internet shop\Internet shop\obj\Debug\Internet shop.csproj.SuggestedBindingRedirects.cache
+C:\Users\Сабина\source\repos\Internet shop\Internet shop\obj\Debug\Internet_shop.Form1.resources
+C:\Users\Сабина\source\repos\Internet shop\Internet shop\obj\Debug\Internet_shop.Properties.Resources.resources
+C:\Users\Сабина\source\repos\Internet shop\Internet shop\obj\Debug\Internet shop.csproj.GenerateResource.cache
+C:\Users\Сабина\source\repos\Internet shop\Internet shop\obj\Debug\Internet shop.csproj.CoreCompileInputs.cache
+C:\Users\Сабина\source\repos\Internet shop\Internet shop\obj\Debug\Internet shop.exe
+C:\Users\Сабина\source\repos\Internet shop\Internet shop\obj\Debug\Internet shop.pdb
+C:\Users\Сабина\source\repos\Internet shop\Internet shop\obj\Debug\Internet_shop.Add.resources
+C:\Users\Сабина\source\repos\Internet shop\Internet shop\obj\Debug\Internet_shop.AddProd.resources
