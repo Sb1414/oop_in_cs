@@ -16,6 +16,9 @@ namespace ManagementCompany
         {
             InitializeComponent();
             text();
+
+            okButton.DialogResult = DialogResult.OK;
+            this.AcceptButton = okButton;
         }
 
         private void text()
