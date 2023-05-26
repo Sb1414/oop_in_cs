@@ -29,20 +29,7 @@ namespace Internet_shop
 
         public string Date
         {
-            get { return textBoxDate.Text; }
-        }
-                
-        private void textBoxDate_TextChanged(object sender, EventArgs e)
-        {
-            string input = textBoxDate.Text;
-            string pattern = @"^\d{2}\.\d{2}\.\d{2}$"; // Регулярное выражение для формата даты "дд.мм.гг"
-
-            if (!Regex.IsMatch(input, pattern))
-            {
-                // Если введенный текст не соответствует формату даты, очищаем поле
-                textBoxDate.Text = string.Empty;
-                MessageBox.Show("Вводите дату в формате: дд.мм.гг");
-            }
+            get { return dateTimePickerDate.Text; }
         }
 
         private void textBoxNameHum_TextChanged(object sender, EventArgs e)
@@ -59,19 +46,6 @@ namespace Internet_shop
             {
                 textBoxNameHum.Text = string.Empty;
                 MessageBox.Show("Введите имя, используя только буквы!");
-            }
-        }
-
-        private void textBoxDate_Validating(object sender, CancelEventArgs e)
-        {
-            string input = textBoxDate.Text;
-            string pattern = @"^\d{2}\.\d{2}\.\d{2}$"; // Регулярное выражение для формата даты "дд.мм.гг"
-
-            if (!Regex.IsMatch(input, pattern))
-            {
-                e.Cancel = true; // Отменить событие, чтобы оставить фокус в поле ввода
-                textBoxDate.SelectAll(); // Выделить весь текст в поле для удобного исправления
-                MessageBox.Show("Вводите дату в формате: дд.мм.гг");
             }
         }
 

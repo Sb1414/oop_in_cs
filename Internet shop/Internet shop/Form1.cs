@@ -27,29 +27,30 @@ namespace Internet_shop
             Add addForm = new Add();
             if (addForm.ShowDialog() == DialogResult.OK)
             {
-                
-                if (shop.IsPersonExists(addForm.Name))
+                string name = addForm.Name;
+                string date = addForm.Date;
+
+                if (shop.IsPersonExists(name))
                 {
-                    int num = shop.GetOrderNumberByName(addForm.Name);
+                    int orderNumber = shop.GetOrderNumberByName(name);
+
                     foreach (DataGridViewRow row in dataGridViewOrder.Rows)
                     {
-                        if (row.Cells[0].Value != null && row.Cells[0].Value.ToString() == addForm.Name)
+                        if (row.Cells[0].Value != null && row.Cells[0].Value.ToString() == name)
                         {
-                            row.Cells[1].Value = addForm.Date;
-                            row.Cells[2].Value = shop.GetTotalOrderAmount(addForm.Name);
+                            row.Cells[1].Value = date;
+                            row.Cells[2].Value = shop.GetTotalOrderAmount(name);
                         }
                     }
                 }
-                else 
+                else
                 {
-                    shop.AddOrder(addForm.Name, addForm.Date);
-                    int num = shop.GetOrderNumberByName(addForm.Name);
-                    dataGridViewOrder.Rows.Add(addForm.Name, addForm.Date, shop.GetTotalOrderAmount(addForm.Name));
-
+                    shop.AddOrder(name, date);
+                    dataGridViewOrder.Rows.Add(name, date, shop.GetTotalOrderAmount(name));
                 }
-
             }
         }
+
 
         private void AddOrder_Click(object sender, EventArgs e)
         {
@@ -80,39 +81,51 @@ namespace Internet_shop
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow selectedRow = dataGridViewOrder.Rows[e.RowIndex];
+                string name = selectedRow.Cells[0].Value?.ToString();
 
-                string name_ = selectedRow.Cells[0].Value?.ToString();
-                if (selectedRow.Cells[0].Value == null)
+                if (string.IsNullOrEmpty(name))
                 {
-                    dataGridViewProduct.Rows.Clear();
+                    dataGridViewProduct.Rows.Clear();;
                     return;
                 }
-                Order order = shop.FindOrder(name_);
+
+                Order order = shop.FindOrder(name);
                 if (order != null)
                 {
-                    Product[] prods = shop.GetProductsByCustomerName(name_);
-                    for (int i = 0; i < prods.Count(); i++)
-                    {
-                        if (i == 0 && dataGridViewProduct.Rows[0].Cells[0].Value != null)
-                        {
-                            dataGridViewProduct.Rows.Clear();
-                        }
-                        string namePers = dataGridViewOrder.CurrentRow.Cells[0].Value?.ToString();
-                        string date = dataGridViewOrder.CurrentRow.Cells[1].Value?.ToString();
-                        dataGridViewProduct.Rows.Add(shop.GetOrderNumberByName(namePers), prods[i].GetName(), prods[i].GetPrice());
-                    }
-                    if (prods.Count() == 0)
-                    {
-                        dataGridViewProduct.Rows.Clear();
-                    }
+                    Product[] products = shop.GetProductsByCustomerName(name);
+                    UpdateProductRows(name, products);
                 }
                 else
                 {
-                    dataGridViewProduct.Rows.Clear();
-
+                    dataGridViewProduct.Rows.Clear();;
                 }
             }
         }
+
+        private void UpdateProductRows(string customerName, Product[] products)
+        {
+            if (products.Length == 0)
+            {
+                dataGridViewProduct.Rows.Clear();;
+            }
+            else
+            {
+                if (dataGridViewProduct.Rows[0].Cells[0].Value != null)
+                {
+                    dataGridViewProduct.Rows.Clear();;
+                }
+
+                foreach (Product product in products)
+                {
+                    string productName = product.GetName();
+                    decimal price = product.GetPrice();
+                    int orderNumber = shop.GetOrderNumberByName(customerName);
+
+                    dataGridViewProduct.Rows.Add(orderNumber, productName, price);
+                }
+            }
+        }
+
 
         private void LoadFromFileInfo_Click(object sender, EventArgs e)
         {
@@ -123,38 +136,42 @@ namespace Internet_shop
             {
                 string filePath = openFileDialog.FileName;
 
-                dataGridViewOrder.Rows.Clear();
-                dataGridViewProduct.Rows.Clear();
+                ClearData();
 
-                shop.RemoveAllOrders();
-                shop.RemoveAllProducts();
-
-                Dictionary<string, bool> Entries = new Dictionary<string, bool>();
-
-                using (StreamReader reader = new StreamReader(filePath))
+                string[] lines = File.ReadAllLines(filePath);
+                foreach (string line in lines)
                 {
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
+                    string[] columns = line.Split('\t');
+                    string name = columns[0];
+                    string date = columns[1];
+                    string totalOrderAmount = columns[2];
+
+                    if (!shop.IsPersonExists(name))
                     {
-                        string[] columns = line.Split('\t');
-                        string Key = columns[0] + columns[1] + columns[2];
+                        shop.AddOrder(name, date);
+                        dataGridViewOrder.Rows.Add(name, date, totalOrderAmount);
+                    }
 
-                        if (!Entries.ContainsKey(Key))
-                        {
-                            shop.AddOrder(columns[0], columns[1]);
-                            dataGridViewOrder.Rows.Add(columns[0], columns[1], columns[2]);
-                            Entries.Add(Key, true);
-                        }
-
-                        if (columns[3] != "-" && columns[4] != "-" && columns[5] != "-")
-                        {
-                            shop.AddProductToOrder(columns[0], columns[4], Convert.ToInt32(columns[5]));
-                        }
+                    if (columns[3] != "-" && columns[4] != "-" && columns[5] != "-")
+                    {
+                        string productName = columns[4];
+                        int price = Convert.ToInt32(columns[5]);
+                        shop.AddProductToOrder(name, productName, price);
                     }
                 }
+
                 MessageBox.Show("Информация успешно загружена");
             }
         }
+
+        private void ClearData()
+        {
+            dataGridViewOrder.Rows.Clear();
+            dataGridViewProduct.Rows.Clear();
+            shop.RemoveAllOrders();
+            shop.RemoveAllProducts();
+        }
+
 
         private void SaveToFile_Click(object sender, EventArgs e)
         {

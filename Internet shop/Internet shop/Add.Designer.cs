@@ -30,9 +30,9 @@
         {
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxDate = new System.Windows.Forms.TextBox();
             this.textBoxNameHum = new System.Windows.Forms.TextBox();
             this.ok = new System.Windows.Forms.Button();
+            this.dateTimePickerDate = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // label2
@@ -57,16 +57,6 @@
             this.label1.Text = "Имя заказчика";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // textBoxDate
-            // 
-            this.textBoxDate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBoxDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxDate.Location = new System.Drawing.Point(273, 111);
-            this.textBoxDate.Name = "textBoxDate";
-            this.textBoxDate.Size = new System.Drawing.Size(217, 24);
-            this.textBoxDate.TabIndex = 9;
-            this.textBoxDate.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxDate_Validating);
-            // 
             // textBoxNameHum
             // 
             this.textBoxNameHum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -87,14 +77,25 @@
             this.ok.Text = "Добавить";
             this.ok.UseVisualStyleBackColor = true;
             // 
+            // dateTimePickerDate
+            // 
+            this.dateTimePickerDate.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.dateTimePickerDate.Location = new System.Drawing.Point(273, 115);
+            this.dateTimePickerDate.MaxDate = new System.DateTime(2023, 5, 27, 0, 0, 0, 0);
+            this.dateTimePickerDate.MinDate = new System.DateTime(2010, 12, 31, 0, 0, 0, 0);
+            this.dateTimePickerDate.Name = "dateTimePickerDate";
+            this.dateTimePickerDate.Size = new System.Drawing.Size(217, 22);
+            this.dateTimePickerDate.TabIndex = 19;
+            this.dateTimePickerDate.Value = new System.DateTime(2023, 5, 1, 0, 0, 0, 0);
+            // 
             // Add
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(570, 298);
+            this.Controls.Add(this.dateTimePickerDate);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBoxDate);
             this.Controls.Add(this.textBoxNameHum);
             this.Controls.Add(this.ok);
             this.Text = "Add";
@@ -106,8 +107,8 @@
         #endregion
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxDate;
         private System.Windows.Forms.TextBox textBoxNameHum;
         private System.Windows.Forms.Button ok;
+        private System.Windows.Forms.DateTimePicker dateTimePickerDate;
     }
 }
