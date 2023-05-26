@@ -364,26 +364,23 @@ namespace ManagementCompany
         {
             try
             {
-                if (dataGridViewHouse.CurrentRow != null)
+                if (dataGridViewHouse.Rows.Count > 0)
                 {
-                    // Получаем текущую строку в dataGridViewHouse
-                    DataGridViewRow currentRowHouse = dataGridViewHouse.CurrentRow;
+                    if (!string.IsNullOrEmpty(dataGridViewHouse.Rows[0].Cells[0].Value as string))
+                    {
+                        string street = dataGridViewHouse.CurrentRow.Cells[0].Value?.ToString();
+                        string number = dataGridViewHouse.CurrentRow.Cells[1].Value?.ToString();
+                        HouseList.RemoveHouse(street, Convert.ToInt32(number));
+                        dataGridViewHouse.Rows.RemoveAt(0);
 
-                    // Получаем значение второй ячейки текущей строки
-                    string street = currentRowHouse.Cells[0].Value?.ToString();
-                    string number = currentRowHouse.Cells[1].Value?.ToString();
-
-                    for (int j = 0; j < dataGridViewApart.RowCount; j++)
-                        dataGridViewApart.Rows[j].SetValues(Enumerable.Repeat<object>(null, dataGridViewApart.Columns.Count).ToArray());
-                    dataGridViewApart.RowCount = 1;
-
-                    // Удаляем текущую строку из dataGridViewHouse
-                    dataGridViewHouse.Rows.Remove(currentRowHouse);
-                    HouseList.RemoveHouse(street, Convert.ToInt32(number));
+                        for (int j = 0; j < dataGridViewApart.RowCount; j++)
+                            dataGridViewApart.Rows[j].SetValues(Enumerable.Repeat<object>(null, dataGridViewApart.Columns.Count).ToArray());
+                        dataGridViewApart.RowCount = 1;
+                    }
                 }
                 else
                 {
-                    throw new Exception("Не указана строка для удаления!");
+                    throw new Exception("Нечего удалять!");
                 }
             }
             catch (Exception ex)
