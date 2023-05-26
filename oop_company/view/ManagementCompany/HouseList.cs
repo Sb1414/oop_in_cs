@@ -195,6 +195,34 @@ namespace ManagementCompany
             return null;
         }
 
+        public int GetTotalPaymentByHouse(string street, int numberHouse)
+        {
+            HouseNode houseNode = FindHouseNode(street, numberHouse);
+            if (houseNode != null)
+            {
+                int totalPayment = Convert.ToInt32(houseNode.Apartments.GetTotalPayments());
+                return totalPayment;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+
+        public IEnumerable<House> GetAllHousesByStreet(string street)
+        {
+            HouseNode current = head;
+            while (current != null)
+            {
+                if (current.House.GetStreet() == street)
+                {
+                    yield return current.House;
+                }
+                current = current.NextHouse;
+            }
+        }
+
         public List<Apartment> GetAllApartments(string street, int numberHouse)
         {
             HouseNode houseNode = FindHouseNode(street, numberHouse);
@@ -205,9 +233,11 @@ namespace ManagementCompany
             }
             else
             {
-                throw new ArgumentException("Дом не найден");
+                // Возвращаем пустой список, если дом не найден
+                return new List<Apartment>();
             }
         }
+
 
         public IEnumerator<House> GetEnumerator()
         {

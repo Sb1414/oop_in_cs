@@ -188,6 +188,7 @@
             this.Controls.Add(this.okButton);
             this.DoubleBuffered = true;
             this.Name = "AddForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddForm";
             this.ResumeLayout(false);
             this.PerformLayout();

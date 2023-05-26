@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using static ManagementCompany.HouseList;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 
 namespace ManagementCompany
 {
@@ -54,7 +55,8 @@ namespace ManagementCompany
                                 writer.Write($"{street}\t{numberHouse}\t{sizeApart}\t"); // Запись информации о доме в файл
                                 writer.WriteLine($"{apartmentNumber}\t{payment}"); // Запись информации о квартире в файл
                             }
-                        } else
+                        }
+                        else
                         {
                             writer.Write($"{street}\t{numberHouse}\t{sizeApart}\t"); // Запись информации о доме в файл
                             writer.WriteLine($"0\t0");
@@ -79,7 +81,7 @@ namespace ManagementCompany
                 // Очищаем перед загрузкой новых данных
                 ClearRows();
 
-                Dictionary<string, bool> houseEntries = new Dictionary<string, bool>();
+                Dictionary<string, bool> streetEntries = new Dictionary<string, bool>();
 
                 using (StreamReader reader = new StreamReader(filePath))
                 {
@@ -87,39 +89,34 @@ namespace ManagementCompany
                     while ((line = reader.ReadLine()) != null)
                     {
                         string[] columns = line.Split('\t');
-                        string houseKey = columns[0] + columns[1] + columns[2];
+                        string street = columns[0];
+                        int houseNumber = Convert.ToInt32(columns[1]);
 
-                        // Проверяем, была ли уже добавлена запись с таким ключом в dataGridViewHouse
-                        if (!houseEntries.ContainsKey(houseKey))
+                        string streetKey = street;
+
+                        // Проверяем, была ли уже добавлена запись с таким ключом в dataGridViewStreet
+                        if (!streetEntries.ContainsKey(streetKey))
                         {
-                            HouseList.AddHouse(new House(columns[0], Convert.ToInt32(columns[1]), Convert.ToInt32(columns[2])));
-
-                            // Записываем данные в dataGridViewHouse
-                            dataGridViewHouse.Rows.Add(columns[0], columns[1], columns[2], 
-                                HouseList.GetApartmentCountInHouse(columns[0], Convert.ToInt32(columns[1])));
-                            houseEntries.Add(houseKey, true);
+                            // Добавляем улицу в dataGridViewStreet
+                            dataGridViewStreet.Rows.Add(street);
+                            streetEntries.Add(streetKey, true);
                         }
 
-                        // Записываем данные в dataGridViewApart
-                        if (columns[3] != "0" && columns[4] != "0")
+                        // Проверяем, был ли уже добавлен дом на этой улице
+                        if (!HouseList.HouseExists(street, houseNumber))
                         {
-                            HouseList.AddApartmentToHouse(columns[0], Convert.ToInt32(columns[1]), 
-                                new Apartment(Convert.ToInt32(columns[3]), Convert.ToInt32(columns[4])));
-                            // dataGridViewApart.Rows.Add(columns[3], columns[4]);
+                            HouseList.AddHouse(new House(street, houseNumber, Convert.ToInt32(columns[2])));
                         }
+
+                        // Добавляем квартиру в дом
+                        HouseList.AddApartmentToHouse(street, houseNumber, new Apartment(Convert.ToInt32(columns[3]), Convert.ToInt32(columns[4])));
                     }
                 }
-                for (int rowIndex = 0; rowIndex < dataGridViewHouse.Rows.Count - 1; rowIndex++)
-                {
-                    Console.WriteLine(" = " + dataGridViewHouse.Rows[rowIndex]);
-                    string street = dataGridViewHouse.Rows[rowIndex].Cells[0].Value.ToString();
-                    int houseNumber = Convert.ToInt32(dataGridViewHouse.Rows[rowIndex].Cells[1].Value);
-                    dataGridViewHouse.Rows[rowIndex].Cells[3].Value = HouseList.GetApartmentCountInHouse(street, houseNumber);
-                }
 
-                MessageBox.Show("Информация успешно загружена\nДля вывода квартир нажмите на ячейку дома");
+                MessageBox.Show("Информация успешно загружена\nДля вывода домов и квартир нажмите на название улицы");
             }
         }
+
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
@@ -128,14 +125,15 @@ namespace ManagementCompany
 
         private void ClearRows()
         {
-            for (int i = 0; i < dataGridViewHouse.RowCount; i++)
+            for (int i = 0; i < dataGridViewStreet.RowCount; i++)
             {
                 for (int j = 0; j < dataGridViewApart.RowCount; j++)
                     dataGridViewApart.Rows[j].SetValues(Enumerable.Repeat<object>(null, dataGridViewApart.Columns.Count).ToArray());
-                dataGridViewHouse.Rows[i].SetValues(Enumerable.Repeat<object>(null, dataGridViewHouse.Columns.Count).ToArray());
+                dataGridViewStreet.Rows[i].SetValues(Enumerable.Repeat<object>(null, dataGridViewStreet.Columns.Count).ToArray());
             }
+            dataGridViewHouse.Rows.Clear();
             dataGridViewApart.RowCount = 1;
-            dataGridViewHouse.RowCount = 1;
+            dataGridViewStreet.RowCount = 1;
             HouseList.RemoveAllApartments();
             HouseList.RemoveAllHouses();
         }
@@ -151,11 +149,17 @@ namespace ManagementCompany
                     if (!HouseList.HouseExists(addForm.Street, addForm.House))
                     {
                         HouseList.AddHouse(new House(addForm.Street, addForm.House, addForm.Count));
-                        dataGridViewHouse.Rows.Add(addForm.Street, addForm.House, addForm.Count, HouseList.GetApartmentCountInHouse(addForm.Street, addForm.House));
-                        // dataGridViewApart.Rows.Add(addForm.House, addForm.Apart, addForm.Payment);
-                    } else
+                        if (!StreetExists(addForm.Street))
+                        {
+                            dataGridViewStreet.Rows.Add(addForm.Street);
+                        }
+                        dataGridViewHouse.Rows.Add(addForm.House, addForm.Count, 
+                            HouseList.GetApartmentCountInHouse(addForm.Street, addForm.House), 
+                            HouseList.GetTotalPaymentByHouse(addForm.Street, addForm.House));
+                    }
+                    else
                     {
-                        MessageBox.Show("такой дом/улица уже существует");
+                        MessageBox.Show("такой дом на этой улице уже существует");
                     }
                 }
                 else
@@ -165,64 +169,75 @@ namespace ManagementCompany
             }
         }
 
+        private bool StreetExists(string street)
+        {
+            foreach (DataGridViewRow row in dataGridViewStreet.Rows)
+            {
+                if (row.Cells[0].Value != null && row.Cells[0].Value.ToString() == street)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
-                if (dataGridViewHouse.Rows.Count > 0)
+                if (dataGridViewStreet.Rows.Count <= 0)
                 {
-                    if (dataGridViewHouse.CurrentRow == null)
-                    {
-                        throw new Exception("Вначале выберите дом");
-                    }
+                    throw new Exception("Не указана строка с домом!");
+                }
+                if (dataGridViewStreet.CurrentRow == null)
+                {
+                    throw new Exception("Вначале выберите дом");
+                }
 
-                    if (!string.IsNullOrEmpty(dataGridViewHouse.CurrentRow.Cells[0].Value as string))
-                    {
-                        string street = dataGridViewHouse.CurrentRow.Cells[0].Value?.ToString();
-                        string number = dataGridViewHouse.CurrentRow.Cells[1].Value?.ToString();
-                        string count = dataGridViewHouse.CurrentRow.Cells[2].Value?.ToString();
-                        isHouse = false;
+                if (!string.IsNullOrEmpty(dataGridViewStreet.CurrentRow.Cells[0].Value as string))
+                {
+                    string street = dataGridViewStreet.CurrentRow.Cells[0].Value?.ToString();
+                    string number = dataGridViewHouse.CurrentRow.Cells[0].Value?.ToString();
+                    string count = dataGridViewHouse.CurrentRow.Cells[1].Value?.ToString();
+                    isHouse = false;
 
-                        AddForm addForm = new AddForm(isHouse, street, number, count);
-                        if (addForm.ShowDialog() == DialogResult.OK)
+                    AddForm addForm = new AddForm(isHouse, street, number, count);
+                    if (addForm.ShowDialog() == DialogResult.OK)
+                    {
+                        if (addForm.Apart > Convert.ToInt32(count))
                         {
-                            if (addForm.Apart > Convert.ToInt32(count))
-                            {
-                                throw new Exception("Номер квартиры не может превышать максимальное количество квартир в доме!");
-                            }
-
-                            if (addForm.Apart != 0 && addForm.Payment != 0)
-                            {
-                                HouseList.AddApartmentToHouse(addForm.Street, addForm.House, new Apartment(addForm.Apart, addForm.Payment));
-
-                                int insertIndex = 0;
-                                while (insertIndex < dataGridViewApart.Rows.Count && Convert.ToInt32(dataGridViewApart.Rows[insertIndex].Cells[0].Value) < addForm.Apart)
-                                {
-                                    insertIndex++;
-                                }
-
-                                if (insertIndex >= dataGridViewApart.Rows.Count)
-                                {
-                                    dataGridViewApart.Rows.Add(addForm.Apart, addForm.Payment);
-                                }
-                                else
-                                {
-                                    dataGridViewApart.Rows.Insert(insertIndex, addForm.Apart, addForm.Payment);
-                                }
-                            }
-
-                            dataGridViewHouse.CurrentRow.Cells[3].Value = HouseList.GetApartmentCountInHouse(addForm.Street, addForm.House);
+                            throw new Exception("Номер квартиры не может превышать максимальное количество квартир в доме!");
                         }
-                    }
-                    else
-                    {
-                        throw new Exception("Вначале выберите дом");
+
+                        if (addForm.Apart != 0 && addForm.Payment != 0)
+                        {
+                            HouseList.AddApartmentToHouse(addForm.Street, addForm.House, new Apartment(addForm.Apart, addForm.Payment));
+
+                            int insertIndex = 0;
+                            while (insertIndex < dataGridViewApart.Rows.Count && Convert.ToInt32(dataGridViewApart.Rows[insertIndex].Cells[0].Value) < addForm.Apart)
+                            {
+                                insertIndex++;
+                            }
+
+                            if (insertIndex >= dataGridViewApart.Rows.Count)
+                            {
+                                dataGridViewApart.Rows.Add(addForm.Apart, addForm.Payment);
+                            }
+                            else
+                            {
+                                dataGridViewApart.Rows.Insert(insertIndex, addForm.Apart, addForm.Payment);
+                            }
+                        }
+
+                        dataGridViewHouse.CurrentRow.Cells[2].Value = HouseList.GetApartmentCountInHouse(addForm.Street, addForm.House);
+                        dataGridViewHouse.CurrentRow.Cells[3].Value = HouseList.GetTotalPaymentByHouse(addForm.Street, addForm.House);
                     }
                 }
                 else
                 {
-                    throw new Exception("Не указана строка с домом!");
+                    throw new Exception("Вначале выберите дом");
                 }
+                
             }
             catch (Exception ex)
             {
@@ -236,24 +251,35 @@ namespace ManagementCompany
         {
             try
             {
-                if (dataGridViewHouse.Rows.Count > 0)
-                {
-                    if (!string.IsNullOrEmpty(dataGridViewHouse.Rows[0].Cells[0].Value as string))
-                    {
-                        string street = dataGridViewHouse.CurrentRow.Cells[0].Value?.ToString();
-                        string number = dataGridViewHouse.CurrentRow.Cells[1].Value?.ToString();
-                        HouseList.RemoveHouse(street, Convert.ToInt32(number));
-                        dataGridViewHouse.Rows.RemoveAt(0);
-
-                        for (int j = 0; j < dataGridViewApart.RowCount; j++)
-                            dataGridViewApart.Rows[j].SetValues(Enumerable.Repeat<object>(null, dataGridViewApart.Columns.Count).ToArray());
-                        dataGridViewApart.RowCount = 1;
-                    }
-                }
-                else
+                if (dataGridViewHouse.Rows.Count <= 0)
                 {
                     throw new Exception("Нечего удалять!");
                 }
+
+                if (dataGridViewHouse.Rows[0].Cells[0].Value == null)
+                {
+                    throw new Exception("Пустое значение!");
+                }
+
+                if (dataGridViewStreet.CurrentRow.Index != 0)
+                {
+                    throw new Exception("Для удаления нажмите на дом той улицы, которая находится вначале очереди!");
+                }
+
+                if (dataGridViewHouse.Rows.Count == 2)
+                {
+                    dataGridViewStreet.Rows.RemoveAt(0);
+                }
+
+                string street = dataGridViewStreet.CurrentRow.Cells[0].Value?.ToString();
+                string number = dataGridViewHouse.Rows[0].Cells[0].Value?.ToString();
+                HouseList.RemoveHouse(street, Convert.ToInt32(number));
+                dataGridViewHouse.Rows.RemoveAt(0);
+
+                for (int j = 0; j < dataGridViewApart.RowCount; j++)
+                    dataGridViewApart.Rows[j].SetValues(Enumerable.Repeat<object>(null, dataGridViewApart.Columns.Count).ToArray());
+                dataGridViewApart.RowCount = 1;
+                
             }
             catch (Exception ex)
             {
@@ -270,19 +296,21 @@ namespace ManagementCompany
                     // Получаем текущую строку в dataGridViewHouse
                     DataGridViewRow currentRowHouse = dataGridViewApart.CurrentRow;
 
-                    // Получаем значение второй ячейки текущей строки
-                    string value = currentRowHouse.Cells[0].Value?.ToString();
+                    // Получаем значение первой ячейки текущей строки
+                    string num = currentRowHouse.Cells[0].Value?.ToString();
 
-                    HouseList.RemoveApartmentByNumber(Convert.ToInt32(value));
+                    HouseList.RemoveApartmentByNumber(Convert.ToInt32(num));
                     // Удаляем текущую строку из dataGridViewHouse
                     dataGridViewApart.Rows.Remove(currentRowHouse);
-                    dataGridViewHouse.CurrentRow.Cells[3].Value = 
-                        HouseList.GetApartmentCountInHouse(dataGridViewHouse.CurrentRow.Cells[0].Value.ToString(), 
-                        Convert.ToInt32(dataGridViewHouse.CurrentRow.Cells[1].Value));
+                    dataGridViewHouse.CurrentRow.Cells[2].Value =
+                        HouseList.GetApartmentCountInHouse(dataGridViewStreet.CurrentRow.Cells[0].Value.ToString(),
+                        Convert.ToInt32(dataGridViewHouse.CurrentRow.Cells[0].Value));
+                    dataGridViewHouse.CurrentRow.Cells[3].Value = HouseList.GetTotalPaymentByHouse(dataGridViewStreet.CurrentRow.Cells[0].Value.ToString(),
+                        Convert.ToInt32(dataGridViewHouse.CurrentRow.Cells[0].Value));
                 }
                 else
                 {
-                    throw new Exception("Не указана строка для удаления!");
+                     throw new Exception("Не указана строка для удаления!");
                 }
             }
             catch (Exception ex)
@@ -292,46 +320,94 @@ namespace ManagementCompany
 
         }
 
-        private void dataGridViewHouse_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewStreet_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0) // Проверяем, что была нажата строка (а не заголовок столбца)
             {
-                DataGridViewRow selectedRow = dataGridViewHouse.Rows[e.RowIndex];
+                DataGridViewRow selectedRow = dataGridViewStreet.Rows[e.RowIndex];
 
                 // Получение значений ячеек из выбранной строки
                 string street = selectedRow.Cells[0].Value?.ToString();
-                int numberHouse = Convert.ToInt32(selectedRow.Cells[1].Value);
+                dataGridViewHouse.Rows.Clear();
 
-                // Находим соответствующий дом, зная street и numberHouse
-                House house = HouseList.FindHouse(street, numberHouse);
-                if (house != null)
+                foreach (House house in HouseList.GetAllHousesByStreet(street))
                 {
-                    // Обновляем dataGridViewApart с информацией о квартирах в выбранном доме
-                    List<Apartment> apps = HouseList.GetAllApartments(street, numberHouse);
-                    for (int i = 0; i < apps.Count; i++)
+                    if (house != null)
                     {
-                        if (i == 0 && dataGridViewApart.Rows[0].Cells[0].Value != null)
+                        dataGridViewHouse.Rows.Add(house.GetNumberHouse(), house.SizeApart, HouseList.GetApartmentCountInHouse(street, house.GetNumberHouse()),
+                            HouseList.GetTotalPaymentByHouse(street, house.GetNumberHouse()));
+                        // Обновляем dataGridViewApart с информацией о квартирах в выбранном доме
+                        List<Apartment> apps = HouseList.GetAllApartments(street, Convert.ToInt32(dataGridViewHouse.CurrentRow.Cells[0].Value));
+                        for (int i = 0; i < apps.Count; i++)
                         {
-                            dataGridViewApart.Rows[0].SetValues(Enumerable.Repeat<object>(null, dataGridViewApart.Columns.Count).ToArray());
+                            if (i == 0 && dataGridViewApart.Rows[0].Cells[0].Value != null)
+                            {
+                                dataGridViewApart.Rows[0].SetValues(Enumerable.Repeat<object>(null, dataGridViewApart.Columns.Count).ToArray());
+                                dataGridViewApart.Rows.Clear();
+                            }
+                            dataGridViewApart.Rows.Add(apps[i].GetNumber(), apps[i].GetPayment());
+                        }
+                        if (apps.Count == 0)
+                        {
                             dataGridViewApart.Rows.Clear();
                         }
-                        dataGridViewApart.Rows.Add(apps[i].GetNumber(), apps[i].GetPayment());
                     }
-                    if (apps.Count == 0)
+                    else
                     {
+                        // Дом не найден
+                        dataGridViewApart.Rows[0].SetValues(Enumerable.Repeat<object>(null, dataGridViewApart.Columns.Count).ToArray());
                         dataGridViewApart.Rows.Clear();
-                    }
-                }
-                else
-                {
-                    // Дом не найден
-                    dataGridViewApart.Rows[0].SetValues(Enumerable.Repeat<object>(null, dataGridViewApart.Columns.Count).ToArray());
-                    dataGridViewApart.Rows.Clear();
 
+                    }
                 }
             }
         }
 
-        
+        private void dataGridViewHouse_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) // Проверяем, что была нажата строка (а не заголовок столбца)
+            {
+                DataGridViewRow selectedRowHouse = dataGridViewHouse.Rows[e.RowIndex];
+                DataGridViewRow selectedRowStreet = dataGridViewStreet.CurrentRow;
+
+                // Получение значений ячеек из выбранной строки
+                string street = selectedRowStreet.Cells[0].Value?.ToString();
+                string numberHouseValue = selectedRowHouse.Cells[0].Value?.ToString();
+
+                if (string.IsNullOrEmpty(numberHouseValue))
+                {
+                    dataGridViewApart.Rows.Clear();
+                    return;
+                }
+
+                int numberHouse = Convert.ToInt32(numberHouseValue);
+
+                List<Apartment> apps = HouseList.GetAllApartments(street, numberHouse);
+                for (int i = 0; i < apps.Count; i++)
+                {
+                    if (i == 0 && dataGridViewApart.Rows[0].Cells[0].Value != null)
+                    {
+                        dataGridViewApart.Rows[0].SetValues(Enumerable.Repeat<object>(null, dataGridViewApart.Columns.Count).ToArray());
+                        dataGridViewApart.Rows.Clear();
+                    }
+                    dataGridViewApart.Rows.Add(apps[i].GetNumber(), apps[i].GetPayment());
+                }
+                if (apps.Count == 0)
+                {
+                    dataGridViewApart.Rows.Clear();
+                }
+                
+            }
+        }
+
+        private void buttonInfo_Click(object sender, EventArgs e)
+        {
+            Info infoForm = new Info();
+            if (infoForm.ShowDialog() == DialogResult.OK)
+            {
+                infoForm.Close();
+                return;
+            }
+        }
     }
 }
