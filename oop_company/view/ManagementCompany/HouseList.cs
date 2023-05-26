@@ -71,6 +71,35 @@ namespace ManagementCompany
             }
         }
 
+        public int GetApartmentCountInHouse(string street, int numberHouse)
+        {
+            HouseNode current = head;
+            while (current != null)
+            {
+                if (current.House.GetStreet() == street && current.House.GetNumberHouse() == numberHouse)
+                {
+                    return current.Apartments.GetCount();
+                }
+                current = current.NextHouse;
+            }
+            return 0;
+        }
+
+        public bool HouseExists(string street, int houseNumber)
+        {
+            HouseNode current = head;
+            while (current != null)
+            {
+                if (current.House.GetStreet() == street && current.House.GetNumberHouse() == houseNumber)
+                {
+                    return true;
+                }
+                current = current.NextHouse;
+            }
+            return false;
+        }
+
+
         public void RemoveAllHouses()
         {
             head = null;

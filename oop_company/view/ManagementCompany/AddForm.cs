@@ -14,16 +14,32 @@ namespace ManagementCompany
 {
     public partial class AddForm : Form
     {
-        public AddForm()
+        public AddForm(bool isHouse, string street, string number, string count)
         {
             InitializeComponent();
+
+            if (isHouse)
+            {
+                textBoxApart.Visible = false;
+                textBoxPay.Visible = false;
+                label4.Visible = false;
+                label5.Visible = false;
+            } else
+            {
+                textBoxStreet.Text = street;
+                textBoxHouse.Text = number;
+                textBoxCount.Text = count;
+                textBoxStreet.ReadOnly = true;
+                textBoxHouse.ReadOnly = true;
+                textBoxCount.ReadOnly = true;
+            }
+
             okButton.DialogResult = DialogResult.OK;
             cancelButton.DialogResult = DialogResult.Cancel;
 
             this.AcceptButton = okButton;
-            this.cancelButton = cancelButton;
+            this.CancelButton = cancelButton;
         }
-
         public string Street
         {
             get { return (textBoxStreet.Text); }
@@ -95,7 +111,7 @@ namespace ManagementCompany
             System.Windows.Forms.TextBox textBox = (System.Windows.Forms.TextBox)sender;
             string input = textBox.Text;
 
-            // Проверяем, что введены только буквы (буквенные символы Unicode)
+            // Проверяем, что введены только буквы
             if (!string.IsNullOrWhiteSpace(input) && !Regex.IsMatch(input, @"^\p{L}*$"))
             {
                 // Введены недопустимые символы

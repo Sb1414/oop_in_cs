@@ -30,19 +30,23 @@ namespace ManagementCompany
         public void AddApartment(Apartment apartment)
         {
             Node newNode = new Node(apartment);
-            if (head == null)
+
+            if (head == null || apartment.GetNumber() < head.apartment.GetNumber())
             {
+                newNode.next = head;
                 head = newNode;
             }
             else
             {
                 Node current = head;
-                while (current.next != null)
+                while (current.next != null && current.next.apartment.GetNumber() < apartment.GetNumber())
                 {
                     current = current.next;
                 }
+                newNode.next = current.next;
                 current.next = newNode;
             }
+
             count++;
         }
 

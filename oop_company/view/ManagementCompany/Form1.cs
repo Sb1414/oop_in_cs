@@ -19,10 +19,10 @@ namespace ManagementCompany
     public partial class ManagementCompanyMain : Form
     {
         HouseList HouseList = new HouseList();
+        public bool isHouse = true;
         public ManagementCompanyMain()
         {
             InitializeComponent();
-            readOnly(true);
         }
 
         private void buttonSaveInfo_Click(object sender, EventArgs e)
@@ -93,8 +93,10 @@ namespace ManagementCompany
                         if (!houseEntries.ContainsKey(houseKey))
                         {
                             HouseList.AddHouse(new House(columns[0], Convert.ToInt32(columns[1]), Convert.ToInt32(columns[2])));
+
                             // Записываем данные в dataGridViewHouse
-                            dataGridViewHouse.Rows.Add(columns[0], columns[1], columns[2]);
+                            dataGridViewHouse.Rows.Add(columns[0], columns[1], columns[2], 
+                                HouseList.GetApartmentCountInHouse(columns[0], Convert.ToInt32(columns[1])));
                             houseEntries.Add(houseKey, true);
                         }
 
@@ -107,215 +109,15 @@ namespace ManagementCompany
                         }
                     }
                 }
-                readOnly(false);
-                checkBox1.Checked = true;
+                for (int rowIndex = 0; rowIndex < dataGridViewHouse.Rows.Count - 1; rowIndex++)
+                {
+                    Console.WriteLine(" = " + dataGridViewHouse.Rows[rowIndex]);
+                    string street = dataGridViewHouse.Rows[rowIndex].Cells[0].Value.ToString();
+                    int houseNumber = Convert.ToInt32(dataGridViewHouse.Rows[rowIndex].Cells[1].Value);
+                    dataGridViewHouse.Rows[rowIndex].Cells[3].Value = HouseList.GetApartmentCountInHouse(street, houseNumber);
+                }
+
                 MessageBox.Show("Информация успешно загружена\nДля вывода квартир нажмите на ячейку дома");
-            }
-        }
-
-        private void readOnly(bool flag)
-        {
-            foreach (DataGridViewRow row in dataGridViewHouse.Rows)
-            {
-                foreach (DataGridViewCell cell in row.Cells)
-                {
-                    cell.ReadOnly = flag;
-                }
-            }
-
-            foreach (DataGridViewRow row in dataGridViewApart.Rows)
-            {
-                foreach (DataGridViewCell cell in row.Cells)
-                {
-                    cell.ReadOnly = flag;
-                }
-            }
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked)
-            {
-                readOnly(false);
-            } else
-            {
-                readOnly(true);
-            }
-        }
-
-        private void dataGridViewHouse_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-            if (e.RowIndex >= 0) // Проверка, что происходит редактирование строки, а не заголовка столбца
-            {
-                DataGridView dataGridView = (DataGridView)sender;
-                string columnName = dataGridView.Columns[e.ColumnIndex].Name;
-
-                if (columnName == "Column1") // Первый столбец
-                {
-                    string cellValue = e.FormattedValue.ToString();
-                    if (!string.IsNullOrWhiteSpace(cellValue))
-                    {
-                        bool isCyrillicOrLatin = IsCyrillicOrLatin(cellValue);
-                        if (!isCyrillicOrLatin)
-                        {
-                            dataGridView.Rows[e.RowIndex].ErrorText = "В первом столбце должны быть только буквы кириллица или латиница";
-                            e.Cancel = true; // Отменить изменение значения ячейки
-                        }
-                    }
-                }
-                else if (columnName == "Column2") // Второй столбец
-                {
-                    string cellValue = e.FormattedValue.ToString();
-                    if (!string.IsNullOrWhiteSpace(cellValue))
-                    {
-                        bool isNumeric = IsNumOrSym(cellValue);
-                        if (!isNumeric)
-                        {
-                            dataGridView.Rows[e.RowIndex].ErrorText = "Во втором столбце должна быть только цифра, либо цифра и буква";
-                            e.Cancel = true; // Отменить изменение значения ячейки
-                        }
-                    }
-                }
-                else if (columnName == "Column3")
-                {
-                    string cellValue = e.FormattedValue.ToString();
-                    if (!string.IsNullOrWhiteSpace(cellValue))
-                    {
-                        bool isNumeric = IsNumeric(cellValue);
-                        if (!isNumeric)
-                        {
-                            dataGridView.Rows[e.RowIndex].ErrorText = "В третьем столбце должна быть только цифра";
-                            e.Cancel = true; // Отменить изменение значения ячейки
-                        }
-                    }
-                }
-            }
-        }
-
-
-        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridView dataGridView = (DataGridView)sender;
-            if (e.RowIndex >= 0) // Проверка, что редактирование происходит в строке данных
-            {
-                dataGridView.Rows[e.RowIndex].ErrorText = string.Empty; // Очистить текст ошибки для строки
-            }
-            DataGridViewRow row = dataGridView.Rows[e.RowIndex];
-
-            if (IsRowFilled(row))
-            {
-                // AddInfoForClass();
-                string street = row.Cells[0].Value.ToString();
-                int numberHouse = Convert.ToInt32(row.Cells[1].Value);
-                int sizeApart = Convert.ToInt32(row.Cells[2].Value);
-
-                HouseList.AddHouse(new House(street, numberHouse, sizeApart));
-            }
-        }
-
-        private bool IsCyrillicOrLatin(string text)
-        {
-            // Проверка, что строка содержит только буквы кириллица или латиница
-            return Regex.IsMatch(text, @"^[a-zA-Zа-яА-Я]+$");
-        }
-
-        private bool IsNumeric(string text)
-        {
-            // Проверка, что строка содержит только цифры
-            return Regex.IsMatch(text, @"^[0-9]+$");
-        }
-
-        private bool IsNumOrSym(string text)
-        {
-            return Regex.IsMatch(text, @"^\d+[a-zA-Zа-яА-Я]?$");
-        }
-
-        private bool IsRowFilled(DataGridViewRow row)
-        {
-            foreach (DataGridViewCell cell in row.Cells)
-            {
-                if (cell.Value == null || string.IsNullOrWhiteSpace(cell.Value.ToString()))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        private bool IsRowFilled2(DataGridViewRow row)
-        {
-            for (int columnIndex = 0; columnIndex < row.Cells.Count; columnIndex++)
-            {
-                if (row.Cells[columnIndex].Value == null)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        private void dataGridViewApart_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
-        {
-            if (e.RowIndex >= 0) // Проверка, что происходит редактирование строки, а не заголовка столбца
-            {
-                DataGridView dataGridView = (DataGridView)sender;
-                string columnName = dataGridView.Columns[e.ColumnIndex].Name;
-                
-                if (columnName == "Column2_") // Второй столбец
-                {
-                    string cellValue = e.FormattedValue.ToString();
-                    if (!string.IsNullOrWhiteSpace(cellValue))
-                    {
-                        bool isNumeric = IsNumeric(cellValue);
-                        if (!isNumeric)
-                        {
-                            dataGridView.Rows[e.RowIndex].ErrorText = "Во втором столбце должен быть только номер квартиры";
-                            e.Cancel = true; // Отменить изменение значения ячейки
-                        }
-                        else
-                        {
-                            // int countMax = HouseList.GetCountByNumber(Convert.ToInt32(dataGridView.Rows[e.RowIndex].Cells[0].Value));
-                            DataGridViewRow currentRowHouse = dataGridViewHouse.CurrentRow;
-                            int num_house = -1;
-                            if (currentRowHouse != null)
-                            {
-                                DataGridViewCell cell2 = currentRowHouse.Cells[2]; // Получение второй ячейки (индекс 1)
-
-                                if (cell2.Value != null)
-                                {
-                                    num_house = Convert.ToInt32(cell2.Value); // Значение второй ячейки в виде строки
-                                }
-                            }
-
-                            if (num_house == -1)
-                            {
-                                dataGridView.Rows[e.RowIndex].ErrorText = "Выбрана некорректная ячейка в первой таблице";
-                                e.Cancel = true; // Отменить изменение значения ячейки
-                            }
-
-                            if (num_house < Convert.ToInt32(cellValue))
-                            {
-                                dataGridView.Rows[e.RowIndex].ErrorText = "Номер квартиры превышает количество квартир";
-                                e.Cancel = true; // Отменить изменение значения ячейки
-                            }
-
-                        }
-                    }
-                }
-                else if (columnName == "Column3_")
-                {
-                    string cellValue = e.FormattedValue.ToString();
-                    if (!string.IsNullOrWhiteSpace(cellValue))
-                    {
-                        bool isNumeric = IsNumeric(cellValue);
-                        if (!isNumeric)
-                        {
-                            dataGridView.Rows[e.RowIndex].ErrorText = "В третьем столбце должна быть только выплата";
-                            e.Cancel = true; // Отменить изменение значения ячейки
-                        }
-                    }
-                }
-
             }
         }
 
@@ -340,17 +142,21 @@ namespace ManagementCompany
 
         private void buttonNewInfo_Click(object sender, EventArgs e)
         {
-            AddForm moveForm = new AddForm();
-            if (moveForm.ShowDialog() == DialogResult.OK)
+            isHouse = true;
+            AddForm addForm = new AddForm(isHouse, "", "", "");
+            if (addForm.ShowDialog() == DialogResult.OK)
             {
-                if (moveForm.Street != "" && moveForm.House != 0 && moveForm.Count != 0)
+                if (addForm.Street != "" && addForm.House != 0 && addForm.Count != 0)
                 {
-                    int rowIndex = dataGridViewHouse.CurrentCell.RowIndex; // Получаем индекс текущей строки
-                    dataGridViewHouse.Rows.Insert(rowIndex + 1, moveForm.Street, moveForm.House, moveForm.Count); // Вставляем новую строку после текущей
-                    HouseList.AddHouse(new House(moveForm.Street, moveForm.House, moveForm.Count));
-                    if (moveForm.Apart != 0 && moveForm.Payment != 0)
-                        HouseList.AddApartmentToHouse(moveForm.Street, moveForm.House, new Apartment(moveForm.Apart, moveForm.Payment));
-                    // dataGridViewApart.Rows.Add(moveForm.House, moveForm.Apart, moveForm.Payment);
+                    if (!HouseList.HouseExists(addForm.Street, addForm.House))
+                    {
+                        HouseList.AddHouse(new House(addForm.Street, addForm.House, addForm.Count));
+                        dataGridViewHouse.Rows.Add(addForm.Street, addForm.House, addForm.Count, HouseList.GetApartmentCountInHouse(addForm.Street, addForm.House));
+                        // dataGridViewApart.Rows.Add(addForm.House, addForm.Apart, addForm.Payment);
+                    } else
+                    {
+                        MessageBox.Show("такой дом/улица уже существует");
+                    }
                 }
                 else
                 {
@@ -358,6 +164,72 @@ namespace ManagementCompany
                 }
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dataGridViewHouse.Rows.Count > 0)
+                {
+                    if (dataGridViewHouse.CurrentRow == null)
+                    {
+                        throw new Exception("Вначале выберите дом");
+                    }
+
+                    if (!string.IsNullOrEmpty(dataGridViewHouse.CurrentRow.Cells[0].Value as string))
+                    {
+                        string street = dataGridViewHouse.CurrentRow.Cells[0].Value?.ToString();
+                        string number = dataGridViewHouse.CurrentRow.Cells[1].Value?.ToString();
+                        string count = dataGridViewHouse.CurrentRow.Cells[2].Value?.ToString();
+                        isHouse = false;
+
+                        AddForm addForm = new AddForm(isHouse, street, number, count);
+                        if (addForm.ShowDialog() == DialogResult.OK)
+                        {
+                            if (addForm.Apart > Convert.ToInt32(count))
+                            {
+                                throw new Exception("Номер квартиры не может превышать максимальное количество квартир в доме!");
+                            }
+
+                            if (addForm.Apart != 0 && addForm.Payment != 0)
+                            {
+                                HouseList.AddApartmentToHouse(addForm.Street, addForm.House, new Apartment(addForm.Apart, addForm.Payment));
+
+                                int insertIndex = 0;
+                                while (insertIndex < dataGridViewApart.Rows.Count && Convert.ToInt32(dataGridViewApart.Rows[insertIndex].Cells[0].Value) < addForm.Apart)
+                                {
+                                    insertIndex++;
+                                }
+
+                                if (insertIndex >= dataGridViewApart.Rows.Count)
+                                {
+                                    dataGridViewApart.Rows.Add(addForm.Apart, addForm.Payment);
+                                }
+                                else
+                                {
+                                    dataGridViewApart.Rows.Insert(insertIndex, addForm.Apart, addForm.Payment);
+                                }
+                            }
+
+                            dataGridViewHouse.CurrentRow.Cells[3].Value = HouseList.GetApartmentCountInHouse(addForm.Street, addForm.House);
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Вначале выберите дом");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Не указана строка с домом!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
 
 
         private void buttonDelete_Click(object sender, EventArgs e)
@@ -404,6 +276,9 @@ namespace ManagementCompany
                     HouseList.RemoveApartmentByNumber(Convert.ToInt32(value));
                     // Удаляем текущую строку из dataGridViewHouse
                     dataGridViewApart.Rows.Remove(currentRowHouse);
+                    dataGridViewHouse.CurrentRow.Cells[3].Value = 
+                        HouseList.GetApartmentCountInHouse(dataGridViewHouse.CurrentRow.Cells[0].Value.ToString(), 
+                        Convert.ToInt32(dataGridViewHouse.CurrentRow.Cells[1].Value));
                 }
                 else
                 {
@@ -415,38 +290,6 @@ namespace ManagementCompany
                 MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
 
-        }
-
-        private void dataGridViewApart_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridView dataGridView = (DataGridView)sender;
-            DataGridViewRow row = dataGridView.Rows[e.RowIndex];
-            if (e.RowIndex >= 0) // Проверка, что редактирование происходит в строке данных
-            {
-                dataGridView.Rows[e.RowIndex].ErrorText = string.Empty; // Очистить текст ошибки для строки
-            }
-
-            if (IsRowFilled2(row))
-            {
-                DataGridViewRow currentRowHouse = dataGridViewHouse.CurrentRow;
-                if (currentRowHouse != null)
-                {
-                    DataGridViewCell cell1 = currentRowHouse.Cells[0];
-                    DataGridViewCell cell2 = currentRowHouse.Cells[1];
-
-                    if (cell1.Value != null && cell2.Value != null)
-                    {
-                        string street = cell1.Value.ToString();
-                        int num_house = Convert.ToInt32(cell2.Value);
-
-                        // AddInfoForClass();
-                        int number_apart = Convert.ToInt32(row.Cells[0].Value);
-                        int payment = Convert.ToInt32(row.Cells[1].Value);
-
-                        HouseList.AddApartmentToHouse(street, num_house, new Apartment(number_apart, payment));
-                    }
-                }
-            }
         }
 
         private void dataGridViewHouse_CellClick(object sender, DataGridViewCellEventArgs e)

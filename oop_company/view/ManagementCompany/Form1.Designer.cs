@@ -38,14 +38,15 @@
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.buttonDelApart = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonNewInfo = new System.Windows.Forms.Button();
             this.buttonSaveInfo = new System.Windows.Forms.Button();
             this.buttonClear = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.buttonLoad = new System.Windows.Forms.Button();
-            this.buttonDelApart = new System.Windows.Forms.Button();
             this.panelBack.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewApart)).BeginInit();
@@ -61,7 +62,7 @@
             this.panelBack.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelBack.Location = new System.Drawing.Point(0, 0);
             this.panelBack.Name = "panelBack";
-            this.panelBack.Size = new System.Drawing.Size(1201, 669);
+            this.panelBack.Size = new System.Drawing.Size(1129, 669);
             this.panelBack.TabIndex = 0;
             // 
             // panel2
@@ -71,7 +72,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 35);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1201, 634);
+            this.panel2.Size = new System.Drawing.Size(1129, 634);
             this.panel2.TabIndex = 5;
             // 
             // dataGridViewApart
@@ -86,10 +87,8 @@
             this.dataGridViewApart.Name = "dataGridViewApart";
             this.dataGridViewApart.RowHeadersWidth = 51;
             this.dataGridViewApart.RowTemplate.Height = 24;
-            this.dataGridViewApart.Size = new System.Drawing.Size(521, 634);
+            this.dataGridViewApart.Size = new System.Drawing.Size(449, 634);
             this.dataGridViewApart.TabIndex = 1;
-            this.dataGridViewApart.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewApart_CellEndEdit);
-            this.dataGridViewApart.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridViewApart_CellValidating);
             // 
             // Column2_
             // 
@@ -112,7 +111,8 @@
             this.dataGridViewHouse.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
-            this.Column3});
+            this.Column3,
+            this.Column4});
             this.dataGridViewHouse.Dock = System.Windows.Forms.DockStyle.Left;
             this.dataGridViewHouse.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewHouse.Name = "dataGridViewHouse";
@@ -121,47 +121,82 @@
             this.dataGridViewHouse.Size = new System.Drawing.Size(680, 634);
             this.dataGridViewHouse.TabIndex = 0;
             this.dataGridViewHouse.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewHouse_CellClick);
-            this.dataGridViewHouse.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
-            this.dataGridViewHouse.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dataGridViewHouse_CellValidating);
             // 
             // Column1
             // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Column1.HeaderText = "Улица";
             this.Column1.MinimumWidth = 6;
             this.Column1.Name = "Column1";
-            this.Column1.Width = 125;
             // 
             // Column2
             // 
             this.Column2.HeaderText = "Дом";
             this.Column2.MinimumWidth = 6;
             this.Column2.Name = "Column2";
-            this.Column2.Width = 125;
+            this.Column2.Width = 90;
             // 
             // Column3
             // 
             this.Column3.HeaderText = "Всего квартир";
             this.Column3.MinimumWidth = 6;
             this.Column3.Name = "Column3";
-            this.Column3.Width = 125;
+            this.Column3.Width = 110;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Квартир в списке";
+            this.Column4.MinimumWidth = 6;
+            this.Column4.Name = "Column4";
+            this.Column4.Width = 125;
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.BackgroundImage = global::ManagementCompany.Properties.Resources.back1;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.buttonDelApart);
             this.panel1.Controls.Add(this.buttonDelete);
             this.panel1.Controls.Add(this.buttonNewInfo);
             this.panel1.Controls.Add(this.buttonSaveInfo);
             this.panel1.Controls.Add(this.buttonClear);
-            this.panel1.Controls.Add(this.checkBox1);
             this.panel1.Controls.Add(this.buttonLoad);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1201, 35);
+            this.panel1.Size = new System.Drawing.Size(1129, 35);
             this.panel1.TabIndex = 4;
+            // 
+            // button1
+            // 
+            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(521, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(185, 30);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Добавить квартиру";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // buttonDelApart
+            // 
+            this.buttonDelApart.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDelApart.BackgroundImage")));
+            this.buttonDelApart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonDelApart.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonDelApart.FlatAppearance.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.buttonDelApart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDelApart.Location = new System.Drawing.Point(837, 3);
+            this.buttonDelApart.Name = "buttonDelApart";
+            this.buttonDelApart.Size = new System.Drawing.Size(164, 30);
+            this.buttonDelApart.TabIndex = 5;
+            this.buttonDelApart.Text = "Удалить квартиру";
+            this.buttonDelApart.UseVisualStyleBackColor = true;
+            this.buttonDelApart.Click += new System.EventHandler(this.buttonDelApart_Click);
             // 
             // buttonDelete
             // 
@@ -170,7 +205,7 @@
             this.buttonDelete.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonDelete.FlatAppearance.BorderColor = System.Drawing.Color.MediumSlateBlue;
             this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDelete.Location = new System.Drawing.Point(768, 3);
+            this.buttonDelete.Location = new System.Drawing.Point(712, 3);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(119, 30);
             this.buttonDelete.TabIndex = 4;
@@ -185,11 +220,11 @@
             this.buttonNewInfo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonNewInfo.FlatAppearance.BorderColor = System.Drawing.Color.MediumSlateBlue;
             this.buttonNewInfo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonNewInfo.Location = new System.Drawing.Point(643, 3);
+            this.buttonNewInfo.Location = new System.Drawing.Point(377, 3);
             this.buttonNewInfo.Name = "buttonNewInfo";
-            this.buttonNewInfo.Size = new System.Drawing.Size(119, 30);
+            this.buttonNewInfo.Size = new System.Drawing.Size(141, 30);
             this.buttonNewInfo.TabIndex = 4;
-            this.buttonNewInfo.Text = "Добавить";
+            this.buttonNewInfo.Text = "Добавить дом";
             this.buttonNewInfo.UseVisualStyleBackColor = true;
             this.buttonNewInfo.Click += new System.EventHandler(this.buttonNewInfo_Click);
             // 
@@ -215,24 +250,13 @@
             this.buttonClear.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonClear.FlatAppearance.BorderColor = System.Drawing.Color.MediumSlateBlue;
             this.buttonClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonClear.Location = new System.Drawing.Point(518, 3);
+            this.buttonClear.Location = new System.Drawing.Point(252, 3);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(119, 30);
             this.buttonClear.TabIndex = 2;
             this.buttonClear.Text = "Очистить";
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(271, 8);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(214, 20);
-            this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "Разрешить редактирование";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // buttonLoad
             // 
@@ -249,26 +273,11 @@
             this.buttonLoad.UseVisualStyleBackColor = true;
             this.buttonLoad.Click += new System.EventHandler(this.buttonLoad_Click);
             // 
-            // buttonDelApart
-            // 
-            this.buttonDelApart.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDelApart.BackgroundImage")));
-            this.buttonDelApart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonDelApart.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonDelApart.FlatAppearance.BorderColor = System.Drawing.Color.MediumSlateBlue;
-            this.buttonDelApart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDelApart.Location = new System.Drawing.Point(893, 3);
-            this.buttonDelApart.Name = "buttonDelApart";
-            this.buttonDelApart.Size = new System.Drawing.Size(164, 30);
-            this.buttonDelApart.TabIndex = 5;
-            this.buttonDelApart.Text = "Удалить квартиру";
-            this.buttonDelApart.UseVisualStyleBackColor = true;
-            this.buttonDelApart.Click += new System.EventHandler(this.buttonDelApart_Click);
-            // 
             // ManagementCompanyMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1201, 669);
+            this.ClientSize = new System.Drawing.Size(1129, 669);
             this.Controls.Add(this.panelBack);
             this.Name = "ManagementCompanyMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -278,7 +287,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewApart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHouse)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -287,13 +295,9 @@
 
         private System.Windows.Forms.Panel panelBack;
         private System.Windows.Forms.DataGridView dataGridViewHouse;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridView dataGridViewApart;
         private System.Windows.Forms.Button buttonSaveInfo;
         private System.Windows.Forms.Button buttonLoad;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button buttonClear;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel1;
@@ -302,6 +306,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2_;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3_;
         private System.Windows.Forms.Button buttonDelApart;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
     }
 }
 
