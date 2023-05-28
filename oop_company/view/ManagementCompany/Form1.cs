@@ -43,8 +43,8 @@ namespace ManagementCompany
                         int sizeApart = house.SizeApart;
 
                         // Получите список квартир для текущего дома
-                        List<Apartment> apartments = HouseList.GetAllApartments(street, numberHouse);
-                        if (apartments.Count > 0)
+                        Apartment[] apartments = HouseList.GetAllApartments(street, numberHouse);
+                        if (apartments.Count() > 0)
                         {
                             // Запись информации о каждой квартире в файл
                             foreach (Apartment apartment in apartments)
@@ -337,8 +337,8 @@ namespace ManagementCompany
                         dataGridViewHouse.Rows.Add(house.GetNumberHouse(), house.SizeApart, HouseList.GetApartmentCountInHouse(street, house.GetNumberHouse()),
                             HouseList.GetTotalPaymentByHouse(street, house.GetNumberHouse()));
                         // Обновляем dataGridViewApart с информацией о квартирах в выбранном доме
-                        List<Apartment> apps = HouseList.GetAllApartments(street, Convert.ToInt32(dataGridViewHouse.CurrentRow.Cells[0].Value));
-                        for (int i = 0; i < apps.Count; i++)
+                        Apartment[] apps = HouseList.GetAllApartments(street, Convert.ToInt32(dataGridViewHouse.CurrentRow.Cells[0].Value));
+                        for (int i = 0; i < apps.Count(); i++)
                         {
                             if (i == 0 && dataGridViewApart.Rows[0].Cells[0].Value != null)
                             {
@@ -347,7 +347,7 @@ namespace ManagementCompany
                             }
                             dataGridViewApart.Rows.Add(apps[i].GetNumber(), apps[i].GetPayment());
                         }
-                        if (apps.Count == 0)
+                        if (apps.Count() == 0)
                         {
                             dataGridViewApart.Rows.Clear();
                         }
@@ -382,8 +382,8 @@ namespace ManagementCompany
 
                 int numberHouse = Convert.ToInt32(numberHouseValue);
 
-                List<Apartment> apps = HouseList.GetAllApartments(street, numberHouse);
-                for (int i = 0; i < apps.Count; i++)
+                Apartment[] apps = HouseList.GetAllApartments(street, numberHouse);
+                for (int i = 0; i < apps.Count(); i++)
                 {
                     if (i == 0 && dataGridViewApart.Rows[0].Cells[0].Value != null)
                     {
@@ -392,7 +392,7 @@ namespace ManagementCompany
                     }
                     dataGridViewApart.Rows.Add(apps[i].GetNumber(), apps[i].GetPayment());
                 }
-                if (apps.Count == 0)
+                if (apps.Count() == 0)
                 {
                     dataGridViewApart.Rows.Clear();
                 }

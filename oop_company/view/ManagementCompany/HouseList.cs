@@ -223,21 +223,20 @@ namespace ManagementCompany
             }
         }
 
-        public List<Apartment> GetAllApartments(string street, int numberHouse)
+        public Apartment[] GetAllApartments(string street, int numberHouse)
         {
             HouseNode houseNode = FindHouseNode(street, numberHouse);
             if (houseNode != null)
             {
-                List<Apartment> apartments = houseNode.Apartments.GetAllApartments();
-                return apartments;
+                Apartment[] apartments = houseNode.Apartments.GetAllApartments();
+                return apartments.ToArray();
             }
             else
             {
-                // Возвращаем пустой список, если дом не найден
-                return new List<Apartment>();
+                // Возвращаем пустой массив, если дом не найден
+                return new Apartment[0];
             }
         }
-
 
         public IEnumerator<House> GetEnumerator()
         {

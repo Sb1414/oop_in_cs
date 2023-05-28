@@ -140,7 +140,7 @@ namespace ManagementCompany
             }
         }
 
-        public List<Apartment> GetAllApartments()
+        public Apartment[] GetAllApartments()
         {
             List<Apartment> apartments = new List<Apartment>();
 
@@ -151,7 +151,7 @@ namespace ManagementCompany
                 current = current.next;
             }
 
-            return apartments;
+            return apartments.ToArray();
         }
     }
 }
