@@ -10,32 +10,66 @@ namespace Printer
     {
         private Printer[] printers;
         private int count;
+        private int capacity;
 
-        public PrinterContainer(int capacity)
+        public PrinterContainer(int initialCapacity)
         {
-            printers = new Printer[capacity];
+            printers = new Printer[initialCapacity];
+            capacity = initialCapacity;
             count = 0;
         }
 
         public void AddPrinter(Printer printer)
         {
-            if (count < printers.Length)
+            if (count >= capacity)
             {
-                printers[count] = printer;
-                count++;
+                Console.WriteLine("Увеличьте размер массива, он переполнен!");
+                return;
             }
-            else
-            {
-                Console.WriteLine("Контейнер принтера заполнен. Не удается добавить больше принтеров.");
-            }
+
+            printers[count] = printer;
+            count++;
         }
+
+        public void IncreaseCapacity(int additionalCapacity)
+        {
+            int newCapacity = capacity + additionalCapacity;
+            Printer[] newPrinters = new Printer[newCapacity];
+            Array.Copy(printers, newPrinters, capacity);
+            printers = newPrinters;
+            capacity = newCapacity;
+        }
+
+        public void RemovePrinter(Printer printer)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                if (printers[i] == printer)
+                {
+                    for (int j = i; j < count - 1; j++)
+                    {
+                        printers[j] = printers[j + 1];
+                    }
+
+                    printers[count - 1] = null;
+                    count--;
+                    return;
+                }
+            }
+
+            Console.WriteLine("Принтер не найден в контейнере.");
+        }
+
 
         public void PrintAll()
         {
             for (int i = 0; i < count; i++)
             {
-                printers[i].Print();
-                Console.WriteLine();
+                if (printers[i] != null)
+                {
+                    printers[i].Print();
+                    Console.WriteLine();
+                }
             }
         }
 
@@ -43,9 +77,13 @@ namespace Printer
         {
             for (int i = 0; i < count; i++)
             {
-                printers[i].PrintDetails();
-                Console.WriteLine();
+                if (printers[i] != null)
+                {
+                    printers[i].PrintDetails();
+                    Console.WriteLine();
+                }
             }
         }
+
     }
 }

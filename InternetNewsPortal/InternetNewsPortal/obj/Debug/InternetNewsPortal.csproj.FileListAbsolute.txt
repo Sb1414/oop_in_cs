@@ -1,0 +1,11 @@
+C:\Users\Сабина\source\repos\InternetNewsPortal\InternetNewsPortal\bin\Debug\InternetNewsPortal.exe.config
+C:\Users\Сабина\source\repos\InternetNewsPortal\InternetNewsPortal\bin\Debug\InternetNewsPortal.exe
+C:\Users\Сабина\source\repos\InternetNewsPortal\InternetNewsPortal\bin\Debug\InternetNewsPortal.pdb
+C:\Users\Сабина\source\repos\InternetNewsPortal\InternetNewsPortal\obj\Debug\InternetNewsPortal.csproj.AssemblyReference.cache
+C:\Users\Сабина\source\repos\InternetNewsPortal\InternetNewsPortal\obj\Debug\InternetNewsPortal.csproj.SuggestedBindingRedirects.cache
+C:\Users\Сабина\source\repos\InternetNewsPortal\InternetNewsPortal\obj\Debug\InternetNewsPortal.Form1.resources
+C:\Users\Сабина\source\repos\InternetNewsPortal\InternetNewsPortal\obj\Debug\InternetNewsPortal.Properties.Resources.resources
+C:\Users\Сабина\source\repos\InternetNewsPortal\InternetNewsPortal\obj\Debug\InternetNewsPortal.csproj.GenerateResource.cache
+C:\Users\Сабина\source\repos\InternetNewsPortal\InternetNewsPortal\obj\Debug\InternetNewsPortal.csproj.CoreCompileInputs.cache
+C:\Users\Сабина\source\repos\InternetNewsPortal\InternetNewsPortal\obj\Debug\InternetNewsPortal.exe
+C:\Users\Сабина\source\repos\InternetNewsPortal\InternetNewsPortal\obj\Debug\InternetNewsPortal.pdb
