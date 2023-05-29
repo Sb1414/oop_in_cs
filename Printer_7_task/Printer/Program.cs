@@ -8,7 +8,6 @@ int tmpSize = 0;
 PrinterContainer container = new PrinterContainer(num1);
 while (fl)
 {
-    Console.WriteLine("Сейчас размер: " + tmpSize + " | " + num1);
     menu();
     int num;
     num = Console.ReadKey().KeyChar - '0';
@@ -115,14 +114,9 @@ void RemoveLaser()
     if (tmpSize != 0)
     {
         Console.Write("\nВведите данные принтера, который нужно удалить: ");
-        Console.Write($"\nВведите скорость принтера: ");
-        var printSpeed = Console.ReadLine();
         Console.Write($"\nВведите размер картриджа: ");
         var cartridgeSize = Console.ReadLine();
-
-        LaserPrinter laserPrinter = new LaserPrinter(Convert.ToInt32(printSpeed), Convert.ToInt32(cartridgeSize));
-
-        container.RemovePrinter(laserPrinter);
+        container.RemovePrinterL(Convert.ToInt32(cartridgeSize));
         tmpSize--;
     }
     else
@@ -136,14 +130,9 @@ void RemoveJ()
     if (tmpSize != 0)
     {
         Console.Write("\nВведите данные принтера, который нужно удалить: ");
-        Console.Write($"\nВведите скорость принтера: ");
-        var printSpeed = Console.ReadLine();
         Console.Write($"\nВведите количество цветов: ");
         var colorCount = Console.ReadLine();
-
-        InkjetPrinter inkjetPrinter = new InkjetPrinter(Convert.ToInt32(printSpeed), Convert.ToInt32(colorCount));
-
-        container.RemovePrinter(inkjetPrinter);
+        container.RemovePrinterI(Convert.ToInt32(colorCount));
         tmpSize--;
     }
     else
