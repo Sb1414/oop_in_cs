@@ -1,0 +1,15 @@
+C:\Users\Сабина\source\repos\Printer\Printer\bin\Debug\net6.0\Printer.exe
+C:\Users\Сабина\source\repos\Printer\Printer\bin\Debug\net6.0\Printer.deps.json
+C:\Users\Сабина\source\repos\Printer\Printer\bin\Debug\net6.0\Printer.runtimeconfig.json
+C:\Users\Сабина\source\repos\Printer\Printer\bin\Debug\net6.0\Printer.dll
+C:\Users\Сабина\source\repos\Printer\Printer\bin\Debug\net6.0\Printer.pdb
+C:\Users\Сабина\source\repos\Printer\Printer\obj\Debug\net6.0\Printer.csproj.AssemblyReference.cache
+C:\Users\Сабина\source\repos\Printer\Printer\obj\Debug\net6.0\Printer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Сабина\source\repos\Printer\Printer\obj\Debug\net6.0\Printer.AssemblyInfoInputs.cache
+C:\Users\Сабина\source\repos\Printer\Printer\obj\Debug\net6.0\Printer.AssemblyInfo.cs
+C:\Users\Сабина\source\repos\Printer\Printer\obj\Debug\net6.0\Printer.csproj.CoreCompileInputs.cache
+C:\Users\Сабина\source\repos\Printer\Printer\obj\Debug\net6.0\Printer.dll
+C:\Users\Сабина\source\repos\Printer\Printer\obj\Debug\net6.0\refint\Printer.dll
+C:\Users\Сабина\source\repos\Printer\Printer\obj\Debug\net6.0\Printer.pdb
+C:\Users\Сабина\source\repos\Printer\Printer\obj\Debug\net6.0\Printer.genruntimeconfig.cache
+C:\Users\Сабина\source\repos\Printer\Printer\obj\Debug\net6.0\ref\Printer.dll
