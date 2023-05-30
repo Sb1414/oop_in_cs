@@ -32,6 +32,7 @@
             this.c1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.c2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelBackground = new System.Windows.Forms.Panel();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.buttonAddNews = new System.Windows.Forms.Button();
             this.buttonAddSection = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -48,12 +49,12 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.Save = new System.Windows.Forms.ToolStripMenuItem();
             this.Load = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteSection = new System.Windows.Forms.ToolStripMenuItem();
             this.DeleteNews = new System.Windows.Forms.ToolStripMenuItem();
             this.clearAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNews)).BeginInit();
             this.panelBackground.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -112,6 +113,16 @@
             this.panelBackground.Name = "panelBackground";
             this.panelBackground.Size = new System.Drawing.Size(1135, 574);
             this.panelBackground.TabIndex = 1;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(790, 532);
+            this.dateTimePicker1.MaxDate = new System.DateTime(2023, 6, 30, 0, 0, 0, 0);
+            this.dateTimePicker1.MinDate = new System.DateTime(2010, 3, 25, 0, 0, 0, 0);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(189, 22);
+            this.dateTimePicker1.TabIndex = 5;
+            this.dateTimePicker1.Value = new System.DateTime(2023, 5, 28, 0, 0, 0, 0);
             // 
             // buttonAddNews
             // 
@@ -188,6 +199,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.dataGridViewNews);
             this.panel1.Controls.Add(this.dataGridViewSection);
             this.panel1.Controls.Add(this.menuStrip1);
@@ -263,27 +275,17 @@
             this.toolStripMenuItem1.Size = new System.Drawing.Size(59, 24);
             this.toolStripMenuItem1.Text = "Файл";
             // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(790, 532);
-            this.dateTimePicker1.MaxDate = new System.DateTime(2023, 6, 30, 0, 0, 0, 0);
-            this.dateTimePicker1.MinDate = new System.DateTime(2010, 3, 25, 0, 0, 0, 0);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(189, 22);
-            this.dateTimePicker1.TabIndex = 5;
-            this.dateTimePicker1.Value = new System.DateTime(2023, 5, 28, 0, 0, 0, 0);
-            // 
             // Save
             // 
             this.Save.Name = "Save";
-            this.Save.Size = new System.Drawing.Size(224, 26);
+            this.Save.Size = new System.Drawing.Size(166, 26);
             this.Save.Text = "Сохранить";
             this.Save.Click += new System.EventHandler(this.Save_Click);
             // 
             // Load
             // 
             this.Load.Name = "Load";
-            this.Load.Size = new System.Drawing.Size(224, 26);
+            this.Load.Size = new System.Drawing.Size(166, 26);
             this.Load.Text = "Загрузить";
             this.Load.Click += new System.EventHandler(this.Load_Click);
             // 
@@ -307,6 +309,15 @@
             this.clearAll.Size = new System.Drawing.Size(112, 24);
             this.clearAll.Text = "очистить всё";
             this.clearAll.Click += new System.EventHandler(this.clearAll_Click);
+            // 
+            // label5
+            // 
+            this.label5.BackColor = System.Drawing.Color.LightGray;
+            this.label5.Location = new System.Drawing.Point(884, 2);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(248, 23);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "общее число новостей: ";
             // 
             // Form1
             // 
@@ -357,6 +368,7 @@
         private System.Windows.Forms.ToolStripMenuItem DeleteSection;
         private System.Windows.Forms.ToolStripMenuItem DeleteNews;
         private System.Windows.Forms.ToolStripMenuItem clearAll;
+        private System.Windows.Forms.Label label5;
     }
 }
 

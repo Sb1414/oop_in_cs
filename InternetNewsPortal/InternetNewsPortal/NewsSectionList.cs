@@ -243,6 +243,20 @@ namespace InternetNewsPortal
             throw new ArgumentException($"Раздел {sectionName} не найден.");
         }
 
+        public int GetTotalNewsCount()
+        {
+            int totalCount = 0;
+            NewsSectionNode currentNode = header.Next;
+
+            while (currentNode != header)
+            {
+                totalCount += currentNode.Value.GetNewsCount();
+                currentNode = currentNode.Next;
+            }
+
+            return totalCount;
+        }
+
         public IEnumerable<NewsSection> GetNewsSections()
         {
             NewsSectionNode currentNode = header.Next;

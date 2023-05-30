@@ -18,6 +18,7 @@ namespace InternetNewsPortal
         public Form1()
         {
             InitializeComponent();
+            updateCountNews();
         }
 
         private void buttonAddSection_Click_1(object sender, EventArgs e)
@@ -71,6 +72,7 @@ namespace InternetNewsPortal
 
             textBoxSection.Text = string.Empty;
             textBoxMaxNews.Text = string.Empty;
+            updateCountNews();
         }
 
 
@@ -149,6 +151,7 @@ namespace InternetNewsPortal
                     int newNewsCount = newsSectionList.GetNewsCountBySectionName(name);
 
                     currentRow.Cells[2].Value = newNewsCount;
+                    updateCountNews();
                 }
             }
             else
@@ -204,6 +207,7 @@ namespace InternetNewsPortal
                     string date = newss.GetDate();
 
                     dataGridViewNews.Rows.Add(newsName, date);
+                    updateCountNews();
                 }
             }
         }
@@ -242,6 +246,7 @@ namespace InternetNewsPortal
                     }
                 }
 
+                updateCountNews();
                 MessageBox.Show("Сохранено");
             }
         }
@@ -300,6 +305,7 @@ namespace InternetNewsPortal
                     dataGridViewSection.Rows.Add(newsSection.SectionName, newsSection.GetCapacity(), newsCount);
                 }
 
+                updateCountNews();
                 MessageBox.Show("Загружено");
             }
         }
@@ -318,6 +324,7 @@ namespace InternetNewsPortal
                     dataGridViewSection.Rows.Remove(currentRow);
                     newsSectionList.RemoveAllNewsInSection(name);
                     newsSectionList.RemoveSection(name);
+                    updateCountNews();
                 }
                 else
                 {
@@ -365,7 +372,8 @@ namespace InternetNewsPortal
             newsSection.Remove();
             dataGridViewNews.Rows.RemoveAt(0);
             dataGridViewSection.Rows[rowIndex].Cells[2].Value = newsSection.GetNewsCount();
-            
+            updateCountNews();
+
         }
 
         private void clearAll_Click(object sender, EventArgs e)
@@ -373,6 +381,12 @@ namespace InternetNewsPortal
             dataGridViewNews.Rows.Clear();
             dataGridViewSection.Rows.Clear();
             newsSectionList.Clear();
+            updateCountNews();
+        }
+
+        private void updateCountNews()
+        {
+            label5.Text = "общее число новостей: " + newsSectionList.GetTotalNewsCount();
         }
     }
 }
