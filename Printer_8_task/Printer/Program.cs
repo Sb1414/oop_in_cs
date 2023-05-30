@@ -141,10 +141,9 @@ void RemoveJ()
     }
 }
 
-
 void Resize()
 {
-    Console.WriteLine("\nВведите на сколько хотите увеличить размер списка публикаций:");
+    Console.WriteLine("\nВведите на сколько хотите увеличить размер списка контейнеров:");
     int num2;
     num2 = Console.ReadKey().KeyChar - '0';
     container.IncreaseCapacity(num2);
