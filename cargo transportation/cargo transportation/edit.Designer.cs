@@ -72,6 +72,8 @@
             this.ClientSize = new System.Drawing.Size(318, 178);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.buttonOk);
+            this.MaximumSize = new System.Drawing.Size(336, 225);
+            this.MinimumSize = new System.Drawing.Size(336, 225);
             this.Name = "edit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "edit";

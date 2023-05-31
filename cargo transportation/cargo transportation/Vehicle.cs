@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace cargo_transportation
 {
     // Класс, представляющий автомобиль
-    // Класс, представляющий автомобиль
     internal class Vehicle
     {
         public string LicensePlate { get; set; }
@@ -25,7 +24,19 @@ namespace cargo_transportation
         public void AddShipment(Shipment shipment)
         {
             Array.Resize(ref shipments, shipments.Length + 1);
-            shipments[shipments.Length - 1] = shipment;
+
+            int insertIndex = 0;
+            while (insertIndex < shipments.Length - 1 && string.Compare(shipment.StartTime, shipments[insertIndex].StartTime) > 0)
+            {
+                insertIndex++;
+            }
+
+            for (int i = shipments.Length - 1; i > insertIndex; i--)
+            {
+                shipments[i] = shipments[i - 1];
+            }
+
+            shipments[insertIndex] = shipment;
         }
 
         public void RemoveShipment(int index)
@@ -56,4 +67,5 @@ namespace cargo_transportation
             return shipments;
         }
     }
+
 }

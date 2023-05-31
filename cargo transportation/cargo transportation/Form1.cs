@@ -45,7 +45,7 @@ namespace cargo_transportation
 
                 if (transportQueue == null)
                 {
-                    throw new Exception("Установите количество элементов в очереди на массиве (кнопка сверху \"Выбрать\")");
+                    throw new Exception("Установите количество автомобилей в кольцевой очереди на массиве (кнопка сверху \"Выбрать\")");
                 }
 
                 transportQueue.AddVehicle(textBoxLicensePlate.Text, textBoxSurname.Text);
@@ -61,6 +61,9 @@ namespace cargo_transportation
                 {
                     dataGridView1.Rows.Add(vehicle.LicensePlate, vehicle.DriverSurname, transportQueue.GetTotalCargoVolume(vehicle));
                 }
+                toolStripLabelAllVol.Text = "Общий объем груза: " + transportQueue.CalculateTotalCargoVolume();
+                textBoxSurname.Text = "";
+                textBoxLicensePlate.Text = "";
             }
             catch (Exception ex)
             {
@@ -76,6 +79,7 @@ namespace cargo_transportation
             {
                 count_ = editForm.CountQueue;
                 transportQueue = new TransportQueue(count_);
+                toolStripLabelMaxSize.Text = "Max Size = " + count_;
             }
         }
 
@@ -89,17 +93,8 @@ namespace cargo_transportation
                 }
 
                 transportQueue.RemoveVehicle();
-                // Получение всех транспортов
-                Vehicle[] transportVehicles = transportQueue.GetAllVehicles();
-
-                // Очистка dataGridView1 перед обновлением данных
-                dataGridView1.Rows.Clear();
-
-                // Вывод данных в dataGridView1
-                foreach (Vehicle vehicle in transportVehicles)
-                {
-                    dataGridView1.Rows.Add(vehicle.LicensePlate, vehicle.DriverSurname, transportQueue.GetTotalCargoVolume(vehicle));
-                }
+                UpdateTransport();
+                toolStripLabelAllVol.Text = "Общий объем груза: " + transportQueue.CalculateTotalCargoVolume();
             }
             catch (Exception ex)
             {
@@ -107,56 +102,81 @@ namespace cargo_transportation
             }
         }
 
+        private void UpdateTransport()
+        {
+            // Получение всех транспортов
+            Vehicle[] transportVehicles = transportQueue.GetAllVehicles();
+
+            // Очистка dataGridView1 перед обновлением данных
+            dataGridView1.Rows.Clear();
+
+            // Вывод данных в dataGridView1
+            foreach (Vehicle vehicle in transportVehicles)
+            {
+                dataGridView1.Rows.Add(vehicle.LicensePlate, vehicle.DriverSurname, transportQueue.GetTotalCargoVolume(vehicle));
+            }
+        }
+
         private void buttonAddShipment_Click(object sender, EventArgs e)
         {
-            DataGridViewRow currentRow = dataGridView1.CurrentRow;
-
-            if (currentRow.Cells[0].Value != null)
+            try
             {
-                if (textBoxTime.Text == "" && textBoxVolume.Text == "")
+                DataGridViewRow currentRow = dataGridView1.CurrentRow;
+
+                if (currentRow.Cells[0].Value != null)
                 {
-                    MessageBox.Show("Ничего не введено");
-                    return;
-                }
-
-                // Проверка формата времени
-                if (!TimeSpan.TryParseExact(textBoxTime.Text, "hh\\:mm", CultureInfo.InvariantCulture, out _))
-                {
-                    throw new Exception("Неправильный формат времени. Используйте формат 'чч:мм'");
-                }
-
-                // Проверка формата числа
-                if (!double.TryParse(textBoxVolume.Text, out _))
-                {
-                    throw new Exception("Неправильный формат объема. Введите числовое значение.");
-                }
-
-                string licensePlate = currentRow.Cells[0].Value?.ToString();
-
-                if (transportQueue.IsLicensePlateExists(licensePlate))
-                {
-                    string startTime = textBoxTime.Text;
-                    double cargoVolume = double.Parse(textBoxVolume.Text);
-
-                    transportQueue.AddShipmentToVehicle(licensePlate, startTime, cargoVolume);
-
-                    // Обновление dataGridView2
-                    UpdateDataGridView2(licensePlate);
-                    // Обновление значения общего объема в dataGridView1
-                    Vehicle vehicle = transportQueue.FindVehicle(licensePlate);
-                    if (vehicle != null)
+                    if (textBoxTime.Text == "" && textBoxVolume.Text == "")
                     {
-                        currentRow.Cells[2].Value = transportQueue.GetTotalCargoVolume(vehicle);
+                        MessageBox.Show("Ничего не введено");
+                        return;
+                    }
+
+                    // Проверка формата времени
+                    if (!TimeSpan.TryParseExact(textBoxTime.Text, "hh\\:mm", CultureInfo.InvariantCulture, out _))
+                    {
+                        throw new Exception("Неправильный формат времени. Используйте формат 'чч:мм'");
+                    }
+
+                    // Проверка формата числа
+                    if (!double.TryParse(textBoxVolume.Text, out _))
+                    {
+                        throw new Exception("Неправильный формат объема. Введите числовое значение.");
+                    }
+
+                    string licensePlate = currentRow.Cells[0].Value?.ToString();
+
+                    if (transportQueue.IsLicensePlateExists(licensePlate))
+                    {
+                        string startTime = textBoxTime.Text;
+                        double cargoVolume = double.Parse(textBoxVolume.Text);
+
+                        transportQueue.AddShipmentToVehicle(licensePlate, startTime, cargoVolume);
+
+                        // Обновление dataGridView2
+                        UpdateDataGridView2(licensePlate);
+                        // Обновление значения общего объема в dataGridView1
+                        Vehicle vehicle = transportQueue.FindVehicle(licensePlate);
+                        if (vehicle != null)
+                        {
+                            currentRow.Cells[2].Value = transportQueue.GetTotalCargoVolume(vehicle);
+                        }
+                        toolStripLabelAllVol.Text = "Общий объем груза: " + transportQueue.CalculateTotalCargoVolume();
+                        textBoxVolume.Text = "";
+                        textBoxTime.Text = "";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Госномер не существует в очереди");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Госномер не существует в очереди");
+                    MessageBox.Show("Не выбрана машина, к которой нужно добавить рейс");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Не выбрана машина, к которой нужно добавить рейс");
+                MessageBox.Show($"Ошибка: {ex.Message}");
             }
         }
 
@@ -224,6 +244,7 @@ namespace cargo_transportation
                         // Обновление dataGridView2
                         UpdateDataGridView2(licensePlate);
                         dataGridView1.CurrentRow.Cells[2].Value = transportQueue.GetTotalCargoVolume(vehicle);
+                        toolStripLabelAllVol.Text = "Общий объем груза: " + transportQueue.CalculateTotalCargoVolume();
                     }
                     else
                     {
@@ -241,6 +262,120 @@ namespace cargo_transportation
             }
         }
 
+        private void load_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt";
+                openFileDialog.Title = "Выберите файл с данными";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = openFileDialog.FileName;
+
+                    try
+                    {
+                        using (StreamReader reader = new StreamReader(filePath, Encoding.UTF8))
+                        {
+                            if (transportQueue != null)
+                                transportQueue.Clear(); // Очищаем очередь перед загрузкой данных
+
+                            // Считываем максимальное количество автомобилей в очереди
+                            int maxCapacity = int.Parse(reader.ReadLine());
+                            transportQueue = new TransportQueue(maxCapacity);
+
+                            string line;
+                            while ((line = reader.ReadLine()) != null)
+                            {
+                                string[] data = line.Split('\t');
+                                if (data.Length == 4)
+                                {
+                                    string licensePlate = data[0];
+                                    string driverSurname = data[1];
+                                    string startTime = data[2];
+                                    double cargoVolume = double.Parse(data[3]);
+
+                                    Vehicle vehicle = transportQueue.FindVehicle(licensePlate);
+                                    if (vehicle == null)
+                                    {
+                                        transportQueue.AddVehicle(licensePlate, driverSurname);
+                                    }
+                                    if (startTime != "0" && cargoVolume != 0)
+                                    {
+                                        transportQueue.AddShipmentToVehicle(licensePlate, startTime, cargoVolume);
+                                    }
+                                }
+                            }
+                            toolStripLabelMaxSize.Text = "Max Size = " + maxCapacity;
+                        }
+                        UpdateTransport();
+                        toolStripLabelAllVol.Text = "Общий объем груза: " + transportQueue.CalculateTotalCargoVolume();
+                        MessageBox.Show("Данные успешно загружены.");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при загрузке данных: {ex.Message}");
+                    }
+                }
+            }
+        }
+
+
+        private void save_Click(object sender, EventArgs e)
+        {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt";
+                saveFileDialog.Title = "Сохранить данные";
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog.FileName;
+
+                    try
+                    {
+                        using (StreamWriter writer = new StreamWriter(filePath, false, Encoding.UTF8))
+                        {
+                            // Записываем максимальное количество автомобилей в очереди
+                            int maxCapacity = transportQueue.GetCapacity();
+                            writer.WriteLine(maxCapacity);
+                            // Записываем данные об автомобилях
+                            Vehicle[] vehicles = transportQueue.GetAllVehicles();
+                            foreach (Vehicle vehicle in vehicles)
+                            {
+                                Shipment[] shipments = vehicle.GetShipments();
+                                Console.WriteLine(shipments.Length + " <--- len");
+                                if (shipments.Length == 0)
+                                {
+                                    writer.WriteLine($"{vehicle.LicensePlate}\t{vehicle.DriverSurname}\t0\t0");
+                                }
+                                foreach (Shipment shipment in shipments)
+                                {
+                                    writer.Write($"{vehicle.LicensePlate}\t{vehicle.DriverSurname}\t");
+                                    writer.WriteLine($"{shipment.StartTime}\t{shipment.CargoVolume}");
+                                }
+                            }
+                        }
+
+                        MessageBox.Show("Данные успешно сохранены.");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при сохранении данных: {ex.Message}");
+                    }
+                }
+            }
+
+        }
+
+        private void clear_Click(object sender, EventArgs e)
+        {
+            transportQueue.Clear(); // Очищаем объект TransportQueue
+            dataGridView1.Rows.Clear();
+            dataGridView2.Rows.Clear();
+            toolStripLabelAllVol.Text = "Общий объем груза: 0";
+            toolStripLabelMaxSize.Text = "Max Size = 0";
+        }
 
     }
 }

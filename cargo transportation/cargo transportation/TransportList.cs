@@ -30,6 +30,19 @@ namespace cargo_transportation
             return count;
         }
 
+        public int GetCapacity()
+        {
+            return capacity;
+        }
+
+        public void Clear()
+        {
+            while (count > 0)
+            {
+                RemoveVehicle();
+            }
+        }
+
         public void AddVehicle(string licensePlate, string driverSurname)
         {
             try
@@ -141,12 +154,24 @@ namespace cargo_transportation
         {
             Shipment[] shipments = vehicle.GetShipments();
             double totalCargoVolume = 0;
-
-            foreach (Shipment shipment in shipments)
+            if (shipments != null)
             {
-                totalCargoVolume += shipment.CargoVolume;
+                foreach (Shipment shipment in shipments)
+                {
+                    totalCargoVolume += shipment.CargoVolume;
+                }
             }
+            return totalCargoVolume;
+        }
 
+        public double CalculateTotalCargoVolume()
+        {
+            double totalCargoVolume = 0;
+            for (int i = 0; i < count; i++)
+            {
+                int index = (head + i) % capacity;
+                totalCargoVolume += GetTotalCargoVolume(vehicles[index]);
+            }
             return totalCargoVolume;
         }
 

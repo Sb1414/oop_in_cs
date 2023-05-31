@@ -53,11 +53,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.buttonAddShipment = new System.Windows.Forms.Button();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.editCount = new System.Windows.Forms.ToolStripButton();
             this.removeVehicle = new System.Windows.Forms.Button();
             this.removeShipment = new System.Windows.Forms.Button();
+            this.toolStripLabelMaxSize = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabelAllVol = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+            this.clear = new System.Windows.Forms.ToolStripButton();
             this.panelBack.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -95,12 +99,16 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.load,
             this.save,
-            this.toolStripSeparator1,
-            this.toolStripLabel1,
-            this.editCount});
+            this.clear,
+            this.toolStripSeparator2,
+            this.toolStripLabel2,
+            this.toolStripLabelMaxSize,
+            this.editCount,
+            this.toolStripSeparator3,
+            this.toolStripLabelAllVol});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1171, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1171, 31);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "Панель";
             // 
@@ -111,9 +119,10 @@
             this.load.Image = ((System.Drawing.Image)(resources.GetObject("load.Image")));
             this.load.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.load.Name = "load";
-            this.load.Size = new System.Drawing.Size(80, 24);
+            this.load.Size = new System.Drawing.Size(80, 28);
             this.load.Text = "загрузить";
             this.load.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.load.Click += new System.EventHandler(this.load_Click);
             // 
             // save
             // 
@@ -122,17 +131,18 @@
             this.save.Image = ((System.Drawing.Image)(resources.GetObject("save.Image")));
             this.save.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.save.Name = "save";
-            this.save.Size = new System.Drawing.Size(85, 24);
+            this.save.Size = new System.Drawing.Size(85, 28);
             this.save.Text = "сохранить";
+            this.save.Click += new System.EventHandler(this.save_Click);
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.dataGridView2);
             this.panel1.Controls.Add(this.dataGridView1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 27);
+            this.panel1.Location = new System.Drawing.Point(0, 31);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(885, 614);
+            this.panel1.Size = new System.Drawing.Size(885, 610);
             this.panel1.TabIndex = 1;
             // 
             // dataGridView1
@@ -148,7 +158,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(501, 614);
+            this.dataGridView1.Size = new System.Drawing.Size(501, 610);
             this.dataGridView1.TabIndex = 20;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
@@ -164,7 +174,7 @@
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(384, 614);
+            this.dataGridView2.Size = new System.Drawing.Size(384, 610);
             this.dataGridView2.TabIndex = 21;
             // 
             // Column4
@@ -310,19 +320,6 @@
             this.buttonAddShipment.UseVisualStyleBackColor = true;
             this.buttonAddShipment.Click += new System.EventHandler(this.buttonAddShipment_Click);
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.ActiveLinkColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.toolStripLabel1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(500, 24);
-            this.toolStripLabel1.Text = "Выберите количество автомобилей в кольцевой очереди на массиве ";
-            // 
             // editCount
             // 
             this.editCount.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
@@ -330,7 +327,7 @@
             this.editCount.Image = ((System.Drawing.Image)(resources.GetObject("editCount.Image")));
             this.editCount.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.editCount.Name = "editCount";
-            this.editCount.Size = new System.Drawing.Size(72, 24);
+            this.editCount.Size = new System.Drawing.Size(72, 28);
             this.editCount.Text = "выбрать";
             this.editCount.Click += new System.EventHandler(this.editCount_Click);
             // 
@@ -354,12 +351,53 @@
             this.removeShipment.UseVisualStyleBackColor = true;
             this.removeShipment.Click += new System.EventHandler(this.removeShipment_Click);
             // 
+            // toolStripLabelMaxSize
+            // 
+            this.toolStripLabelMaxSize.Name = "toolStripLabelMaxSize";
+            this.toolStripLabelMaxSize.Size = new System.Drawing.Size(94, 28);
+            this.toolStripLabelMaxSize.Text = "Max Size = 0";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 31);
+            // 
+            // toolStripLabelAllVol
+            // 
+            this.toolStripLabelAllVol.Name = "toolStripLabelAllVol";
+            this.toolStripLabelAllVol.Size = new System.Drawing.Size(157, 28);
+            this.toolStripLabelAllVol.Text = "Общий объем груза: ";
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.AutoSize = false;
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(350, 28);
+            // 
+            // clear
+            // 
+            this.clear.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.clear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.clear.Image = ((System.Drawing.Image)(resources.GetObject("clear.Image")));
+            this.clear.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.clear.Name = "clear";
+            this.clear.Size = new System.Drawing.Size(75, 28);
+            this.clear.Text = "очистить";
+            this.clear.Click += new System.EventHandler(this.clear_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1171, 641);
             this.Controls.Add(this.panelBack);
+            this.MaximumSize = new System.Drawing.Size(1189, 688);
+            this.MinimumSize = new System.Drawing.Size(1189, 688);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
@@ -400,11 +438,15 @@
         private System.Windows.Forms.TextBox textBoxVolume;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxTime;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripButton editCount;
         private System.Windows.Forms.Button removeVehicle;
         private System.Windows.Forms.Button removeShipment;
+        private System.Windows.Forms.ToolStripLabel toolStripLabelMaxSize;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripLabel toolStripLabelAllVol;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        private System.Windows.Forms.ToolStripButton clear;
     }
 }
 
