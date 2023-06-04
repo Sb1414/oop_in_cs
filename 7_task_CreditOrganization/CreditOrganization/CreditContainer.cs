@@ -35,7 +35,7 @@ namespace CreditOrganization
 
         private void IncreaseCapacity()
         {
-            int newCapacity = credits.Length * 2; // Увеличение вдвое
+            int newCapacity = credits.Length * 2;
             Credit[] newCredit = new Credit[newCapacity];
             Array.Copy(credits, newCredit, count);
             credits = newCredit;
@@ -82,7 +82,7 @@ namespace CreditOrganization
                 }
             }
 
-            Console.WriteLine("Принтер с таким размером картриджа не найден.");
+            Console.WriteLine("Такой кредит не найден.");
         }
 
         public void RemoveAutoCredit(string carBrand)
@@ -96,7 +96,7 @@ namespace CreditOrganization
                 }
             }
 
-            Console.WriteLine("Принтер с таким количеством цветов не найден.");
+            Console.WriteLine("Такой кредит не найден.");
         }
 
         public void DisplayAllCredits()
