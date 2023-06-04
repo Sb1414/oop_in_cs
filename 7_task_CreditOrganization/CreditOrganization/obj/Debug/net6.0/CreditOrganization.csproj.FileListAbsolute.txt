@@ -1,0 +1,15 @@
+C:\Users\Сабина\source\repos\CreditOrganization\CreditOrganization\bin\Debug\net6.0\CreditOrganization.exe
+C:\Users\Сабина\source\repos\CreditOrganization\CreditOrganization\bin\Debug\net6.0\CreditOrganization.deps.json
+C:\Users\Сабина\source\repos\CreditOrganization\CreditOrganization\bin\Debug\net6.0\CreditOrganization.runtimeconfig.json
+C:\Users\Сабина\source\repos\CreditOrganization\CreditOrganization\bin\Debug\net6.0\CreditOrganization.dll
+C:\Users\Сабина\source\repos\CreditOrganization\CreditOrganization\bin\Debug\net6.0\CreditOrganization.pdb
+C:\Users\Сабина\source\repos\CreditOrganization\CreditOrganization\obj\Debug\net6.0\CreditOrganization.csproj.AssemblyReference.cache
+C:\Users\Сабина\source\repos\CreditOrganization\CreditOrganization\obj\Debug\net6.0\CreditOrganization.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Сабина\source\repos\CreditOrganization\CreditOrganization\obj\Debug\net6.0\CreditOrganization.AssemblyInfoInputs.cache
+C:\Users\Сабина\source\repos\CreditOrganization\CreditOrganization\obj\Debug\net6.0\CreditOrganization.AssemblyInfo.cs
+C:\Users\Сабина\source\repos\CreditOrganization\CreditOrganization\obj\Debug\net6.0\CreditOrganization.csproj.CoreCompileInputs.cache
+C:\Users\Сабина\source\repos\CreditOrganization\CreditOrganization\obj\Debug\net6.0\CreditOrganization.dll
+C:\Users\Сабина\source\repos\CreditOrganization\CreditOrganization\obj\Debug\net6.0\refint\CreditOrganization.dll
+C:\Users\Сабина\source\repos\CreditOrganization\CreditOrganization\obj\Debug\net6.0\CreditOrganization.pdb
+C:\Users\Сабина\source\repos\CreditOrganization\CreditOrganization\obj\Debug\net6.0\CreditOrganization.genruntimeconfig.cache
+C:\Users\Сабина\source\repos\CreditOrganization\CreditOrganization\obj\Debug\net6.0\ref\CreditOrganization.dll
