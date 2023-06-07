@@ -9,10 +9,40 @@ namespace ToyStore
 {
     internal class ToyStoreList // Класс, представляющий магазин игрушек
     {
-        public string Name { get; set; } // название
-        public string WorkingHours { get; set; } // режим работы
+        internal class Node // Класс, представляющий узел списка
+        {
+            public Toy Data { get; set; }
+            public Node Next { get; set; }
+            public Node Previous { get; set; }
+        }
+
+        private string Name; // название
+        private string WorkingHours; // режим работы
         public Node Head { get; set; } // начало списка
-        public int Count { get; set; } // количество
+        private int Count; // количество
+
+        public ToyStoreList(string name, string workingHours)
+        {
+            Name = name;
+            WorkingHours = workingHours;
+            Head = null;
+            Count = 0;
+        }
+
+        public string GetName()
+        {
+            return Name;
+        }
+
+        public string GetWorkingHours()
+        {
+            return WorkingHours;
+        }
+
+        public int GetCount()
+        {
+            return Count;
+        }
 
         // Метод для добавления игрушки в магазин
         public void AddToy(Toy toy)
@@ -74,37 +104,46 @@ namespace ToyStore
             } while (currentNode != Head);
         }
 
-        // Метод для вывода всех игрушек в магазине
-        public void DisplayToys()
+        // Метод для подсчета общей суммы всех игрушек в списке
+        public decimal CalculateTotalPrice()
         {
+            decimal totalPrice = 0;
             Node currentNode = Head;
 
             if (currentNode == null)
             {
-                Console.WriteLine("В магазине нет игрушек.");
-                return;
+                return totalPrice;
             }
-
-            Console.WriteLine("Игрушки в магазине:");
 
             do
             {
-                Console.WriteLine($"Название: {currentNode.Data.Name}");
-                Console.WriteLine($"Артикул: {currentNode.Data.ArticleNumber}");
-                Console.WriteLine($"Производитель: {currentNode.Data.Manufacturer}");
-                Console.WriteLine($"Стоимость: {currentNode.Data.Price}");
-                Console.WriteLine($"Количество: {currentNode.Data.Quantity}");
-                Console.WriteLine();
-
+                totalPrice += currentNode.Data.Price * currentNode.Data.Quantity;
                 currentNode = currentNode.Next;
             } while (currentNode != Head);
+
+            return totalPrice;
+        }
+
+        // Метод для подсчета общего количества всех игрушек
+        public int CalculateTotalQuantity()
+        {
+            int totalQuantity = 0;
+            Node currentNode = Head;
+
+            if (currentNode == null)
+            {
+                return totalQuantity;
+            }
+
+            do
+            {
+                totalQuantity += currentNode.Data.Quantity;
+                currentNode = currentNode.Next;
+            } while (currentNode != Head);
+
+            return totalQuantity;
         }
     }
-    internal class Node // Класс, представляющий узел списка
-    {
-        public Toy Data { get; set; }
-        public Node Next { get; set; }
-        public Node Previous { get; set; }
-    }
+
 }
 
