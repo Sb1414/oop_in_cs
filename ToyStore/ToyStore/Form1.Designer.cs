@@ -96,6 +96,7 @@
             this.open.Name = "open";
             this.open.Size = new System.Drawing.Size(80, 24);
             this.open.Text = "загрузить";
+            this.open.Click += new System.EventHandler(this.open_Click);
             // 
             // save
             // 
@@ -104,6 +105,7 @@
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(85, 24);
             this.save.Text = "сохранить";
+            this.save.Click += new System.EventHandler(this.save_Click);
             // 
             // delete
             // 
@@ -112,6 +114,7 @@
             this.delete.Name = "delete";
             this.delete.Size = new System.Drawing.Size(128, 24);
             this.delete.Text = "удалить игрушку";
+            this.delete.Click += new System.EventHandler(this.delete_Click);
             // 
             // labelNameStore
             // 
@@ -290,14 +293,14 @@
             this.textBoxToyQuantity.Location = new System.Drawing.Point(53, 557);
             this.textBoxToyQuantity.Name = "textBoxToyQuantity";
             this.textBoxToyQuantity.Size = new System.Drawing.Size(176, 22);
-            this.textBoxToyQuantity.TabIndex = 52;
+            this.textBoxToyQuantity.TabIndex = 53;
             // 
             // textBoxToyPrice
             // 
             this.textBoxToyPrice.Location = new System.Drawing.Point(53, 506);
             this.textBoxToyPrice.Name = "textBoxToyPrice";
             this.textBoxToyPrice.Size = new System.Drawing.Size(176, 22);
-            this.textBoxToyPrice.TabIndex = 53;
+            this.textBoxToyPrice.TabIndex = 52;
             // 
             // textBoxToyManufacturer
             // 
@@ -417,7 +420,8 @@
             this.MaximumSize = new System.Drawing.Size(1109, 725);
             this.MinimumSize = new System.Drawing.Size(1109, 725);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Магазин игрушек";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.paneltable.ResumeLayout(false);

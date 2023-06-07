@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -149,7 +150,12 @@ namespace ToyStore
                 // Проверка наличия игрушки с таким же названием
                 if (toyStoreList.IsToyExists(nameToy))
                 {
-                    throw new Exception("Такая игрушка уже существует");
+                    throw new Exception("Игрушка с таким названием уже существует");
+                }
+
+                if (toyStoreList.IsToyExists(Convert.ToInt32(article))) // Проверка наличия игрушки с таким же артикулом
+                {
+                    throw new Exception("Игрушка с таким артикулом уже существует");
                 }
 
                 if (dataGridViewToys.CurrentRow == null || dataGridViewToys.CurrentRow.IsNewRow)
@@ -182,6 +188,147 @@ namespace ToyStore
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
+        private void delete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Проверка на наличие выбранной строки в таблице
+                if (dataGridViewToys.CurrentRow == null || dataGridViewToys.CurrentRow.IsNewRow)
+                {
+                    throw new Exception("Выберите игрушку для удаления");
+                }
+
+                // Получение значения артикула выбранной игрушки
+                int articleNumber = Convert.ToInt32(dataGridViewToys.CurrentRow.Cells[1].Value);
+
+                // Удаление игрушки из магазина
+                toyStoreList.RemoveToy(articleNumber);
+
+                int countToys = Convert.ToInt32(dataGridViewToys.CurrentRow.Cells[4].Value);
+
+                if (countToys == 1)
+                {
+                    // Удаление выбранной строки из таблицы
+                    dataGridViewToys.Rows.Remove(dataGridViewToys.CurrentRow);
+                } else
+                {
+                    dataGridViewToys.CurrentRow.Cells[4].Value = countToys - 1;
+                }
+
+                // Обновление меток с информацией
+                UpdateInfo();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
+
+        private void open_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Проверка наличия созданного магазина и запрос подтверждения открытия нового магазина
+                if (toyStoreList != null)
+                {
+                    DialogResult result = MessageBox.Show("Действительно открыть новый магазин? Предыдущий будет удален", "", MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
+
+                // Очистка таблицы и списка
+                if (toyStoreList != null)
+                    toyStoreList.Clear();
+                dataGridViewToys.Rows.Clear();
+
+                // Открытие диалогового окна для выбора файла
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt";
+                openFileDialog.Title = "Открыть магазин";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = openFileDialog.FileName;
+
+                    // Чтение данных из файла и создание объектов магазина и игрушек
+                    using (StreamReader reader = new StreamReader(filePath))
+                    {
+                        string line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            string[] store = line.Split('\t');
+                            if (store.Length == 7)
+                            {
+                                string nameStore = store[0];
+                                string workingHours = store[1];
+                                string toyName = store[2];
+                                int toyArticle = int.Parse(store[3]);
+                                string manufacturer = store[4];
+                                decimal cost = decimal.Parse(store[5]);
+                                int count = int.Parse(store[6]);
+
+                                // Создание магазина, если он не был создан
+                                if (toyStoreList == null)
+                                {
+                                    toyStoreList = new ToyStoreList(nameStore, workingHours);
+                                }
+
+                                // Создание объекта toy и добавление его в магазин и таблицу
+                                Toy toy = new Toy(toyName, toyArticle, manufacturer, cost, count);
+                                toyStoreList.AddToy(toy);
+                                dataGridViewToys.Rows.Add(toy.Name, toy.ArticleNumber, toy.Manufacturer, toy.Price, toy.Quantity);
+                            }
+                        }
+                    }
+
+                    // Обновление меток с информацией о фирме
+                    UpdateInfo();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
+        private void save_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (toyStoreList == null) // Проверка наличия созданного магазина
+                {
+                    throw new Exception("Магазин игрушек не был создан");
+                }
+
+                SaveFileDialog saveFileDialog = new SaveFileDialog(); // Создание нового диалогового окна для сохранения файла
+                saveFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt"; // Установка фильтра для выбора только текстовых файлов
+                saveFileDialog.Title = "Сохранить магазин игрушек"; // Заголовок диалогового окна
+                if (saveFileDialog.ShowDialog() == DialogResult.OK) // Проверка, была ли нажата кнопка "ОК" в диалоговом окне
+                {
+                    string filePath = saveFileDialog.FileName; // Получение выбранного пути файла
+
+                    using (StreamWriter writer = new StreamWriter(filePath)) // Создание объекта для записи данных в файл
+                    {
+                        Toy[] toy = toyStoreList.GetAllToys();
+                        for (int i = 0; i < toyStoreList.GetCount(); i++) // Перебор всех объектов игрушек
+                        {
+                            // Запись информации о магазине и игрушке в файл, разделяя значения табуляцией
+                            writer.WriteLine($"{toyStoreList.GetName()}\t{toyStoreList.GetWorkingHours()}" +
+                            $"\t{toy[i].Name}\t{toy[i].ArticleNumber}\t{toy[i].Manufacturer}\t{toy[i].Price}\t{toy[i].Quantity}");
+                        }
+                    }
+
+                    MessageBox.Show("Магазин успешно сохранён", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Information); // Отображение сообщения об успешном сохранении
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Stop); // Отображение сообщения об ошибке
             }
         }
     }
