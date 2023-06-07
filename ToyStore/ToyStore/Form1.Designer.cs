@@ -414,6 +414,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1091, 678);
             this.Controls.Add(this.panel1);
+            this.MaximumSize = new System.Drawing.Size(1109, 725);
+            this.MinimumSize = new System.Drawing.Size(1109, 725);
             this.Name = "Form1";
             this.Text = "Form1";
             this.toolStrip1.ResumeLayout(false);

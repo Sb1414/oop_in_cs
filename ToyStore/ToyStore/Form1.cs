@@ -91,7 +91,98 @@ namespace ToyStore
 
         private void buttonAddToy_Click(object sender, EventArgs e)
         {
+            try
+            {
+                // Проверка на пустоту полей ввода
+                if (textBoxToyName.Text == "" || textBoxToyArticle.Text == "" || textBoxToyManufacturer.Text == "" 
+                    || textBoxToyPrice.Text == "" || textBoxToyQuantity.Text == "")
+                {
+                    throw new Exception("Заполните все поля");
+                }
 
+                // Проверка наличия созданного магазина
+                if (toyStoreList == null)
+                {
+                    throw new Exception("Вначале введите название магазина и часы работы");
+                }
+
+                // Получение значений из полей ввода и удаление лишних пробелов
+                string nameToy = textBoxToyName.Text.Trim();
+                string article = textBoxToyArticle.Text.Trim();
+                string manufacturer = textBoxToyManufacturer.Text.Trim();
+                string cost = textBoxToyPrice.Text.Trim();
+                string quantity = textBoxToyQuantity.Text.Trim();
+
+                // Проверка наличия только букв, цифр и пробелов в названии игрушки с использованием регулярного выражения
+                if (!Regex.IsMatch(nameToy, @"^[a-zA-Zа-яА-Я\s]+$"))
+                {
+                    throw new Exception("Название игрушки должно состоять из букв и пробелов");
+                }
+
+                // Проверка формата ввода для артикула с использованием регулярного выражения
+                if (!Regex.IsMatch(article, @"^[0-9]+$"))
+                {
+                    throw new Exception("Артикул должен содержать числа");
+                }
+
+                // Проверка формата ввода для производителя с использованием регулярного выражения
+                if (!Regex.IsMatch(manufacturer, @"^[a-zA-Zа-яА-Я]+$"))
+                {
+                    throw new Exception("Поле производитель должно содержать только буквы");
+                }
+
+                // Проверка формата ввода для стоимости с использованием регулярного выражения
+                if (!Regex.IsMatch(cost, @"^[0-9]+(\,[0-9]+)?$"))
+                {
+                    throw new Exception("Стоимость должна состоять из цифр и может включать десятичную точку");
+                }
+
+                // Проверка формата ввода для количества с использованием регулярного выражения
+                if (!Regex.IsMatch(quantity, @"^[0-9]+$"))
+                {
+                    throw new Exception("Количество должно содержать целое число");
+                }
+
+                // Создание объекта Toy с указанными значениями
+                Toy toy = new Toy(nameToy, Convert.ToInt32(article), manufacturer, Convert.ToDecimal(cost), Convert.ToInt32(quantity));
+
+                // Проверка наличия игрушки с таким же названием
+                if (toyStoreList.IsToyExists(nameToy))
+                {
+                    throw new Exception("Такая игрушка уже существует");
+                }
+
+                if (dataGridViewToys.CurrentRow == null || dataGridViewToys.CurrentRow.IsNewRow)
+                {
+                    // Если выбрана последняя строка или пустая строка, вызвать метод AddToy
+                    toyStoreList.AddToy(toy);
+                    // вставка в таблицу
+                    dataGridViewToys.Rows.Add(toy.Name, toy.ArticleNumber, toy.Manufacturer, toy.Price, toy.Quantity);
+                }
+                else
+                {
+                    // Получить позицию текущей строки
+                    int position = dataGridViewToys.CurrentRow.Index;
+                    // Вставить игрушку на указанную позицию
+                    toyStoreList.InsertToyAtPosition(toy, position);
+                    // вставка в таблицу
+                    dataGridViewToys.Rows.Insert(position, toy.Name, toy.ArticleNumber, toy.Manufacturer, toy.Price, toy.Quantity);
+                }
+
+                // Обновление меток с информацией
+                UpdateInfo();
+
+                // Очистка полей ввода
+                textBoxToyName.Text = "";
+                textBoxToyArticle.Text = "";
+                textBoxToyManufacturer.Text = "";
+                textBoxToyPrice.Text = "";
+                textBoxToyQuantity.Text = "";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
         }
     }
 }
