@@ -13,5 +13,14 @@ namespace ToyStore
         public string Manufacturer { get; set; } // производитель
         public decimal Price { get; set; } // стоимость
         public int Quantity { get; set; } // количество
+
+        public Toy(string name, int article, string manufacturer, decimal price, int quantity)
+        { // конструктор с параметрами
+            this.Name = name;
+            this.ArticleNumber = article;
+            this.Manufacturer = manufacturer;
+            this.Price = price;
+            this.Quantity = quantity;
+        }
     }
 }
