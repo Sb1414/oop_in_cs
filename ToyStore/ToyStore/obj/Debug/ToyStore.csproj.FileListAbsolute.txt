@@ -1,0 +1,11 @@
+C:\Users\Сабина\source\repos\ToyStore\ToyStore\bin\Debug\ToyStore.exe.config
+C:\Users\Сабина\source\repos\ToyStore\ToyStore\bin\Debug\ToyStore.exe
+C:\Users\Сабина\source\repos\ToyStore\ToyStore\bin\Debug\ToyStore.pdb
+C:\Users\Сабина\source\repos\ToyStore\ToyStore\obj\Debug\ToyStore.csproj.AssemblyReference.cache
+C:\Users\Сабина\source\repos\ToyStore\ToyStore\obj\Debug\ToyStore.csproj.SuggestedBindingRedirects.cache
+C:\Users\Сабина\source\repos\ToyStore\ToyStore\obj\Debug\ToyStore.Properties.Resources.resources
+C:\Users\Сабина\source\repos\ToyStore\ToyStore\obj\Debug\ToyStore.csproj.GenerateResource.cache
+C:\Users\Сабина\source\repos\ToyStore\ToyStore\obj\Debug\ToyStore.csproj.CoreCompileInputs.cache
+C:\Users\Сабина\source\repos\ToyStore\ToyStore\obj\Debug\ToyStore.exe
+C:\Users\Сабина\source\repos\ToyStore\ToyStore\obj\Debug\ToyStore.pdb
+C:\Users\Сабина\source\repos\ToyStore\ToyStore\obj\Debug\ToyStore.Form1.resources
