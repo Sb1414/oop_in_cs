@@ -64,6 +64,7 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
             this.paneltable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewToys)).BeginInit();
@@ -80,6 +81,7 @@
             this.delete,
             this.toolStripSeparator1,
             this.labelNameStore,
+            this.toolStripSeparator2,
             this.labelWorkingHours});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -208,6 +210,7 @@
             this.buttonAddToy.TabIndex = 54;
             this.buttonAddToy.Text = "добавить";
             this.buttonAddToy.UseVisualStyleBackColor = true;
+            this.buttonAddToy.Click += new System.EventHandler(this.buttonAddToy_Click);
             // 
             // buttonAddStore
             // 
@@ -217,6 +220,7 @@
             this.buttonAddStore.TabIndex = 48;
             this.buttonAddStore.Text = "добавить";
             this.buttonAddStore.UseVisualStyleBackColor = true;
+            this.buttonAddStore.Click += new System.EventHandler(this.buttonAddStore_Click);
             // 
             // label9
             // 
@@ -399,6 +403,11 @@
             this.Column5.Name = "Column5";
             this.Column5.Width = 125;
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -456,6 +465,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.Label countToys;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 
