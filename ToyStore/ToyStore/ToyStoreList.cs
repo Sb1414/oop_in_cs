@@ -69,6 +69,63 @@ namespace ToyStore
             Count++;
         }
 
+        // Метод для вставки игрушки на определенную позицию
+        public void InsertToyAtPosition(Toy toy, int position)
+        {
+            if (position < 0 || position > Count)
+            {
+                throw new ArgumentOutOfRangeException("position", "Недопустимая позиция для вставки игрушки.");
+            }
+
+            Node newNode = new Node { Data = toy };
+
+            if (Head == null)
+            {
+                // Если список пустой, устанавливаем новый узел в качестве головы списка
+                newNode.Next = newNode;
+                newNode.Previous = newNode;
+                Head = newNode;
+            }
+            else if (position == 0)
+            {
+                // Если позиция равна 0, вставляем новый узел в начало списка
+                Node lastNode = Head.Previous;
+                lastNode.Next = newNode;
+                newNode.Previous = lastNode;
+                newNode.Next = Head;
+                Head.Previous = newNode;
+                Head = newNode;
+            }
+            else if (position == Count)
+            {
+                // Если позиция равна Count, вставляем новый узел в конец списка
+                Node lastNode = Head.Previous;
+                lastNode.Next = newNode;
+                newNode.Previous = lastNode;
+                newNode.Next = Head;
+                Head.Previous = newNode;
+            }
+            else
+            {
+                // Вставляем новый узел на указанную позицию
+                Node currentNode = Head;
+                int currentPosition = 0;
+
+                while (currentPosition < position - 1)
+                {
+                    currentNode = currentNode.Next;
+                    currentPosition++;
+                }
+
+                newNode.Next = currentNode.Next;
+                newNode.Previous = currentNode;
+                currentNode.Next.Previous = newNode;
+                currentNode.Next = newNode;
+            }
+
+            Count++;
+        }
+
         // Метод для удаления игрушки из магазина по артикулу
         public void RemoveToy(int articleNumber)
         {
@@ -102,6 +159,29 @@ namespace ToyStore
 
                 currentNode = currentNode.Next;
             } while (currentNode != Head);
+        }
+
+        // Метод для проверки существования игрушки с заданным названием
+        public bool IsToyExists(string toyName)
+        {
+            Node currentNode = Head;
+
+            if (currentNode == null)
+            {
+                return false;
+            }
+
+            do
+            {
+                if (currentNode.Data.Name.Equals(toyName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+
+                currentNode = currentNode.Next;
+            } while (currentNode != Head);
+
+            return false;
         }
 
         // Метод для подсчета общей суммы всех игрушек в списке
