@@ -39,9 +39,15 @@ namespace ToyStore
             return WorkingHours;
         }
 
-        public int GetCount()
+        public int GetCount() // количество объектов игрушек
         {
             return Count;
+        }
+
+        public void Clear()
+        {
+            Head = null;
+            Count = 0;
         }
 
         // Метод для добавления игрушки в магазин
@@ -126,7 +132,7 @@ namespace ToyStore
             Count++;
         }
 
-        // Метод для удаления игрушки из магазина по артикулу
+        // Удаление игрушки из магазина по артикулу
         public void RemoveToy(int articleNumber)
         {
             Node currentNode = Head;
@@ -135,25 +141,32 @@ namespace ToyStore
             {
                 if (currentNode.Data.ArticleNumber == articleNumber)
                 {
-                    if (Count == 1)
+                    if (currentNode.Data.Quantity > 1)
                     {
-                        // Если в списке только один элемент, очищаем список
-                        Head = null;
+                        // Если количество больше 1, уменьшаем количество на 1
+                        currentNode.Data.Quantity--;
                     }
                     else
                     {
-                        // Удаляем текущий узел из списка
-                        currentNode.Previous.Next = currentNode.Next;
-                        currentNode.Next.Previous = currentNode.Previous;
-
-                        if (currentNode == Head)
+                        if (Count == 1)
                         {
-                            // Если удаляемый узел - голова списка, обновляем ссылку на голову
-                            Head = currentNode.Next;
+                            // Если в списке только один элемент, очищаем список
+                            Head = null;
                         }
-                    }
+                        else
+                        {
+                            // Удаляем текущий узел из списка
+                            currentNode.Previous.Next = currentNode.Next;
+                            currentNode.Next.Previous = currentNode.Previous;
 
-                    Count--;
+                            if (currentNode == Head)
+                            {
+                                // Если удаляемый узел - голова списка, обновляем ссылку на голову
+                                Head = currentNode.Next;
+                            }
+                        }
+                        Count--;
+                    }
                     return;
                 }
 
@@ -161,7 +174,8 @@ namespace ToyStore
             } while (currentNode != Head);
         }
 
-        // Метод для проверки существования игрушки с заданным названием
+
+        // Проверка существования игрушки с заданным названием
         public bool IsToyExists(string toyName)
         {
             Node currentNode = Head;
@@ -183,6 +197,52 @@ namespace ToyStore
 
             return false;
         }
+
+        // Проверка существования игрушки с заданным артикулом
+        public bool IsToyExists(int articleNumber)
+        {
+            Node currentNode = Head;
+
+            if (currentNode == null)
+            {
+                return false;
+            }
+
+            do
+            {
+                if (currentNode.Data.ArticleNumber == articleNumber)
+                {
+                    return true;
+                }
+
+                currentNode = currentNode.Next;
+            } while (currentNode != Head);
+
+            return false;
+        }
+
+
+        public Toy[] GetAllToys() // возвращает все объекты игрушек в магазине
+        {
+            Toy[] toys = new Toy[Count];
+            Node currentNode = Head;
+
+            if (currentNode == null)
+            {
+                return toys;
+            }
+
+            int index = 0;
+            do
+            {
+                toys[index] = currentNode.Data;
+                currentNode = currentNode.Next;
+                index++;
+            } while (currentNode != Head);
+
+            return toys;
+        }
+
 
         // Метод для подсчета общей суммы всех игрушек в списке
         public decimal CalculateTotalPrice()
