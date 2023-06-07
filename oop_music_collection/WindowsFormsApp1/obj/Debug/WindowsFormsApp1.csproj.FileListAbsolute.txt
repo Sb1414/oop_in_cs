@@ -1,14 +1,3 @@
-C:\Users\ПК\Desktop\курсовая оконное приложение\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
-C:\Users\ПК\Desktop\курсовая оконное приложение\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
-C:\Users\ПК\Desktop\курсовая оконное приложение\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
-C:\Users\ПК\Desktop\курсовая оконное приложение\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.AssemblyReference.cache
-C:\Users\ПК\Desktop\курсовая оконное приложение\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.SuggestedBindingRedirects.cache
-C:\Users\ПК\Desktop\курсовая оконное приложение\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
-C:\Users\ПК\Desktop\курсовая оконное приложение\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources
-C:\Users\ПК\Desktop\курсовая оконное приложение\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.GenerateResource.cache
-C:\Users\ПК\Desktop\курсовая оконное приложение\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
-C:\Users\ПК\Desktop\курсовая оконное приложение\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
-C:\Users\ПК\Desktop\курсовая оконное приложение\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
 C:\Users\Сабина\Downloads\WindowsFormsApp1-20230523T115832Z-001\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe.config
 C:\Users\Сабина\Downloads\WindowsFormsApp1-20230523T115832Z-001\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.exe
 C:\Users\Сабина\Downloads\WindowsFormsApp1-20230523T115832Z-001\WindowsFormsApp1\bin\Debug\WindowsFormsApp1.pdb
