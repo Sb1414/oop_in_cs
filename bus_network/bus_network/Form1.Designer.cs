@@ -121,6 +121,7 @@
             this.buttonAddBus.TabIndex = 6;
             this.buttonAddBus.Text = "Добавить";
             this.buttonAddBus.UseVisualStyleBackColor = true;
+            this.buttonAddBus.Click += new System.EventHandler(this.buttonAddBus_Click);
             // 
             // buttonAddRoute
             // 

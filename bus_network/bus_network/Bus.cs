@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace bus_network
 {
-    internal class Bus
+    public class Bus
     {
         public string LicensePlate { get; set; }
         public string DriverName { get; set; }

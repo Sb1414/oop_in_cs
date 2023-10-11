@@ -6,79 +6,60 @@ using System.Threading.Tasks;
 
 namespace bus_network
 {
-    internal class BusRoute
+    public class BusRoute
     {
-        public int RouteNumber { get; set; }
-        public BusRoute Next { get; set; }  // ссылка на следующий маршрут в списке
-        private Bus[] busArray;  // массив автобусов как очередь
-        private int size;  // размер очереди
-        private int front; // индекс начала очереди
-        private int rear;  // индекс конца очереди
+        public BusRoute NextRoute { get; set; }
+
+        private Bus _head;
+        private int _count;
+
+        public int RouteNumber { get; }
 
         public BusRoute(int routeNumber)
         {
             RouteNumber = routeNumber;
-            Next = this;
-            busArray = new Bus[10]; // начальный размер массива
-            size = 0;
-            front = 0;
-            rear = -1;
+        }
+
+        public Bus[] GetAllBuses()
+        {
+            if (_head == null)
+                return new Bus[0];
+
+            Bus[] buses = new Bus[_count];
+            Bus current = _head;
+            for (int i = 0; i < _count; i++)
+            {
+                buses[i] = current;
+                current = current.NextBus;
+            }
+            return buses;
         }
 
         public void AddBus(string licensePlate, string driverName)
         {
-            if (size == busArray.Length)
+            Bus newBus = new Bus(licensePlate, driverName);
+
+            if (_head == null)
             {
-                // увеличение размера массива, если очередь переполнена
-                Array.Resize(ref busArray, busArray.Length * 2);
+                _head = newBus;
+            }
+            else
+            {
+                Bus current = _head;
+                while (current.NextBus != _head)
+                {
+                    current = current.NextBus;
+                }
+                current.NextBus = newBus;
+                newBus.NextBus = _head;
             }
 
-            rear = (rear + 1) % busArray.Length; // Циклическое добавление в массив
-            busArray[rear] = new Bus(licensePlate, driverName);
-            size++;
+            _count++;
         }
 
-        public void CombineWith(BusRoute otherRoute)
+        public int CountBuses()
         {
-            if (otherRoute != null)
-            {
-                int combinedSize = size + otherRoute.size;
-                if (combinedSize > busArray.Length)
-                {
-                    // увеличение размера массива, если не хватает места
-                    int newSize = Math.Max(busArray.Length * 2, combinedSize);
-                    Array.Resize(ref busArray, newSize);
-                }
-
-                int otherSize = otherRoute.size;
-                for (int i = 0; i < otherSize; i++)
-                {
-                    rear = (rear + 1) % busArray.Length; // циклическое добавление в массив
-                    busArray[rear] = otherRoute.busArray[i];
-                }
-
-                size = combinedSize;
-                otherRoute.size = 0; // очищаем другую очередь
-            }
-        }
-
-        public void RemoveBus(string licensePlate)
-        {
-            for (int i = front, count = 0; count < size; i = (i + 1) % busArray.Length, count++)
-            {
-                if (busArray[i].LicensePlate == licensePlate)
-                {
-                    // если найден автобус, удаляем его из очереди
-                    for (int j = i; j != rear; j = (j + 1) % busArray.Length)
-                    {
-                        busArray[j] = busArray[(j + 1) % busArray.Length];
-                    }
-                    rear = (rear - 1 + busArray.Length) % busArray.Length;
-                    size--;
-                    return;
-                }
-            }
+            return _count;
         }
     }
-
 }

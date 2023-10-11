@@ -6,101 +6,97 @@ using System.Threading.Tasks;
 
 namespace bus_network
 {
-    internal class BusNetwork
+    public class BusNetwork
     {
-        private BusRoute firstRoute;  // ссылка на первый маршрут в списке
-
-        public BusNetwork()
-        {
-            firstRoute = null;  // изначально нет маршрутов
-        }
+        private BusRoute _head;
 
         public void AddRoute(int routeNumber)
         {
             BusRoute newRoute = new BusRoute(routeNumber);
 
-            if (firstRoute == null || routeNumber < firstRoute.RouteNumber)
+            if (_head == null)
             {
-                // если список пуст или новый маршрут должен быть первым
-                newRoute.Next = firstRoute;
-                firstRoute = newRoute;
+                _head = newRoute;
+                _head.NextRoute = _head;
             }
             else
             {
-                BusRoute currentRoute = firstRoute;
-                while (currentRoute.Next != null && currentRoute.Next.RouteNumber < routeNumber)
+                BusRoute current = _head;
+                while (current.NextRoute != _head)
                 {
-                    currentRoute = currentRoute.Next;
+                    current = current.NextRoute;
                 }
-                newRoute.Next = currentRoute.Next;
-                currentRoute.Next = newRoute;
+                current.NextRoute = newRoute;
+                newRoute.NextRoute = _head;
             }
         }
 
-
-        public void CombineRoutes(int routeNumber1, int routeNumber2)
+        public void AddBusToRoute(int routeNumber, string licensePlate, string driverName)
         {
-            BusRoute route1 = FindRoute(routeNumber1);
-            BusRoute route2 = FindRoute(routeNumber2);
-
-            if (route1 != null && route2 != null)
+            BusRoute targetRoute = FindRoute(routeNumber);
+            if (targetRoute != null)
             {
-                route1.CombineWith(route2);
-
-                // удаление route2 из списка
-                if (route2 == firstRoute)
-                {
-                    firstRoute = route2.Next;  // обновляем firstRoute, если необходимо
-                }
-                BusRoute currentRoute = firstRoute;
-                while (currentRoute.Next != firstRoute && currentRoute.Next != route2)
-                {
-                    currentRoute = currentRoute.Next;
-                }
-                currentRoute.Next = route2.Next;
+                targetRoute.AddBus(licensePlate, driverName);
             }
-        }
-
-        private BusRoute FindRoute(int routeNumber)
-        {
-            if (firstRoute == null)
-            {
-                return null;
-            }
-
-            BusRoute currentRoute = firstRoute;
-
-            do
-            {
-                if (currentRoute.RouteNumber == routeNumber)
-                {
-                    return currentRoute;
-                }
-                currentRoute = currentRoute.Next;
-            } while (currentRoute != firstRoute);
-
-            return null;
         }
 
         public BusRoute[] GetAllRoutes()
         {
-            if (firstRoute == null)
+            if (_head == null)
+                return new BusRoute[0];
+
+            BusRoute[] routes = new BusRoute[CountRoutes()];
+            BusRoute current = _head;
+            for (int i = 0; i < routes.Length; i++)
             {
-                return new BusRoute[0]; // возвращаем пустой массив, если нет маршрутов
+                routes[i] = current;
+                current = current.NextRoute;
             }
-
-            List<BusRoute> routesList = new List<BusRoute>();
-            BusRoute currentRoute = firstRoute;
-
-            while (currentRoute != null)
-            {
-                routesList.Add(currentRoute);
-                currentRoute = currentRoute.Next;
-            }
-
-            return routesList.ToArray();
+            return routes;
         }
 
+        private BusRoute FindRoute(int routeNumber)
+        {
+            BusRoute current = _head;
+            do
+            {
+                if (current.RouteNumber == routeNumber)
+                    return current;
+
+                current = current.NextRoute;
+            }
+            while (current != _head);
+
+            return null;
+        }
+
+        private int CountRoutes()
+        {
+            if (_head == null)
+                return 0;
+
+            int count = 1;
+            BusRoute current = _head;
+            while (current.NextRoute != _head)
+            {
+                count++;
+                current = current.NextRoute;
+            }
+            return count;
+        }
+
+        public Bus[] GetAllBusesOnRoute(int routeNumber)
+        {
+            BusRoute route = FindRoute(routeNumber);
+            if (route != null)
+            {
+                return route.GetAllBuses();
+            }
+            else
+            {
+                return new Bus[0];
+            }
+        }
     }
 
 }
