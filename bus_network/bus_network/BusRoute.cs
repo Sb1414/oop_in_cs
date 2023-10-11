@@ -39,6 +39,11 @@ namespace bus_network
         {
             Bus newBus = new Bus(licensePlate, driverName);
 
+            if (!IsLicensePlateUnique(licensePlate))
+            {
+                throw new Exception("Госномер должен быть уникальным");
+            }
+
             if (_head == null)
             {
                 _head = newBus;
@@ -60,6 +65,17 @@ namespace bus_network
         public int CountBuses()
         {
             return _count;
+        }
+
+        public bool IsLicensePlateUnique(string licensePlate)
+        {
+            foreach (Bus bus in GetAllBuses())
+            {
+                if (bus.LicensePlate == licensePlate)
+                    return false;
+            }
+
+            return true;
         }
     }
 }

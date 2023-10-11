@@ -21,38 +21,45 @@ namespace bus_network
 
         private void buttonAddRoute_Click(object sender, EventArgs e)
         {
-
-            if (textBoxNumberRoute.Text == "")
+            try
             {
-                MessageBox.Show("Введите номер маршрута");
-                return;
-            }
+                if (textBoxNumberRoute.Text == "")
+                {
+                    MessageBox.Show("Введите номер маршрута");
+                    return;
+                }
 
-            if (!Regex.IsMatch(textBoxNumberRoute.Text, @"^\d+$") || textBoxNumberRoute.Text == "0")
+                if (!Regex.IsMatch(textBoxNumberRoute.Text, @"^\d+$") || textBoxNumberRoute.Text == "0")
+                {
+                    MessageBox.Show("Номер маршрута должен состоять только из цифр\n\n" +
+                        "Например: 10, 101");
+                    return;
+                }
+                // добавление маршрута в BusNetwork
+                busNetwork.AddRoute(Convert.ToInt32(textBoxNumberRoute.Text));
+
+                // очистка DataGridView перед обновлением
+                dataGridViewRoutes.Rows.Clear();
+
+                // массив маршрутов из BusNetwork
+                BusRoute[] routes = busNetwork.GetAllRoutes();
+
+                // установка количества строк в DataGridView равным количеству маршрутов
+                dataGridViewRoutes.RowCount = routes.Length;
+
+                // заполнение DataGridView
+                for (int i = 0; i < routes.Length; i++)
+                {
+                    dataGridViewRoutes.Rows[i].Cells[0].Value = routes[i].RouteNumber;
+                    dataGridViewRoutes.Rows[i].Cells[1].Value = routes[i].CountBuses();
+                }
+
+                textBoxNumberRoute.Clear();
+            }
+            catch (Exception ex)
             {
-                MessageBox.Show("Номер маршрута должен состоять только из цифр\n\n" +
-                    "Например: 10, 101");
-                return;
+                MessageBox.Show($"Ошибка: {ex.Message}");
             }
-            // добавление маршрута в BusNetwork
-            busNetwork.AddRoute(Convert.ToInt32(textBoxNumberRoute.Text));
-
-            // очистка DataGridView перед обновлением
-            dataGridViewRoutes.Rows.Clear();
-
-            // массив маршрутов из BusNetwork
-            BusRoute[] routes = busNetwork.GetAllRoutes();
-
-            // установка количества строк в DataGridView равным количеству маршрутов
-            dataGridViewRoutes.RowCount = routes.Length;
-
-            // заполнение DataGridView
-            for (int i = 0; i < routes.Length; i++)
-            {
-                dataGridViewRoutes.Rows[i].Cells[0].Value = routes[i].RouteNumber;
-                dataGridViewRoutes.Rows[i].Cells[1].Value = routes[i].CountBuses();
-            }
-
         }
 
         private void buttonAddBus_Click(object sender, EventArgs e)
@@ -75,13 +82,13 @@ namespace bus_network
                         return;
                     }
 
-                    // Получаем номер маршрута из выбранной строки таблицы
+                    // получаем номер маршрута из выбранной строки таблицы
                     int routeNumber = (int)currentRow.Cells[0].Value;
 
-                    // Добавляем автобус в выбранный маршрут с использованием нового метода
+                    // добавляем автобус в выбранный маршрут с использованием нового метода
                     busNetwork.AddBusToRoute(routeNumber, textBoxLicensePlate.Text, textBoxSurname.Text);
 
-                    // Очищаем текстовые поля
+                    // очищаем текстовые поля
                     textBoxLicensePlate.Clear();
                     textBoxSurname.Clear();
 

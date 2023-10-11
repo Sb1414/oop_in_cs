@@ -14,6 +14,11 @@ namespace bus_network
         {
             BusRoute newRoute = new BusRoute(routeNumber);
 
+            if (!IsRouteNumberUnique(routeNumber))
+            {
+                throw new Exception("Номер маршрута должен быть уникальным");
+            }
+
             if (_head == null)
             {
                 _head = newRoute;
@@ -96,6 +101,16 @@ namespace bus_network
             {
                 return new Bus[0];
             }
+        }
+
+        public bool IsRouteNumberUnique(int routeNumber)
+        {
+            foreach (BusRoute route in GetAllRoutes())
+            {
+                if (route.RouteNumber == routeNumber)
+                    return false;
+            }
+            return true;
         }
     }
 
