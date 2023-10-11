@@ -8,34 +8,35 @@ namespace bus_network
 {
     internal class BusNetwork
     {
-        private BusRoute[] routes;  // динамический массив ссылок на маршруты
-        private int count;  // количество маршрутов в сети
+        private BusRoute firstRoute;  // ссылка на первый маршрут в списке
 
         public BusNetwork()
         {
-            routes = new BusRoute[10];  // изначальный размер массива
-            count = 0;  // начальное количество маршрутов
+            firstRoute = null;  // изначально нет маршрутов
         }
 
         public void AddRoute(int routeNumber)
         {
-            if (count == routes.Length)
+            BusRoute newRoute = new BusRoute(routeNumber);
+
+            if (firstRoute == null || routeNumber < firstRoute.RouteNumber)
             {
-                // расширяем массив, если не хватает места
-                Array.Resize(ref routes, routes.Length * 2);
+                // если список пуст или новый маршрут должен быть первым
+                newRoute.Next = firstRoute;
+                firstRoute = newRoute;
             }
-            routes[count] = new BusRoute(routeNumber);
-            count++;
+            else
+            {
+                BusRoute currentRoute = firstRoute;
+                while (currentRoute.Next != null && currentRoute.Next.RouteNumber < routeNumber)
+                {
+                    currentRoute = currentRoute.Next;
+                }
+                newRoute.Next = currentRoute.Next;
+                currentRoute.Next = newRoute;
+            }
         }
 
-        public void AddBusToRoute(int routeNumber, string licensePlate, string driverName)
-        {
-            BusRoute route = FindRoute(routeNumber);
-            if (route != null)
-            {
-                route.AddBus(licensePlate, driverName);
-            }
-        }
 
         public void CombineRoutes(int routeNumber1, int routeNumber2)
         {
@@ -46,20 +47,60 @@ namespace bus_network
             {
                 route1.CombineWith(route2);
 
-                // удаляем route2 из массива, сдвигая элементы влево
-                int index2 = Array.IndexOf(routes, route2);
-                for (int i = index2; i < count - 1; i++)
+                // удаление route2 из списка
+                if (route2 == firstRoute)
                 {
-                    routes[i] = routes[i + 1];
+                    firstRoute = route2.Next;  // обновляем firstRoute, если необходимо
                 }
-                count--;
+                BusRoute currentRoute = firstRoute;
+                while (currentRoute.Next != firstRoute && currentRoute.Next != route2)
+                {
+                    currentRoute = currentRoute.Next;
+                }
+                currentRoute.Next = route2.Next;
             }
         }
 
         private BusRoute FindRoute(int routeNumber)
         {
-            return Array.Find(routes, r => r != null && r.RouteNumber == routeNumber);
+            if (firstRoute == null)
+            {
+                return null;
+            }
+
+            BusRoute currentRoute = firstRoute;
+
+            do
+            {
+                if (currentRoute.RouteNumber == routeNumber)
+                {
+                    return currentRoute;
+                }
+                currentRoute = currentRoute.Next;
+            } while (currentRoute != firstRoute);
+
+            return null;
         }
+
+        public BusRoute[] GetAllRoutes()
+        {
+            if (firstRoute == null)
+            {
+                return new BusRoute[0]; // возвращаем пустой массив, если нет маршрутов
+            }
+
+            List<BusRoute> routesList = new List<BusRoute>();
+            BusRoute currentRoute = firstRoute;
+
+            while (currentRoute != null)
+            {
+                routesList.Add(currentRoute);
+                currentRoute = currentRoute.Next;
+            }
+
+            return routesList.ToArray();
+        }
+
     }
 
 }

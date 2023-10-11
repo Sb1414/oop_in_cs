@@ -9,90 +9,76 @@ namespace bus_network
     internal class BusRoute
     {
         public int RouteNumber { get; set; }
-        public BusRoute Next { get; set; } // ссылка на следующий маршрут в списке
-        public Bus FirstBus { get; set; }  // ссылка на первый автобус в маршруте
+        public BusRoute Next { get; set; }  // ссылка на следующий маршрут в списке
+        private Bus[] busArray;  // массив автобусов как очередь
+        private int size;  // размер очереди
+        private int front; // индекс начала очереди
+        private int rear;  // индекс конца очереди
 
         public BusRoute(int routeNumber)
         {
             RouteNumber = routeNumber;
-            Next = this;  // изначально маршрут ссылается сам на себя, создавая цикл
-            FirstBus = null;  // изначально нет автобусов
+            Next = this;
+            busArray = new Bus[10]; // начальный размер массива
+            size = 0;
+            front = 0;
+            rear = -1;
         }
 
         public void AddBus(string licensePlate, string driverName)
         {
-            Bus newBus = new Bus(licensePlate, driverName);
-            if (FirstBus == null)
+            if (size == busArray.Length)
             {
-                FirstBus = newBus;
-                newBus.NextBus = newBus;  // автобус ссылается сам на себя
+                // увеличение размера массива, если очередь переполнена
+                Array.Resize(ref busArray, busArray.Length * 2);
             }
-            else
-            {
-                Bus lastBus = FirstBus;
-                while (lastBus.NextBus != FirstBus)
-                {
-                    lastBus = lastBus.NextBus;
-                }
-                lastBus.NextBus = newBus;
-                newBus.NextBus = FirstBus;  // новый автобус ссылается на первый
-            }
+
+            rear = (rear + 1) % busArray.Length; // Циклическое добавление в массив
+            busArray[rear] = new Bus(licensePlate, driverName);
+            size++;
         }
 
         public void CombineWith(BusRoute otherRoute)
         {
             if (otherRoute != null)
             {
-                // последний узел текущего маршрута
-                BusRoute lastNode = this;
-                while (lastNode.Next != this)
+                int combinedSize = size + otherRoute.size;
+                if (combinedSize > busArray.Length)
                 {
-                    lastNode = lastNode.Next;
+                    // увеличение размера массива, если не хватает места
+                    int newSize = Math.Max(busArray.Length * 2, combinedSize);
+                    Array.Resize(ref busArray, newSize);
                 }
 
-                // объединяем маршруты
-                lastNode.Next = otherRoute.Next;  // присоединяем другой маршрут к концу текущего
-                if (FirstBus != null && otherRoute.FirstBus != null)
+                int otherSize = otherRoute.size;
+                for (int i = 0; i < otherSize; i++)
                 {
-                    Bus lastBus = FirstBus;
-                    while (lastBus.NextBus != FirstBus)
-                    {
-                        lastBus = lastBus.NextBus;
-                    }
-                    lastBus.NextBus = otherRoute.FirstBus;  // обновляем связи для объединенных автобусов
+                    rear = (rear + 1) % busArray.Length; // циклическое добавление в массив
+                    busArray[rear] = otherRoute.busArray[i];
                 }
+
+                size = combinedSize;
+                otherRoute.size = 0; // очищаем другую очередь
             }
         }
 
         public void RemoveBus(string licensePlate)
         {
-            if (FirstBus != null)
+            for (int i = front, count = 0; count < size; i = (i + 1) % busArray.Length, count++)
             {
-                if (FirstBus.LicensePlate == licensePlate)
+                if (busArray[i].LicensePlate == licensePlate)
                 {
-                    if (FirstBus.NextBus == FirstBus)
+                    // если найден автобус, удаляем его из очереди
+                    for (int j = i; j != rear; j = (j + 1) % busArray.Length)
                     {
-                        FirstBus = null;  // если был только один автобус, удаляем его
+                        busArray[j] = busArray[(j + 1) % busArray.Length];
                     }
-                    else
-                    {
-                        FirstBus = FirstBus.NextBus;  // перемещаем начало списка
-                    }
-                }
-                else
-                {
-                    Bus currentBus = FirstBus;
-                    while (currentBus.NextBus != FirstBus)
-                    {
-                        if (currentBus.NextBus.LicensePlate == licensePlate)
-                        {
-                            currentBus.NextBus = currentBus.NextBus.NextBus;  // удаляем автобус из середины списка
-                            return;
-                        }
-                        currentBus = currentBus.NextBus;
-                    }
+                    rear = (rear - 1 + busArray.Length) % busArray.Length;
+                    size--;
+                    return;
                 }
             }
         }
     }
+
 }
