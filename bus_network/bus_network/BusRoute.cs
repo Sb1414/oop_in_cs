@@ -77,5 +77,12 @@ namespace bus_network
 
             return true;
         }
+
+        public void ClearBuses()
+        {
+            _head = null; // удаление всех автобусов в этом маршруте
+            _count = 0; // сборс счетчика автобусов
+        }
+
     }
 }

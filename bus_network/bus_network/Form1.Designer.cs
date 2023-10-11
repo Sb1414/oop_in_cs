@@ -114,6 +114,7 @@
             this.clearAll.Name = "clearAll";
             this.clearAll.Size = new System.Drawing.Size(112, 24);
             this.clearAll.Text = "очистить всё";
+            this.clearAll.Click += new System.EventHandler(this.clearAll_Click);
             // 
             // buttonAddBus
             // 

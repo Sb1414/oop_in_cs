@@ -199,6 +199,15 @@ namespace bus_network
             }
         }
 
+        private void ClearAll()
+        {
+            dataGridViewBus.Rows.Clear();
+            dataGridViewRoutes.Rows.Clear();
+
+            busNetwork.ClearAllRoutes();
+            busNetwork.ClearAllBuses();
+        }
+
         private void Load_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -208,9 +217,8 @@ namespace bus_network
             {
                 string filePath = openFileDialog.FileName;
 
-                // Очищаем перед загрузкой новых данных
-                dataGridViewBus.Rows.Clear();
-                dataGridViewRoutes.Rows.Clear();
+                // очищаем перед загрузкой новых данных
+                ClearAll();
 
                 try
                 {
@@ -221,7 +229,7 @@ namespace bus_network
 
                         while ((line = reader.ReadLine()) != null)
                         {
-                            // Разбиваем строку на части по разделителю (здесь используется табуляция)
+                            // разбиваем строку на части по разделителю (здесь используется табуляция)
                             string[] parts = line.Split('\t');
 
                             if (parts.Length == 3)
@@ -234,19 +242,19 @@ namespace bus_network
 
                                 if (existingRoutes.ContainsKey(routeNumber))
                                 {
-                                    // Если маршрут уже существует, используем существующий
+                                    // если маршрут уже существует, используем существующий
                                     currentRoute = existingRoutes[routeNumber];
                                 }
                                 else
                                 {
-                                    // Создаем новый маршрут, если он не существует
+                                    // создаем новый маршрут, если он не существует
                                     busNetwork.AddRoute(routeNumber);
                                     currentRoute = new BusRoute(routeNumber);
                                     existingRoutes.Add(routeNumber, currentRoute);
                                 }
                                 if (licensePlate != "0" && driverName != "0")
                                 {
-                                    // Добавляем автобус к текущему маршруту
+                                    // добавляем автобус к текущему маршруту
                                     busNetwork.AddBusToRoute(routeNumber, licensePlate, driverName);
                                 }
                                 
@@ -264,5 +272,9 @@ namespace bus_network
             }
         }
 
+        private void clearAll_Click(object sender, EventArgs e)
+        {
+            ClearAll();
+        }
     }
 }

@@ -110,6 +110,22 @@ namespace bus_network
             return null;
         }
 
+        public void ClearAllRoutes()
+        {
+            _head = null; // удаление всех маршрутов
+        }
+
+        public void ClearAllBuses()
+        {
+            BusRoute current = _head;
+            while (current != null)
+            {
+                current.ClearBuses(); // очищаем автобусы в текущем маршруте
+                current = current.NextRoute;
+            }
+        }
+
+
         private int CountRoutes()
         {
             if (_head == null)
