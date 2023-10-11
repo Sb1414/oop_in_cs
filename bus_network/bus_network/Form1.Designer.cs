@@ -41,7 +41,7 @@
             this.textBoxLicensePlate = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxNumberRoute = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.labelTotalCountBus = new System.Windows.Forms.Label();
             this.dataGridViewRoutes = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridViewBus = new System.Windows.Forms.DataGridView();
@@ -88,6 +88,7 @@
             this.Save.Name = "Save";
             this.Save.Size = new System.Drawing.Size(224, 26);
             this.Save.Text = "Сохранить";
+            this.Save.Click += new System.EventHandler(this.Save_Click);
             // 
             // Load
             // 
@@ -163,14 +164,14 @@
             this.textBoxNumberRoute.Size = new System.Drawing.Size(189, 22);
             this.textBoxNumberRoute.TabIndex = 1;
             // 
-            // label5
+            // labelTotalCountBus
             // 
-            this.label5.BackColor = System.Drawing.Color.LightGray;
-            this.label5.Location = new System.Drawing.Point(764, 2);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(248, 23);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "общее число автобусов: ";
+            this.labelTotalCountBus.BackColor = System.Drawing.Color.LightGray;
+            this.labelTotalCountBus.Location = new System.Drawing.Point(764, 2);
+            this.labelTotalCountBus.Name = "labelTotalCountBus";
+            this.labelTotalCountBus.Size = new System.Drawing.Size(248, 23);
+            this.labelTotalCountBus.TabIndex = 13;
+            this.labelTotalCountBus.Text = "общее число автобусов: ";
             // 
             // dataGridViewRoutes
             // 
@@ -187,10 +188,11 @@
             this.dataGridViewRoutes.RowTemplate.Height = 24;
             this.dataGridViewRoutes.Size = new System.Drawing.Size(572, 427);
             this.dataGridViewRoutes.TabIndex = 5;
+            this.dataGridViewRoutes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRoutes_CellClick);
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.labelTotalCountBus);
             this.panel1.Controls.Add(this.dataGridViewBus);
             this.panel1.Controls.Add(this.dataGridViewRoutes);
             this.panel1.Controls.Add(this.menuStrip1);
@@ -317,7 +319,7 @@
         private System.Windows.Forms.TextBox textBoxLicensePlate;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxNumberRoute;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelTotalCountBus;
         private System.Windows.Forms.DataGridView dataGridViewRoutes;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;

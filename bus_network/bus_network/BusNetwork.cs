@@ -90,17 +90,27 @@ namespace bus_network
             return count;
         }
 
+        public int GetTotalBusesCount()
+        {
+            int count = 0;
+            foreach (BusRoute route in GetAllRoutes())
+            {
+                count += route.CountBuses();
+            }
+
+            return count;
+        }
+
         public Bus[] GetAllBusesOnRoute(int routeNumber)
         {
             BusRoute route = FindRoute(routeNumber);
-            if (route != null)
-            {
-                return route.GetAllBuses();
-            }
-            else
+
+            if (route == null)
             {
                 return new Bus[0];
             }
+
+            return route.GetAllBuses();
         }
 
         public bool IsRouteNumberUnique(int routeNumber)

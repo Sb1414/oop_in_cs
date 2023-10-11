@@ -37,29 +37,37 @@ namespace bus_network
                 }
                 // добавление маршрута в BusNetwork
                 busNetwork.AddRoute(Convert.ToInt32(textBoxNumberRoute.Text));
+                UpdateRoutes();
 
-                // очистка DataGridView перед обновлением
-                dataGridViewRoutes.Rows.Clear();
 
-                // массив маршрутов из BusNetwork
-                BusRoute[] routes = busNetwork.GetAllRoutes();
-
-                // установка количества строк в DataGridView равным количеству маршрутов
-                dataGridViewRoutes.RowCount = routes.Length;
-
-                // заполнение DataGridView
-                for (int i = 0; i < routes.Length; i++)
-                {
-                    dataGridViewRoutes.Rows[i].Cells[0].Value = routes[i].RouteNumber;
-                    dataGridViewRoutes.Rows[i].Cells[1].Value = routes[i].CountBuses();
-                }
-
-                textBoxNumberRoute.Clear();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка: {ex.Message}");
             }
+        }
+
+        private void UpdateRoutes()
+        {
+            // очистка DataGridView перед обновлением
+            dataGridViewRoutes.Rows.Clear();
+
+            // массив маршрутов из BusNetwork
+            BusRoute[] routes = busNetwork.GetAllRoutes();
+
+            // установка количества строк в DataGridView равным количеству маршрутов
+            dataGridViewRoutes.RowCount = routes.Length;
+
+            // заполнение DataGridView
+            for (int i = 0; i < routes.Length; i++)
+            {
+                dataGridViewRoutes.Rows[i].Cells[0].Value = routes[i].RouteNumber;
+                dataGridViewRoutes.Rows[i].Cells[1].Value = routes[i].CountBuses();
+            }
+
+            textBoxNumberRoute.Clear();
+
+            labelTotalCountBus.Text = "общее число автобусов: " + busNetwork.GetTotalBusesCount();
         }
 
         private void buttonAddBus_Click(object sender, EventArgs e)
@@ -68,7 +76,7 @@ namespace bus_network
             {
                 DataGridViewRow currentRow = dataGridViewRoutes.CurrentRow;
 
-                if (currentRow.Cells[0].Value != null)
+                if (dataGridViewRoutes.CurrentRow != null)
                 {
                     if (!Regex.IsMatch(textBoxLicensePlate.Text, @"^[A-ZА-Я]{3}\d{3}$"))
                     {
@@ -104,6 +112,7 @@ namespace bus_network
                         dataGridViewBus.Rows[i].Cells[0].Value = buses[i].LicensePlate;
                         dataGridViewBus.Rows[i].Cells[1].Value = buses[i].DriverName;
                     }
+                    UpdateRoutes();
                 }
                 else
                 {
@@ -116,5 +125,36 @@ namespace bus_network
             }
         }
 
+        private void dataGridViewRoutes_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                int routeNumber = (int)dataGridViewRoutes.Rows[e.RowIndex].Cells[0].Value;
+
+                // получаем автобусы для выбранного маршрута
+                Bus[] buses = busNetwork.GetAllBusesOnRoute(routeNumber);
+
+                // очищаем dataGridViewBus перед обновлением
+                dataGridViewBus.Rows.Clear();
+
+                if (buses.Length > 0)
+                {
+                    // установка количества строк в таблице автобусов
+                    dataGridViewBus.RowCount = buses.Length;
+                }
+
+                // заполняем таблицу с автобусами
+                for (int i = 0; i < buses.Length; i++)
+                {
+                    dataGridViewBus.Rows[i].Cells[0].Value = buses[i].LicensePlate;
+                    dataGridViewBus.Rows[i].Cells[1].Value = buses[i].DriverName;
+                }
+            }
+        }
+
+        private void Save_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
