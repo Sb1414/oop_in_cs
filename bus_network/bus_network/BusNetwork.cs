@@ -33,7 +33,42 @@ namespace bus_network
                 }
                 current.NextRoute = newRoute;
                 newRoute.NextRoute = _head;
+                SortRoutes();
             }
+        }
+
+        private BusRoute[] GetRouteArray()
+        {
+            BusRoute[] routes = new BusRoute[CountRoutes()];
+
+            BusRoute current = _head;
+            for (int i = 0; i < routes.Length; i++)
+            {
+                routes[i] = current;
+                current = current.NextRoute;
+            }
+
+            return routes;
+        }
+
+        private void SortRoutes()
+        {
+
+            BusRoute[] routes = GetRouteArray();
+
+            // сортировка массива 
+            Array.Sort(routes, (r1, r2) => r1.RouteNumber - r2.RouteNumber);
+
+            // перезапись ссылок из отсортированного массива
+            _head = routes[0];
+
+            for (int i = 0; i < routes.Length - 1; i++)
+            {
+                routes[i].NextRoute = routes[i + 1];
+            }
+
+            routes[routes.Length - 1].NextRoute = _head;
+
         }
 
         public void AddBusToRoute(int routeNumber, string licensePlate, string driverName)

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace bus_network
 {
@@ -154,7 +156,113 @@ namespace bus_network
 
         private void Save_Click(object sender, EventArgs e)
         {
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt";
+                saveFileDialog.Title = "Сохранить данные";
 
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog.FileName;
+
+                    try
+                    {
+                        using (StreamWriter writer = new StreamWriter(filePath, false, Encoding.UTF8))
+                        {
+                            // перебираем все маршруты
+                            BusRoute[] routes = busNetwork.GetAllRoutes();
+                            foreach (var route in routes)
+                            {
+                                // перебираем автобусы на данном маршруте
+                                Bus[] buses = busNetwork.GetAllBusesOnRoute(route.RouteNumber);
+                                if (buses.Length == 0)
+                                {
+                                    writer.WriteLine($"{route.RouteNumber}\t0\t0");
+                                }
+                                foreach (var bus in buses)
+                                {
+                                    // записываем информацию об автобусе
+                                    writer.WriteLine($"{route.RouteNumber}\t{bus.LicensePlate}\t{bus.DriverName}");
+                                }
+
+                                writer.WriteLine(); // пустая строка между маршрутами
+                            }
+                        }
+
+                        MessageBox.Show("Данные успешно сохранены.");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Ошибка при сохранении данных: {ex.Message}");
+                    }
+                }
+            }
         }
+
+        private void Load_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string filePath = openFileDialog.FileName;
+
+                // Очищаем перед загрузкой новых данных
+                dataGridViewBus.Rows.Clear();
+                dataGridViewRoutes.Rows.Clear();
+
+                try
+                {
+                    using (StreamReader reader = new StreamReader(filePath, Encoding.UTF8))
+                    {
+                        string line;
+                        Dictionary<int, BusRoute> existingRoutes = new Dictionary<int, BusRoute>();
+
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            // Разбиваем строку на части по разделителю (здесь используется табуляция)
+                            string[] parts = line.Split('\t');
+
+                            if (parts.Length == 3)
+                            {
+                                int routeNumber = int.Parse(parts[0]);
+                                string licensePlate = parts[1];
+                                string driverName = parts[2];
+
+                                BusRoute currentRoute;
+
+                                if (existingRoutes.ContainsKey(routeNumber))
+                                {
+                                    // Если маршрут уже существует, используем существующий
+                                    currentRoute = existingRoutes[routeNumber];
+                                }
+                                else
+                                {
+                                    // Создаем новый маршрут, если он не существует
+                                    busNetwork.AddRoute(routeNumber);
+                                    currentRoute = new BusRoute(routeNumber);
+                                    existingRoutes.Add(routeNumber, currentRoute);
+                                }
+                                if (licensePlate != "0" && driverName != "0")
+                                {
+                                    // Добавляем автобус к текущему маршруту
+                                    busNetwork.AddBusToRoute(routeNumber, licensePlate, driverName);
+                                }
+                                
+                                UpdateRoutes();
+                            }
+                        }
+
+                        MessageBox.Show("Данные успешно загружены.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ошибка при загрузке данных: {ex.Message}");
+                }
+            }
+        }
+
     }
 }

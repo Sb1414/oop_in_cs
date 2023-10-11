@@ -95,6 +95,7 @@
             this.Load.Name = "Load";
             this.Load.Size = new System.Drawing.Size(224, 26);
             this.Load.Text = "Загрузить";
+            this.Load.Click += new System.EventHandler(this.Load_Click);
             // 
             // DeleteRoute
             // 
