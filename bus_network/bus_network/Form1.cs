@@ -209,6 +209,7 @@ namespace bus_network
 
             busNetwork.ClearAllRoutes();
             busNetwork.ClearAllBuses();
+            labelTotalCountBus.Text = "общее число автобусов: " + busNetwork.GetTotalBusesCount();
         }
 
         private void Load_Click(object sender, EventArgs e)
@@ -273,6 +274,7 @@ namespace bus_network
                                 }
                                 
                                 UpdateRoutes();
+                                UpdateBuses(routeNumber);
                             }
                         }
 
@@ -289,6 +291,81 @@ namespace bus_network
         private void clearAll_Click(object sender, EventArgs e)
         {
             ClearAll();
+        }
+
+        private void DeleteRoute_Click(object sender, EventArgs e)
+        {
+            DataGridViewRow currentRow = dataGridViewRoutes.CurrentRow;
+
+            if (currentRow != null)
+            {
+                int routeNumber;
+                if (int.TryParse(currentRow.Cells[0].Value?.ToString(), out routeNumber))
+                {
+                    // предупреждение перед удалением
+                    DialogResult result = MessageBox.Show("Вы уверены, что хотите удалить выбранный маршрут (согласно замкнутому списку - переместить маршрут в конец списка) и все связанные с ним автобусы?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        busNetwork.RemoveRoute(routeNumber); // удалить сам маршрут
+
+                        // обновление таблицы после удаления
+                        UpdateRoutes();
+                        UpdateBuses(routeNumber);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Не выбран маршрут для удаления.");
+            }
+        }
+
+        private void DeleteBus_Click(object sender, EventArgs e)
+        {
+            int routeNumber = (int)dataGridViewRoutes.CurrentRow.Cells[0].Value; // получаем номер маршрута
+            string licensePlate = dataGridViewBus.Rows[0].Cells[0].Value?.ToString(); // получаем госномер автобуса
+            string surname = dataGridViewBus.Rows[0].Cells[1].Value?.ToString(); // получаем фамилию водителя
+            if (licensePlate != null)
+            {
+
+                // предупреждение перед удалением
+                DialogResult result = MessageBox.Show("Вы уверены, что хотите удалить автобус [" + licensePlate + " - " + surname + "] из очереди?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.Yes)
+                {
+                    busNetwork.RemoveBusFromRoute(routeNumber);
+
+                    // Обновление таблиц после удаления
+                    UpdateRoutes();
+                    UpdateBuses(routeNumber);
+                }
+            }
+        }
+
+        private void UpdateBuses(int routeNumber)
+        {
+            // очистка таблицы перед обновлением
+            dataGridViewBus.Rows.Clear();
+
+            // получаем автобусы для выбранного маршрута
+            Bus[] buses = busNetwork.GetAllBusesOnRoute(routeNumber);
+
+            // очищаем dataGridViewBus перед обновлением
+            dataGridViewBus.Rows.Clear();
+
+            if (buses.Length > 0)
+            {
+                // установка количества строк в таблице автобусов
+                dataGridViewBus.RowCount = buses.Length;
+            }
+
+            // заполняем таблицу с автобусами
+            for (int i = 0; i < buses.Length; i++)
+            {
+                dataGridViewBus.Rows[i].Cells[0].Value = buses[i].LicensePlate;
+                dataGridViewBus.Rows[i].Cells[1].Value = buses[i].DriverName;
+            }
         }
     }
 }

@@ -84,5 +84,32 @@ namespace bus_network
             _count = 0; // сборс счетчика автобусов
         }
 
+        public void RemoveBus()
+        {
+            if (_head == null)
+                return;
+
+            if (_head.NextBus == _head)
+            {
+                // В маршруте есть только один автобус, очищаем маршрут
+                _head = null;
+                _count = 0;
+            }
+            else
+            {
+                Bus current = _head;
+                while (current.NextBus != _head)
+                {
+                    current = current.NextBus;
+                }
+
+                // Удаляем первый автобус и переключаем голову на второй автобус
+                _head = _head.NextBus;
+
+                // Перемещаем последний автобус на новую голову
+                current.NextBus = _head;
+                _count--;
+            }
+        }
     }
 }

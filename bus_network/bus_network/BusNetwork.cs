@@ -53,7 +53,6 @@ namespace bus_network
 
         private void SortRoutes()
         {
-
             BusRoute[] routes = GetRouteArray();
 
             // сортировка массива 
@@ -79,6 +78,101 @@ namespace bus_network
                 targetRoute.AddBus(licensePlate, driverName);
             }
         }
+
+        // удаление маршрута
+        public void RemoveRoute(int routeNumber)
+        {
+            if (_head == null)
+                return;
+
+            BusRoute current = _head;
+            BusRoute prev = null;
+
+            do
+            {
+                if (current.RouteNumber == routeNumber)
+                {
+                    // нашли элемент для удаления
+                    if (_head.RouteNumber == routeNumber)
+                    {
+                        // сохраняем ссылку на текущий head
+                        BusRoute removed = _head;
+
+                        // первый элемент - ссылка на следующий
+                        _head = _head.NextRoute;
+
+                        // прикрепляем текущий head в конец
+                        BusRoute tail = FindTail();
+                        tail.NextRoute = removed;
+                        removed.NextRoute = _head;
+
+                        // удаляем все автобусы
+                        removed.ClearBuses();
+
+                        return;
+                    }
+
+                    // изменяем ссылку предыдущего элемента
+                    if (prev != null)
+                    {
+                        prev.NextRoute = current.NextRoute;
+                    }
+                    else
+                    {
+                        // первый элемент, указываем хвост списка
+                        _head = FindTail();
+                    }
+
+                    // перемещаем в конец списка  
+                    AttachToTail(current);
+
+                    // удаляем все автобусы
+                    current.ClearBuses();
+
+                    return;
+                }
+
+                prev = current;
+                current = current.NextRoute;
+            } while (current != _head);
+        }
+
+        // поиск последнего элемента списка 
+        private BusRoute FindTail()
+        {
+            BusRoute current = _head;
+            if (_head == null)
+            {
+                return null;
+            }
+
+            while (current.NextRoute != _head)
+            {
+                current = current.NextRoute;
+            }
+
+            return current;
+        }
+
+        // прикрепление маршрута в конец списка
+        private void AttachToTail(BusRoute route)
+        {
+            BusRoute tail = FindTail();
+
+            route.NextRoute = _head;
+            tail.NextRoute = route;
+        }
+
+        public void RemoveBusFromRoute(int routeNumber)
+        {
+            BusRoute route = FindRoute(routeNumber);
+
+            if (route != null)
+            {
+                route.RemoveBus();
+            }
+        }
+
 
         public BusRoute[] GetAllRoutes()
         {

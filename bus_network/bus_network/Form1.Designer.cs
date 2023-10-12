@@ -43,15 +43,15 @@
             this.textBoxNumberRoute = new System.Windows.Forms.TextBox();
             this.labelTotalCountBus = new System.Windows.Forms.Label();
             this.dataGridViewRoutes = new System.Windows.Forms.DataGridView();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.dataGridViewBus = new System.Windows.Forms.DataGridView();
-            this.panelBackground = new System.Windows.Forms.Panel();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.dataGridViewBus = new System.Windows.Forms.DataGridView();
             this.c1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.c2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.textBoxSurname = new System.Windows.Forms.TextBox();
+            this.panelBackground = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
+            this.textBoxSurname = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRoutes)).BeginInit();
             this.panel1.SuspendLayout();
@@ -86,14 +86,14 @@
             // Save
             // 
             this.Save.Name = "Save";
-            this.Save.Size = new System.Drawing.Size(224, 26);
+            this.Save.Size = new System.Drawing.Size(166, 26);
             this.Save.Text = "Сохранить";
             this.Save.Click += new System.EventHandler(this.Save_Click);
             // 
             // Load
             // 
             this.Load.Name = "Load";
-            this.Load.Size = new System.Drawing.Size(224, 26);
+            this.Load.Size = new System.Drawing.Size(166, 26);
             this.Load.Text = "Загрузить";
             this.Load.Click += new System.EventHandler(this.Load_Click);
             // 
@@ -102,12 +102,14 @@
             this.DeleteRoute.Name = "DeleteRoute";
             this.DeleteRoute.Size = new System.Drawing.Size(143, 24);
             this.DeleteRoute.Text = "удалить маршрут";
+            this.DeleteRoute.Click += new System.EventHandler(this.DeleteRoute_Click);
             // 
             // DeleteBus
             // 
             this.DeleteBus.Name = "DeleteBus";
             this.DeleteBus.Size = new System.Drawing.Size(135, 24);
             this.DeleteBus.Text = "удалить автобус";
+            this.DeleteBus.Click += new System.EventHandler(this.DeleteBus_Click);
             // 
             // clearAll
             // 
@@ -192,6 +194,22 @@
             this.dataGridViewRoutes.TabIndex = 5;
             this.dataGridViewRoutes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRoutes_CellClick);
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "маршрут";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "количество автобусов";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 125;
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.labelTotalCountBus);
@@ -220,6 +238,22 @@
             this.dataGridViewBus.Size = new System.Drawing.Size(443, 427);
             this.dataGridViewBus.TabIndex = 4;
             // 
+            // c1
+            // 
+            this.c1.HeaderText = "госномер";
+            this.c1.MinimumWidth = 6;
+            this.c1.Name = "c1";
+            this.c1.ReadOnly = true;
+            this.c1.Width = 125;
+            // 
+            // c2
+            // 
+            this.c2.HeaderText = "фамилия водителя";
+            this.c2.MinimumWidth = 6;
+            this.c2.Name = "c2";
+            this.c2.ReadOnly = true;
+            this.c2.Width = 125;
+            // 
             // panelBackground
             // 
             this.panelBackground.BackColor = System.Drawing.Color.Silver;
@@ -238,45 +272,6 @@
             this.panelBackground.Size = new System.Drawing.Size(1015, 582);
             this.panelBackground.TabIndex = 2;
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "маршрут";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "количество автобусов";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 125;
-            // 
-            // c1
-            // 
-            this.c1.HeaderText = "госномер";
-            this.c1.MinimumWidth = 6;
-            this.c1.Name = "c1";
-            this.c1.ReadOnly = true;
-            this.c1.Width = 125;
-            // 
-            // c2
-            // 
-            this.c2.HeaderText = "фамилия водителя";
-            this.c2.MinimumWidth = 6;
-            this.c2.Name = "c2";
-            this.c2.ReadOnly = true;
-            this.c2.Width = 125;
-            // 
-            // textBoxSurname
-            // 
-            this.textBoxSurname.Location = new System.Drawing.Point(619, 534);
-            this.textBoxSurname.Name = "textBoxSurname";
-            this.textBoxSurname.Size = new System.Drawing.Size(189, 22);
-            this.textBoxSurname.TabIndex = 11;
-            // 
             // label3
             // 
             this.label3.Location = new System.Drawing.Point(619, 508);
@@ -284,6 +279,13 @@
             this.label3.Size = new System.Drawing.Size(189, 23);
             this.label3.TabIndex = 12;
             this.label3.Text = "фамилия";
+            // 
+            // textBoxSurname
+            // 
+            this.textBoxSurname.Location = new System.Drawing.Point(619, 534);
+            this.textBoxSurname.Name = "textBoxSurname";
+            this.textBoxSurname.Size = new System.Drawing.Size(189, 22);
+            this.textBoxSurname.TabIndex = 11;
             // 
             // Form1
             // 
