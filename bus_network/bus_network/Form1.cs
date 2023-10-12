@@ -304,7 +304,7 @@ namespace bus_network
                 if (int.TryParse(currentRow.Cells[0].Value?.ToString(), out routeNumber))
                 {
                     // предупреждение перед удалением
-                    DialogResult result = MessageBox.Show("Вы уверены, что хотите удалить выбранный маршрут (согласно замкнутому списку - переместить маршрут в конец списка) и все связанные с ним автобусы?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    DialogResult result = MessageBox.Show("Вы уверены, что хотите удалить выбранный маршрут и все связанные с ним автобусы?", "Подтверждение удаления", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
                     if (result == DialogResult.Yes)
                     {
