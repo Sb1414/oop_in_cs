@@ -131,26 +131,29 @@ namespace bus_network
         {
             if (e.RowIndex >= 0)
             {
-                int routeNumber = (int)dataGridViewRoutes.Rows[e.RowIndex].Cells[0].Value;
-
-                // получаем автобусы для выбранного маршрута
-                Bus[] buses = busNetwork.GetAllBusesOnRoute(routeNumber);
-
-                // очищаем dataGridViewBus перед обновлением
-                dataGridViewBus.Rows.Clear();
-
-                if (buses.Length > 0)
+                if (dataGridViewRoutes.Rows[e.RowIndex].Cells[0].Value != null)
                 {
-                    // установка количества строк в таблице автобусов
-                    dataGridViewBus.RowCount = buses.Length;
-                }
+                    int routeNumber = (int)dataGridViewRoutes.Rows[e.RowIndex].Cells[0].Value;
 
-                // заполняем таблицу с автобусами
-                for (int i = 0; i < buses.Length; i++)
-                {
-                    dataGridViewBus.Rows[i].Cells[0].Value = buses[i].LicensePlate;
-                    dataGridViewBus.Rows[i].Cells[1].Value = buses[i].DriverName;
-                }
+                    // получаем автобусы для выбранного маршрута
+                    Bus[] buses = busNetwork.GetAllBusesOnRoute(routeNumber);
+
+                    // очищаем dataGridViewBus перед обновлением
+                    dataGridViewBus.Rows.Clear();
+
+                    if (buses.Length > 0)
+                    {
+                        // установка количества строк в таблице автобусов
+                        dataGridViewBus.RowCount = buses.Length;
+                    }
+
+                    // заполняем таблицу с автобусами
+                    for (int i = 0; i < buses.Length; i++)
+                    {
+                        dataGridViewBus.Rows[i].Cells[0].Value = buses[i].LicensePlate;
+                        dataGridViewBus.Rows[i].Cells[1].Value = buses[i].DriverName;
+                    }
+                }                
             }
         }
 
@@ -212,6 +215,17 @@ namespace bus_network
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt";
+
+            // предупреждение о потере данных
+            if (dataGridViewRoutes.Rows[0].Cells[0].Value != null)
+            {
+                DialogResult result = MessageBox.Show("Внимание! Все введенные данные будут удалены. Вы уверены, что хотите продолжить?", "Предупреждение", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result != DialogResult.Yes)
+                {
+                    return; // отмена загрузки данных
+                }
+            }
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
