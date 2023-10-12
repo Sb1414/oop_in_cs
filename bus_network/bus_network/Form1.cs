@@ -56,19 +56,20 @@ namespace bus_network
 
             // массив маршрутов из BusNetwork
             BusRoute[] routes = busNetwork.GetAllRoutes();
-
-            // установка количества строк в DataGridView равным количеству маршрутов
-            dataGridViewRoutes.RowCount = routes.Length;
-
-            // заполнение DataGridView
-            for (int i = 0; i < routes.Length; i++)
+            if (routes.Length > 0)
             {
-                dataGridViewRoutes.Rows[i].Cells[0].Value = routes[i].RouteNumber;
-                dataGridViewRoutes.Rows[i].Cells[1].Value = routes[i].CountBuses();
+                // установка количества строк в DataGridView равным количеству маршрутов
+                dataGridViewRoutes.RowCount = routes.Length;
+
+                // заполнение DataGridView
+                for (int i = 0; i < routes.Length; i++)
+                {
+                    dataGridViewRoutes.Rows[i].Cells[0].Value = routes[i].RouteNumber;
+                    dataGridViewRoutes.Rows[i].Cells[1].Value = routes[i].CountBuses();
+                }
+
+                textBoxNumberRoute.Clear();
             }
-
-            textBoxNumberRoute.Clear();
-
             labelTotalCountBus.Text = "общее число автобусов: " + busNetwork.GetTotalBusesCount();
         }
 

@@ -85,82 +85,36 @@ namespace bus_network
             if (_head == null)
                 return;
 
-            BusRoute current = _head;
-            BusRoute prev = null;
-
-            do
+            if (_head.RouteNumber == routeNumber)
             {
-                if (current.RouteNumber == routeNumber)
+                BusRoute temp = _head;
+                _head = _head.NextRoute;
+                temp.ClearBuses();
+
+                // передвигаем указатель на конец списка
+                BusRoute current = _head;
+                while (current.NextRoute != temp)
                 {
-                    // нашли элемент для удаления
-                    if (_head.RouteNumber == routeNumber)
+                    current = current.NextRoute;
+                }
+                current.NextRoute = _head;
+            }
+            else
+            {
+                BusRoute current = _head;
+                do
+                {
+                    if (current.NextRoute != null && current.NextRoute.RouteNumber == routeNumber)
                     {
-                        // сохраняем ссылку на текущий head
-                        BusRoute removed = _head;
-
-                        // первый элемент - ссылка на следующий
-                        _head = _head.NextRoute;
-
-                        // прикрепляем текущий head в конец
-                        BusRoute tail = FindTail();
-                        tail.NextRoute = removed;
-                        removed.NextRoute = _head;
-
-                        // удаляем все автобусы
-                        removed.ClearBuses();
-
+                        BusRoute temp = current.NextRoute;
+                        current.NextRoute = current.NextRoute.NextRoute;
+                        temp.ClearBuses();
                         return;
                     }
 
-                    // изменяем ссылку предыдущего элемента
-                    if (prev != null)
-                    {
-                        prev.NextRoute = current.NextRoute;
-                    }
-                    else
-                    {
-                        // первый элемент, указываем хвост списка
-                        _head = FindTail();
-                    }
-
-                    // перемещаем в конец списка  
-                    AttachToTail(current);
-
-                    // удаляем все автобусы
-                    current.ClearBuses();
-
-                    return;
-                }
-
-                prev = current;
-                current = current.NextRoute;
-            } while (current != _head);
-        }
-
-        // поиск последнего элемента списка 
-        private BusRoute FindTail()
-        {
-            BusRoute current = _head;
-            if (_head == null)
-            {
-                return null;
+                    current = current.NextRoute;
+                } while (current != _head);
             }
-
-            while (current.NextRoute != _head)
-            {
-                current = current.NextRoute;
-            }
-
-            return current;
-        }
-
-        // прикрепление маршрута в конец списка
-        private void AttachToTail(BusRoute route)
-        {
-            BusRoute tail = FindTail();
-
-            route.NextRoute = _head;
-            tail.NextRoute = route;
         }
 
         public void RemoveBusFromRoute(int routeNumber)
