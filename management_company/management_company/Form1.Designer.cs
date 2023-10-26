@@ -30,6 +30,7 @@
 		{
 			this.textBoxPrice = new System.Windows.Forms.TextBox();
 			this.panelBackground = new System.Windows.Forms.Panel();
+			this.numericUpDownNumApart = new System.Windows.Forms.NumericUpDown();
 			this.label3 = new System.Windows.Forms.Label();
 			this.buttonAddApart = new System.Windows.Forms.Button();
 			this.buttonAddHouse = new System.Windows.Forms.Button();
@@ -39,7 +40,12 @@
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.labelTotalCountApart = new System.Windows.Forms.Label();
 			this.dataGridViewApartments = new System.Windows.Forms.DataGridView();
+			this.c1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.c2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewHouses = new System.Windows.Forms.DataGridView();
+			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.Save = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,18 +53,12 @@
 			this.DeleteHouse = new System.Windows.Forms.ToolStripMenuItem();
 			this.DeleteApart = new System.Windows.Forms.ToolStripMenuItem();
 			this.clearAll = new System.Windows.Forms.ToolStripMenuItem();
-			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.c1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.c2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.numericUpDownNumApart = new System.Windows.Forms.NumericUpDown();
 			this.panelBackground.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumApart)).BeginInit();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewApartments)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewHouses)).BeginInit();
 			this.menuStrip1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumApart)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// textBoxPrice
@@ -86,6 +86,28 @@
 			this.panelBackground.Name = "panelBackground";
 			this.panelBackground.Size = new System.Drawing.Size(993, 626);
 			this.panelBackground.TabIndex = 3;
+			// 
+			// numericUpDownNumApart
+			// 
+			this.numericUpDownNumApart.Location = new System.Drawing.Point(412, 535);
+			this.numericUpDownNumApart.Maximum = new decimal(new int[] {
+            1410065408,
+            2,
+            0,
+            0});
+			this.numericUpDownNumApart.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numericUpDownNumApart.Name = "numericUpDownNumApart";
+			this.numericUpDownNumApart.Size = new System.Drawing.Size(186, 22);
+			this.numericUpDownNumApart.TabIndex = 13;
+			this.numericUpDownNumApart.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// label3
 			// 
@@ -175,6 +197,22 @@
 			this.dataGridViewApartments.Size = new System.Drawing.Size(411, 427);
 			this.dataGridViewApartments.TabIndex = 4;
 			// 
+			// c1
+			// 
+			this.c1.HeaderText = "Номер квартиры";
+			this.c1.MinimumWidth = 6;
+			this.c1.Name = "c1";
+			this.c1.ReadOnly = true;
+			this.c1.Width = 125;
+			// 
+			// c2
+			// 
+			this.c2.HeaderText = "Плата за услуги за месяц";
+			this.c2.MinimumWidth = 6;
+			this.c2.Name = "c2";
+			this.c2.ReadOnly = true;
+			this.c2.Width = 125;
+			// 
 			// dataGridViewHouses
 			// 
 			this.dataGridViewHouses.BackgroundColor = System.Drawing.Color.Gainsboro;
@@ -191,6 +229,31 @@
 			this.dataGridViewHouses.RowTemplate.Height = 24;
 			this.dataGridViewHouses.Size = new System.Drawing.Size(582, 427);
 			this.dataGridViewHouses.TabIndex = 5;
+			this.dataGridViewHouses.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewHouses_CellClick);
+			// 
+			// dataGridViewTextBoxColumn1
+			// 
+			this.dataGridViewTextBoxColumn1.HeaderText = "Адрес";
+			this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
+			this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+			this.dataGridViewTextBoxColumn1.ReadOnly = true;
+			this.dataGridViewTextBoxColumn1.Width = 125;
+			// 
+			// dataGridViewTextBoxColumn2
+			// 
+			this.dataGridViewTextBoxColumn2.HeaderText = "Количество квартир";
+			this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+			this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+			this.dataGridViewTextBoxColumn2.ReadOnly = true;
+			this.dataGridViewTextBoxColumn2.Width = 125;
+			// 
+			// Column1
+			// 
+			this.Column1.HeaderText = "Сумма выплат";
+			this.Column1.MinimumWidth = 6;
+			this.Column1.Name = "Column1";
+			this.Column1.ReadOnly = true;
+			this.Column1.Width = 125;
 			// 
 			// menuStrip1
 			// 
@@ -219,20 +282,23 @@
 			// Save
 			// 
 			this.Save.Name = "Save";
-			this.Save.Size = new System.Drawing.Size(224, 26);
+			this.Save.Size = new System.Drawing.Size(164, 26);
 			this.Save.Text = "сохранить";
+			this.Save.Click += new System.EventHandler(this.Save_Click);
 			// 
 			// Load
 			// 
 			this.Load.Name = "Load";
-			this.Load.Size = new System.Drawing.Size(224, 26);
+			this.Load.Size = new System.Drawing.Size(164, 26);
 			this.Load.Text = "загрузить";
+			this.Load.Click += new System.EventHandler(this.Load_Click);
 			// 
 			// DeleteHouse
 			// 
 			this.DeleteHouse.Name = "DeleteHouse";
 			this.DeleteHouse.Size = new System.Drawing.Size(109, 24);
 			this.DeleteHouse.Text = "удалить дом";
+			this.DeleteHouse.Click += new System.EventHandler(this.DeleteHouse_Click);
 			// 
 			// DeleteApart
 			// 
@@ -245,68 +311,7 @@
 			this.clearAll.Name = "clearAll";
 			this.clearAll.Size = new System.Drawing.Size(104, 24);
 			this.clearAll.Text = "удалить всё";
-			// 
-			// dataGridViewTextBoxColumn1
-			// 
-			this.dataGridViewTextBoxColumn1.HeaderText = "Адрес";
-			this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
-			this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-			this.dataGridViewTextBoxColumn1.ReadOnly = true;
-			this.dataGridViewTextBoxColumn1.Width = 125;
-			// 
-			// dataGridViewTextBoxColumn2
-			// 
-			this.dataGridViewTextBoxColumn2.HeaderText = "Количество квартир";
-			this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
-			this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-			this.dataGridViewTextBoxColumn2.ReadOnly = true;
-			this.dataGridViewTextBoxColumn2.Width = 125;
-			// 
-			// Column1
-			// 
-			this.Column1.HeaderText = "Сумма выплат";
-			this.Column1.MinimumWidth = 6;
-			this.Column1.Name = "Column1";
-			this.Column1.ReadOnly = true;
-			this.Column1.Width = 125;
-			// 
-			// c1
-			// 
-			this.c1.HeaderText = "Номер квартиры";
-			this.c1.MinimumWidth = 6;
-			this.c1.Name = "c1";
-			this.c1.ReadOnly = true;
-			this.c1.Width = 125;
-			// 
-			// c2
-			// 
-			this.c2.HeaderText = "Плата за услуги за месяц";
-			this.c2.MinimumWidth = 6;
-			this.c2.Name = "c2";
-			this.c2.ReadOnly = true;
-			this.c2.Width = 125;
-			// 
-			// numericUpDownNumApart
-			// 
-			this.numericUpDownNumApart.Location = new System.Drawing.Point(412, 535);
-			this.numericUpDownNumApart.Maximum = new decimal(new int[] {
-            1410065408,
-            2,
-            0,
-            0});
-			this.numericUpDownNumApart.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numericUpDownNumApart.Name = "numericUpDownNumApart";
-			this.numericUpDownNumApart.Size = new System.Drawing.Size(186, 22);
-			this.numericUpDownNumApart.TabIndex = 13;
-			this.numericUpDownNumApart.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+			this.clearAll.Click += new System.EventHandler(this.clearAll_Click);
 			// 
 			// Form1
 			// 
@@ -319,13 +324,13 @@
 			this.Text = "Управляющая компания";
 			this.panelBackground.ResumeLayout(false);
 			this.panelBackground.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumApart)).EndInit();
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewApartments)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewHouses)).EndInit();
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumApart)).EndInit();
 			this.ResumeLayout(false);
 
 		}

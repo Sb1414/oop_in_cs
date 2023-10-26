@@ -52,6 +52,7 @@ namespace management_company
 			return house;
 		}
 
+
 		// Увеличение размера очереди при необходимости
 		private void ResizeQueue()
 		{
@@ -108,7 +109,7 @@ namespace management_company
 			}
 			else
 			{
-				// Обработка случая, когда дом не найден
+				// обработка случая, когда дом не найден
 				Console.WriteLine("Дом с указанным адресом не найден.");
 			}
 		}
@@ -123,10 +124,10 @@ namespace management_company
 				}
 			}
 
-			return null; // Дом с указанным адресом не найден
+			return null; // дом с указанным адресом не найден
 		}
 
-		// Метод для получения всех квартир в указанном доме
+		// метод для получения всех квартир в указанном доме
 		public Apartment[] GetAllApartsOnHouse(string address)
 		{
 			House house = FindHouseByAddress(address);
@@ -143,6 +144,25 @@ namespace management_company
 				return new Apartment[0]; // Возвращаем пустой массив
 			}
 		}
+
+		// метод для очистки всех домов
+		public void ClearAllHouses()
+		{
+			front = 0;
+			rear = -1;
+			count = 0;
+			houses = new House[capacity];
+		}
+
+		// метод для очистки всех квартир
+		public void ClearAllAparts()
+		{
+			for (int i = front; i <= rear; i++)
+			{
+				houses[i].Apartments = null;
+			}
+		}
+
 	}
 
 }
