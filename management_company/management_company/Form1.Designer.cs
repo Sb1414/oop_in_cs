@@ -28,13 +28,12 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.textBoxSurname = new System.Windows.Forms.TextBox();
+			this.textBoxPrice = new System.Windows.Forms.TextBox();
 			this.panelBackground = new System.Windows.Forms.Panel();
 			this.label3 = new System.Windows.Forms.Label();
 			this.buttonAddApart = new System.Windows.Forms.Button();
 			this.buttonAddHouse = new System.Windows.Forms.Button();
 			this.label2 = new System.Windows.Forms.Label();
-			this.textBoxLicensePlate = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.textBoxAdress = new System.Windows.Forms.TextBox();
 			this.panel1 = new System.Windows.Forms.Panel();
@@ -53,29 +52,32 @@
 			this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.c1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.c2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.numericUpDownNumApart = new System.Windows.Forms.NumericUpDown();
 			this.panelBackground.SuspendLayout();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewApartments)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewHouses)).BeginInit();
 			this.menuStrip1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumApart)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// textBoxSurname
+			// textBoxPrice
 			// 
-			this.textBoxSurname.Location = new System.Drawing.Point(619, 534);
-			this.textBoxSurname.Name = "textBoxSurname";
-			this.textBoxSurname.Size = new System.Drawing.Size(189, 22);
-			this.textBoxSurname.TabIndex = 11;
+			this.textBoxPrice.Location = new System.Drawing.Point(619, 534);
+			this.textBoxPrice.Name = "textBoxPrice";
+			this.textBoxPrice.Size = new System.Drawing.Size(189, 22);
+			this.textBoxPrice.TabIndex = 11;
+			this.textBoxPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPrice_KeyPress);
 			// 
 			// panelBackground
 			// 
 			this.panelBackground.BackColor = System.Drawing.Color.Silver;
+			this.panelBackground.Controls.Add(this.numericUpDownNumApart);
 			this.panelBackground.Controls.Add(this.label3);
-			this.panelBackground.Controls.Add(this.textBoxSurname);
+			this.panelBackground.Controls.Add(this.textBoxPrice);
 			this.panelBackground.Controls.Add(this.buttonAddApart);
 			this.panelBackground.Controls.Add(this.buttonAddHouse);
 			this.panelBackground.Controls.Add(this.label2);
-			this.panelBackground.Controls.Add(this.textBoxLicensePlate);
 			this.panelBackground.Controls.Add(this.label1);
 			this.panelBackground.Controls.Add(this.textBoxAdress);
 			this.panelBackground.Controls.Add(this.panel1);
@@ -101,6 +103,7 @@
 			this.buttonAddApart.TabIndex = 6;
 			this.buttonAddApart.Text = "Добавить";
 			this.buttonAddApart.UseVisualStyleBackColor = true;
+			this.buttonAddApart.Click += new System.EventHandler(this.buttonAddApart_Click);
 			// 
 			// buttonAddHouse
 			// 
@@ -119,13 +122,6 @@
 			this.label2.Size = new System.Drawing.Size(189, 23);
 			this.label2.TabIndex = 10;
 			this.label2.Text = "номер квартиры";
-			// 
-			// textBoxLicensePlate
-			// 
-			this.textBoxLicensePlate.Location = new System.Drawing.Point(409, 534);
-			this.textBoxLicensePlate.Name = "textBoxLicensePlate";
-			this.textBoxLicensePlate.Size = new System.Drawing.Size(189, 22);
-			this.textBoxLicensePlate.TabIndex = 4;
 			// 
 			// label1
 			// 
@@ -290,6 +286,28 @@
 			this.c2.ReadOnly = true;
 			this.c2.Width = 125;
 			// 
+			// numericUpDownNumApart
+			// 
+			this.numericUpDownNumApart.Location = new System.Drawing.Point(412, 535);
+			this.numericUpDownNumApart.Maximum = new decimal(new int[] {
+            1410065408,
+            2,
+            0,
+            0});
+			this.numericUpDownNumApart.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numericUpDownNumApart.Name = "numericUpDownNumApart";
+			this.numericUpDownNumApart.Size = new System.Drawing.Size(186, 22);
+			this.numericUpDownNumApart.TabIndex = 13;
+			this.numericUpDownNumApart.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -307,19 +325,19 @@
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewHouses)).EndInit();
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumApart)).EndInit();
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.TextBox textBoxSurname;
+		private System.Windows.Forms.TextBox textBoxPrice;
 		private System.Windows.Forms.Panel panelBackground;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Button buttonAddApart;
 		private System.Windows.Forms.Button buttonAddHouse;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.TextBox textBoxLicensePlate;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox textBoxAdress;
 		private System.Windows.Forms.Panel panel1;
@@ -338,6 +356,7 @@
 		private System.Windows.Forms.ToolStripMenuItem clearAll;
 		private System.Windows.Forms.DataGridViewTextBoxColumn c1;
 		private System.Windows.Forms.DataGridViewTextBoxColumn c2;
+		private System.Windows.Forms.NumericUpDown numericUpDownNumApart;
 	}
 }
 

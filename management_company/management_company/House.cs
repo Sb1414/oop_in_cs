@@ -10,11 +10,13 @@ namespace management_company
 	{
 		public string Address { get; set; }
 		public Apartment Apartments { get; set; }
+		public double TotalPayments { get; set; } // Поле для хранения суммы всех выплат
 
 		public House(string address)
 		{
 			Address = address;
 			Apartments = null;
+			TotalPayments = 0.0; // Инициализируем сумму выплат
 		}
 
 		// Метод для добавления квартиры в дом с упорядочиванием по номеру квартиры
@@ -40,6 +42,8 @@ namespace management_company
 				newApartment.NextApartment = currentApartment.NextApartment;
 				currentApartment.NextApartment = newApartment;
 			}
+			// Обновляем сумму выплат при добавлении новой квартиры
+			TotalPayments += monthlyServiceFee;
 		}
 
 		// Метод для подсчета количества квартир в доме
@@ -55,6 +59,27 @@ namespace management_company
 			}
 
 			return count;
+		}
+
+		// Метод для подсчета суммы всех выплат по квартирам в доме
+		public double TotalCount()
+		{
+			return TotalPayments;
+		}
+
+		// Метод для получения всех квартир в доме
+		public Apartment[] GetAllApartments()
+		{
+			List<Apartment> apartmentList = new List<Apartment>();
+			Apartment currentApartment = Apartments;
+
+			while (currentApartment != null)
+			{
+				apartmentList.Add(currentApartment);
+				currentApartment = currentApartment.NextApartment;
+			}
+
+			return apartmentList.ToArray();
 		}
 	}
 

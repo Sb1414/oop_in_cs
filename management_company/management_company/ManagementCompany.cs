@@ -96,6 +96,53 @@ namespace management_company
 
 			return totalApartsCount;
 		}
+
+		// Метод для добавления квартиры в дом по адресу
+		public void AddApartToHouse(string address, int number, double monthlyServiceFee)
+		{
+			House house = FindHouseByAddress(address);
+
+			if (house != null)
+			{
+				house.AddApartment(number, monthlyServiceFee);
+			}
+			else
+			{
+				// Обработка случая, когда дом не найден
+				Console.WriteLine("Дом с указанным адресом не найден.");
+			}
+		}
+
+		public House FindHouseByAddress(string address)
+		{
+			for (int i = front; i <= rear; i++)
+			{
+				if (houses[i].Address == address)
+				{
+					return houses[i];
+				}
+			}
+
+			return null; // Дом с указанным адресом не найден
+		}
+
+		// Метод для получения всех квартир в указанном доме
+		public Apartment[] GetAllApartsOnHouse(string address)
+		{
+			House house = FindHouseByAddress(address);
+
+			if (house != null)
+			{
+				Apartment[] apartments = house.GetAllApartments();
+				return apartments;
+			}
+			else
+			{
+				// Обработка случая, когда дом не найден
+				Console.WriteLine("Дом с указанным адресом не найден.");
+				return new Apartment[0]; // Возвращаем пустой массив
+			}
+		}
 	}
 
 }
