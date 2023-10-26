@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace management_company
 {
@@ -52,6 +53,29 @@ namespace management_company
 			return house;
 		}
 
+		// метод для удаления квартиры из указанного дома
+		public void RemoveApartmentFromHouse(string address, int apartmentNumber)
+		{
+			try
+			{
+				House house = FindHouseByAddress(address);
+
+				if (house != null)
+				{
+					house.RemoveApartment(apartmentNumber);
+				}
+				else
+				{
+					// обработка случая, когда дом не найден
+					throw new  Exception("дом не найден");
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Ошибка: {ex.Message}");
+			}
+			
+		}
 
 		// Увеличение размера очереди при необходимости
 		private void ResizeQueue()
@@ -98,7 +122,7 @@ namespace management_company
 			return totalApartsCount;
 		}
 
-		// Метод для добавления квартиры в дом по адресу
+		// метод для добавления квартиры в дом по адресу
 		public void AddApartToHouse(string address, int number, double monthlyServiceFee)
 		{
 			House house = FindHouseByAddress(address);
@@ -161,6 +185,19 @@ namespace management_company
 			{
 				houses[i].Apartments = null;
 			}
+		}
+
+		// метод для проверки уникальности адреса
+		public bool IsAddressUnique(string address)
+		{
+			foreach (var house in houses)
+			{
+				if (house != null && house.Address == address)
+				{
+					return false; // адрес уже существует
+				}
+			}
+			return true; // адрес уникален
 		}
 
 	}

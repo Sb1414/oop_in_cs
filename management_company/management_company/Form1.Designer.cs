@@ -305,6 +305,7 @@
 			this.DeleteApart.Name = "DeleteApart";
 			this.DeleteApart.Size = new System.Drawing.Size(144, 24);
 			this.DeleteApart.Text = "удалить квартиру";
+			this.DeleteApart.Click += new System.EventHandler(this.DeleteApart_Click);
 			// 
 			// clearAll
 			// 

@@ -37,6 +37,16 @@ namespace management_company
 						"Например: Чуйкова 20");
 					return;
 				}
+
+				string address = textBoxAdress.Text;
+
+				// Проверка на уникальность адреса
+				if (!managementCompany.IsAddressUnique(address))
+				{
+					MessageBox.Show("Дом с таким адресом уже существует.");
+					return;
+				}
+
 				// добавление дома
 				House house = new House(textBoxAdress.Text);
 				managementCompany.AddHouse(house);
@@ -355,6 +365,37 @@ namespace management_company
 			else
 			{
 				MessageBox.Show("Ошибка при удалении дома.");
+			}
+		}
+
+		private void DeleteApart_Click(object sender, EventArgs e)
+		{
+			if (dataGridViewApartments.CurrentRow != null)
+			{
+				int selectedRow = dataGridViewApartments.CurrentRow.Index;
+				string address = dataGridViewHouses.CurrentRow.Cells[0].Value?.ToString();
+
+				// проверка, что заголовочный элемент не был выбран
+				if (selectedRow > 0)
+				{
+					// получаем номер квартиры, которую нужно удалить
+					int apartmentNumber = (int)dataGridViewApartments.Rows[selectedRow].Cells[0].Value;
+
+					// удаляем квартиру из выбранного дома
+					managementCompany.RemoveApartmentFromHouse(address, apartmentNumber);
+
+					// обновляем таблицу квартир
+					UpdateGrids();
+					UpdateHouse(address);
+				}
+				else
+				{
+					MessageBox.Show("Вы не можете удалить заголовочный элемент.");
+				}
+			}
+			else
+			{
+				MessageBox.Show("Выберите квартиру, которую нужно удалить.");
 			}
 		}
 

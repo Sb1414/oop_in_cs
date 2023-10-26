@@ -8,45 +8,51 @@ namespace management_company
 {
 	internal class House
 	{
-		public string Address { get; set; }
+		public string Address { get; set; } // адрес
 		public Apartment Apartments { get; set; }
-		public double TotalPayments { get; set; } // Поле для хранения суммы всех выплат
+		public double TotalPayments { get; set; } // поле для хранения суммы всех выплат
+
 
 		public House(string address)
 		{
 			Address = address;
 			Apartments = null;
-			TotalPayments = 0.0; // Инициализируем сумму выплат
+			TotalPayments = 0.0; // инициализируем сумму выплат
 		}
 
-		// Метод для добавления квартиры в дом с упорядочиванием по номеру квартиры
+		// метод для добавления квартиры в дом с упорядочиванием по номеру квартиры
 		public void AddApartment(int number, double monthlyServiceFee)
 		{
 			Apartment newApartment = new Apartment(number, monthlyServiceFee);
 
-			// Если список квартир пуст или новая квартира имеет номер меньший, чем текущая голова
-			if (Apartments == null || number < Apartments.Number)
-			{
-				newApartment.NextApartment = Apartments;
-				Apartments = newApartment;
-			}
-			else
-			{
-				Apartment currentApartment = Apartments;
-
-				while (currentApartment.NextApartment != null && number > currentApartment.NextApartment.Number)
-				{
-					currentApartment = currentApartment.NextApartment;
-				}
-
-				newApartment.NextApartment = currentApartment.NextApartment;
-				currentApartment.NextApartment = newApartment;
-			}
-			// Обновляем сумму выплат при добавлении новой квартиры
+			// обновляем сумму выплат при добавлении новой квартиры
 			TotalPayments += monthlyServiceFee;
+
+			if (Apartments == null)
+			{
+				// если список пуст, устанавливаем новую квартиру как заголовок
+				Apartments = newApartment;
+				return;
+			}
+
+			Apartment current = Apartments;
+			while (current.NextApartment != null)
+			{
+				if (number <= current.NextApartment.Number)
+				{
+					// Вставляем новую квартиру перед квартирой с большим номером
+					newApartment.NextApartment = current.NextApartment;
+					current.NextApartment = newApartment;
+					return;
+				}
+				current = current.NextApartment;
+			}
+			
+			// если новая квартира имеет номер больше, чем все имеющиеся квартиры, добавляем ее в конец списка
+			current.NextApartment = newApartment;
 		}
 
-		// Метод для подсчета количества квартир в доме
+		// метод для подсчета количества квартир в доме
 		public int CountAparts()
 		{
 			int count = 0;
@@ -61,13 +67,13 @@ namespace management_company
 			return count;
 		}
 
-		// Метод для подсчета суммы всех выплат по квартирам в доме
+		// метод для подсчета суммы всех выплат по квартирам в доме
 		public double TotalCount()
 		{
 			return TotalPayments;
 		}
 
-		// Метод для получения всех квартир в доме
+		// метод для получения всех квартир в доме
 		public Apartment[] GetAllApartments()
 		{
 			List<Apartment> apartmentList = new List<Apartment>();
@@ -81,6 +87,34 @@ namespace management_company
 
 			return apartmentList.ToArray();
 		}
-	}
 
+		// метод для удаления квартиры по номеру
+		public void RemoveApartment(int apartmentNumber)
+		{
+			if (Apartments == null)
+			{
+				return; // нет квартир для удаления
+			}
+
+			// если первая квартира имеет заданный номер, удаляем ее
+			if (Apartments.Number == apartmentNumber)
+			{
+				Apartments = Apartments.NextApartment;
+				return;
+			}
+
+			// иначе ищем квартиру для удаления
+			Apartment currentApartment = Apartments;
+			while (currentApartment.NextApartment != null)
+			{
+				if (currentApartment.NextApartment.Number == apartmentNumber)
+				{
+					TotalPayments -= currentApartment.NextApartment.MonthlyServiceFee; // минусуем выплаты по удаляемой квартире из общих
+					currentApartment.NextApartment = currentApartment.NextApartment.NextApartment;
+					return;
+				}
+				currentApartment = currentApartment.NextApartment;
+			}
+		}
+	}
 }
