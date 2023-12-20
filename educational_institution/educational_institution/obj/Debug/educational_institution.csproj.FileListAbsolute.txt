@@ -1,0 +1,12 @@
+C:\Users\Сабина\source\repos\educational_institution\educational_institution\bin\Debug\educational_institution.exe.config
+C:\Users\Сабина\source\repos\educational_institution\educational_institution\bin\Debug\educational_institution.exe
+C:\Users\Сабина\source\repos\educational_institution\educational_institution\bin\Debug\educational_institution.pdb
+C:\Users\Сабина\source\repos\educational_institution\educational_institution\obj\Debug\educational_institution.csproj.AssemblyReference.cache
+C:\Users\Сабина\source\repos\educational_institution\educational_institution\obj\Debug\educational_institution.DepartmentForm.resources
+C:\Users\Сабина\source\repos\educational_institution\educational_institution\obj\Debug\educational_institution.Form1.resources
+C:\Users\Сабина\source\repos\educational_institution\educational_institution\obj\Debug\educational_institution.Properties.Resources.resources
+C:\Users\Сабина\source\repos\educational_institution\educational_institution\obj\Debug\educational_institution.csproj.GenerateResource.cache
+C:\Users\Сабина\source\repos\educational_institution\educational_institution\obj\Debug\educational_institution.csproj.CoreCompileInputs.cache
+C:\Users\Сабина\source\repos\educational_institution\educational_institution\obj\Debug\educational_institution.exe
+C:\Users\Сабина\source\repos\educational_institution\educational_institution\obj\Debug\educational_institution.pdb
+C:\Users\Сабина\source\repos\educational_institution\educational_institution\obj\Debug\educational_institution.TeacherForm.resources
