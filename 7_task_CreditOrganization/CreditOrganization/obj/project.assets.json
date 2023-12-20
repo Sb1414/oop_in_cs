@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Сабина\\source\\repos\\CreditOrganization\\CreditOrganization\\CreditOrganization.csproj",
+      "projectUniqueName": "C:\\Users\\Сабина\\oop_in_cs\\7_task_CreditOrganization\\CreditOrganization\\CreditOrganization.csproj",
       "projectName": "CreditOrganization",
-      "projectPath": "C:\\Users\\Сабина\\source\\repos\\CreditOrganization\\CreditOrganization\\CreditOrganization.csproj",
+      "projectPath": "C:\\Users\\Сабина\\oop_in_cs\\7_task_CreditOrganization\\CreditOrganization\\CreditOrganization.csproj",
       "packagesPath": "C:\\Users\\Сабина\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Сабина\\source\\repos\\CreditOrganization\\CreditOrganization\\obj\\",
+      "outputPath": "C:\\Users\\Сабина\\oop_in_cs\\7_task_CreditOrganization\\CreditOrganization\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -66,7 +66,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

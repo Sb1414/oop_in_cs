@@ -62,13 +62,21 @@ namespace educational_institution
 
 		public void RemoveDepartment(string departmentName)
 		{
-			DepartmentNode nodeToRemove = FindDepartmentNode(departmentName);
+			if (head.Next == head)
+				throw new Exception("Список пуст");
 
-			if (nodeToRemove != null)
+			DepartmentNode current = head.Next;
+			while (current != head && current.Department.DepartmentName != departmentName)
 			{
-				nodeToRemove.Previous.Next = nodeToRemove.Next;
-				nodeToRemove.Next.Previous = nodeToRemove.Previous;
+				current = current.Next;
 			}
+
+			if (current == head)
+				throw new Exception("Элемент не найден"); // элемент не найден
+
+			// удаление current
+			current.Previous.Next = current.Next;
+			current.Next.Previous = current.Previous;
 		}
 
 		public Department[] GetDepartments()
@@ -188,6 +196,23 @@ namespace educational_institution
 			{
 				current.Department.ClearTeachers();
 				current = current.Next;
+			}
+		}
+
+		public Teacher RemoveTeacherFromDepartment(string departmentName)
+		{
+			// находим кафедру по имени
+			Department department = GetDepartmentByName(departmentName);
+
+			if (department != null)
+			{
+				// удаляем преподавателя из очереди в кафедре
+				return department.RemoveTeacher();
+			}
+			else
+			{
+				Console.WriteLine($"Кафедра {departmentName} не найдена");
+				return null;
 			}
 		}
 

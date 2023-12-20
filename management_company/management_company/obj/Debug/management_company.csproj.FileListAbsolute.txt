@@ -1,0 +1,10 @@
+C:\Users\Сабина\oop_in_cs\management_company\management_company\bin\Debug\management_company.exe.config
+C:\Users\Сабина\oop_in_cs\management_company\management_company\bin\Debug\management_company.exe
+C:\Users\Сабина\oop_in_cs\management_company\management_company\bin\Debug\management_company.pdb
+C:\Users\Сабина\oop_in_cs\management_company\management_company\obj\Debug\management_company.csproj.AssemblyReference.cache
+C:\Users\Сабина\oop_in_cs\management_company\management_company\obj\Debug\management_company.Form1.resources
+C:\Users\Сабина\oop_in_cs\management_company\management_company\obj\Debug\management_company.Properties.Resources.resources
+C:\Users\Сабина\oop_in_cs\management_company\management_company\obj\Debug\management_company.csproj.GenerateResource.cache
+C:\Users\Сабина\oop_in_cs\management_company\management_company\obj\Debug\management_company.csproj.CoreCompileInputs.cache
+C:\Users\Сабина\oop_in_cs\management_company\management_company\obj\Debug\management_company.exe
+C:\Users\Сабина\oop_in_cs\management_company\management_company\obj\Debug\management_company.pdb

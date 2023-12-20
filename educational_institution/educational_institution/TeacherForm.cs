@@ -27,22 +27,32 @@ namespace educational_institution
 		{
 			TextBox textBox = (TextBox)sender;
 
-			// Проверяем, что поле не пустое
+			// проверяем, что поле не пустое
 			if (!string.IsNullOrEmpty(textBox.Text))
 			{
-				// Преобразуем первую букву в заглавную
+				// преобразуем первую букву в заглавную
 				textBox.Text = char.ToUpper(textBox.Text[0]) + textBox.Text.Substring(1);
 			}
 		}
 
 		private void textBoxLastName_KeyPress(object sender, KeyPressEventArgs e)
 		{
-			// Проверяем, является ли введенный символ буквой
-			if (!char.IsLetter(e.KeyChar))
+			// проверяем, является ли введенный символ буквой
+			if (!char.IsLetter(e.KeyChar) && e.KeyChar != (char)Keys.Back)
 			{
-				// Если символ не является буквой, блокируем его
+				// если символ не является буквой, блокируем его
 				e.Handled = true;
 			}
 		}
+
+		private void textBoxPosition_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			// разрешаем ввод только букв, пробела и Backspace
+			if (!char.IsLetter(e.KeyChar) && e.KeyChar != ' ' && e.KeyChar != (char)Keys.Back)
+			{
+				e.Handled = true; // запрещаем ввод других символов
+			}
+		}
+
 	}
 }

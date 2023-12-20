@@ -30,8 +30,14 @@ namespace educational_institution
 
 		public int TotalCountTeachers()
 		{
+			if (front == -1)
+			{
+				return 0;
+			}
+
 			return (rear >= front) ? (rear - front + 1) : (size - front + rear + 1);
 		}
+
 
 		public int TotalCount()
 		{
@@ -80,8 +86,7 @@ namespace educational_institution
 		{
 			if (front == -1)
 			{
-				Console.WriteLine("No teachers in the queue.");
-				return null;
+				throw new Exception("Очередь пуста");
 			}
 
 			Teacher removedTeacher = teachersArray[front];
@@ -96,7 +101,7 @@ namespace educational_institution
 			}
 
 			return removedTeacher;
-		}
+		}			
 
 		private void ResizeArray()
 		{

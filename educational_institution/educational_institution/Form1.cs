@@ -306,5 +306,69 @@ namespace educational_institution
 				}
 			}
 		}
+
+		private void deleteDepartment_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				if (dataGridViewDepartment.CurrentRow == null)
+				{
+					throw new Exception("Выберите кафедру, которую нужно удалить.");
+				}
+				int selectedRow = dataGridViewDepartment.CurrentRow.Index;
+				
+				// проверка, что заголовочный элемент не был выбран
+				if (selectedRow == 0)
+				{
+					throw new Exception("Вы не можете удалить заголовочный элемент.");
+				}
+				// получаем кафедру, которую нужно удалить
+				string name = dataGridViewDepartment.CurrentRow.Cells[0].Value?.ToString();
+
+				// удаляем 
+				university.RemoveDepartment(name);
+
+				// обновляем таблицу
+				UpdateGrids();				
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Ошибка: {ex.Message}");
+			}			
+		}
+
+		private void deleteTeacher_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				if (dataGridViewDepartment.CurrentRow == null)
+				{
+					throw new Exception("Не выбрана кафедра, для удаления преподавателя из очереди");
+				}
+				string name = dataGridViewDepartment.CurrentRow.Cells[0].Value?.ToString();
+				Teacher deletedTeacher = university.RemoveTeacherFromDepartment(name);
+
+				if (deletedTeacher != null)
+				{
+					MessageBox.Show($"Преподаватель '{deletedTeacher.LastName}' удален из очереди");
+					UpdateGrids(); // обновляем таблицу после удаления
+					UpdateTeacher(name);
+				}
+				else
+				{
+					throw new Exception("Ошибка при удалении");
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Ошибка: {ex.Message}");
+			}
+
+		}
+
+		private void clearAll_Click(object sender, EventArgs e)
+		{
+			ClearAll();
+		}
 	}
 }

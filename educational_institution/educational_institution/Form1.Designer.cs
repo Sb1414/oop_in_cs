@@ -38,9 +38,6 @@
 			this.panelBackground = new System.Windows.Forms.Panel();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.dataGridViewDepartment = new System.Windows.Forms.DataGridView();
-			this.c1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.c2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.действияСКафедройToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.addDepartment = new System.Windows.Forms.ToolStripMenuItem();
 			this.deleteDepartment = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,6 +47,9 @@
 			this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.c1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.c2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewTeacher)).BeginInit();
 			this.menuStrip1.SuspendLayout();
 			this.panelBackground.SuspendLayout();
@@ -62,6 +62,7 @@
 			this.clearAll.Name = "clearAll";
 			this.clearAll.Size = new System.Drawing.Size(104, 24);
 			this.clearAll.Text = "удалить всё";
+			this.clearAll.Click += new System.EventHandler(this.clearAll_Click);
 			// 
 			// Load
 			// 
@@ -104,12 +105,12 @@
             this.c2,
             this.Column1});
 			this.dataGridViewTeacher.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.dataGridViewTeacher.Location = new System.Drawing.Point(430, 28);
+			this.dataGridViewTeacher.Location = new System.Drawing.Point(528, 28);
 			this.dataGridViewTeacher.Name = "dataGridViewTeacher";
 			this.dataGridViewTeacher.ReadOnly = true;
 			this.dataGridViewTeacher.RowHeadersWidth = 51;
 			this.dataGridViewTeacher.RowTemplate.Height = 24;
-			this.dataGridViewTeacher.Size = new System.Drawing.Size(534, 427);
+			this.dataGridViewTeacher.Size = new System.Drawing.Size(436, 523);
 			this.dataGridViewTeacher.TabIndex = 4;
 			// 
 			// menuStrip1
@@ -134,7 +135,7 @@
 			this.panelBackground.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelBackground.Location = new System.Drawing.Point(0, 0);
 			this.panelBackground.Name = "panelBackground";
-			this.panelBackground.Size = new System.Drawing.Size(964, 460);
+			this.panelBackground.Size = new System.Drawing.Size(964, 551);
 			this.panelBackground.TabIndex = 4;
 			// 
 			// panel1
@@ -146,7 +147,7 @@
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel1.Location = new System.Drawing.Point(0, 0);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(964, 455);
+			this.panel1.Size = new System.Drawing.Size(964, 551);
 			this.panel1.TabIndex = 6;
 			// 
 			// dataGridViewDepartment
@@ -163,33 +164,9 @@
 			this.dataGridViewDepartment.ReadOnly = true;
 			this.dataGridViewDepartment.RowHeadersWidth = 51;
 			this.dataGridViewDepartment.RowTemplate.Height = 24;
-			this.dataGridViewDepartment.Size = new System.Drawing.Size(430, 427);
+			this.dataGridViewDepartment.Size = new System.Drawing.Size(528, 523);
 			this.dataGridViewDepartment.TabIndex = 5;
 			this.dataGridViewDepartment.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewDepartment_CellClick);
-			// 
-			// c1
-			// 
-			this.c1.HeaderText = "Фамилия преподавателя";
-			this.c1.MinimumWidth = 6;
-			this.c1.Name = "c1";
-			this.c1.ReadOnly = true;
-			this.c1.Width = 125;
-			// 
-			// c2
-			// 
-			this.c2.HeaderText = "Должность";
-			this.c2.MinimumWidth = 6;
-			this.c2.Name = "c2";
-			this.c2.ReadOnly = true;
-			this.c2.Width = 125;
-			// 
-			// Column1
-			// 
-			this.Column1.HeaderText = "Учебная нагрузка (ч.)";
-			this.Column1.MinimumWidth = 6;
-			this.Column1.Name = "Column1";
-			this.Column1.ReadOnly = true;
-			this.Column1.Width = 125;
 			// 
 			// действияСКафедройToolStripMenuItem
 			// 
@@ -212,6 +189,7 @@
 			this.deleteDepartment.Name = "deleteDepartment";
 			this.deleteDepartment.Size = new System.Drawing.Size(224, 26);
 			this.deleteDepartment.Text = "удалить";
+			this.deleteDepartment.Click += new System.EventHandler(this.deleteDepartment_Click);
 			// 
 			// действияСПреподавателямиToolStripMenuItem
 			// 
@@ -234,9 +212,11 @@
 			this.deleteTeacher.Name = "deleteTeacher";
 			this.deleteTeacher.Size = new System.Drawing.Size(224, 26);
 			this.deleteTeacher.Text = "удалить";
+			this.deleteTeacher.Click += new System.EventHandler(this.deleteTeacher_Click);
 			// 
 			// dataGridViewTextBoxColumn1
 			// 
+			this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.dataGridViewTextBoxColumn1.HeaderText = "Название кафедры";
 			this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
 			this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
@@ -244,25 +224,49 @@
 			// 
 			// Column2
 			// 
+			this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.Column2.HeaderText = "Количество преподавателей";
 			this.Column2.MinimumWidth = 6;
 			this.Column2.Name = "Column2";
 			this.Column2.ReadOnly = true;
-			this.Column2.Width = 70;
 			// 
 			// dataGridViewTextBoxColumn2
 			// 
+			this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
 			this.dataGridViewTextBoxColumn2.HeaderText = "Общая учебная нагрузка";
 			this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
 			this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
 			this.dataGridViewTextBoxColumn2.ReadOnly = true;
-			this.dataGridViewTextBoxColumn2.Width = 70;
+			// 
+			// c1
+			// 
+			this.c1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.c1.HeaderText = "Фамилия преподавателя";
+			this.c1.MinimumWidth = 6;
+			this.c1.Name = "c1";
+			this.c1.ReadOnly = true;
+			// 
+			// c2
+			// 
+			this.c2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.c2.HeaderText = "Должность";
+			this.c2.MinimumWidth = 6;
+			this.c2.Name = "c2";
+			this.c2.ReadOnly = true;
+			// 
+			// Column1
+			// 
+			this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+			this.Column1.HeaderText = "Учебная нагрузка (ч.)";
+			this.Column1.MinimumWidth = 6;
+			this.Column1.Name = "Column1";
+			this.Column1.ReadOnly = true;
 			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(964, 460);
+			this.ClientSize = new System.Drawing.Size(964, 551);
 			this.Controls.Add(this.panelBackground);
 			this.Name = "Form1";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -290,15 +294,15 @@
 		private System.Windows.Forms.Panel panelBackground;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.DataGridView dataGridViewDepartment;
-		private System.Windows.Forms.DataGridViewTextBoxColumn c1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn c2;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
 		private System.Windows.Forms.ToolStripMenuItem действияСКафедройToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem addDepartment;
 		private System.Windows.Forms.ToolStripMenuItem deleteDepartment;
 		private System.Windows.Forms.ToolStripMenuItem действияСПреподавателямиToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem addTeacher;
 		private System.Windows.Forms.ToolStripMenuItem deleteTeacher;
+		private System.Windows.Forms.DataGridViewTextBoxColumn c1;
+		private System.Windows.Forms.DataGridViewTextBoxColumn c2;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;

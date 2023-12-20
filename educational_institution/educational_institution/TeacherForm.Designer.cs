@@ -80,7 +80,7 @@
 			this.textBoxPosition.Name = "textBoxPosition";
 			this.textBoxPosition.Size = new System.Drawing.Size(231, 22);
 			this.textBoxPosition.TabIndex = 6;
-			this.textBoxPosition.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxLastName_KeyPress);
+			this.textBoxPosition.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPosition_KeyPress);
 			// 
 			// numWorkload
 			// 
